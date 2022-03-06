@@ -18,9 +18,12 @@
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DB_Handler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Server\Account.h">
+    <ClInclude Include="Account.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
