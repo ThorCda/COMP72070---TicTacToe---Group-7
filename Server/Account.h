@@ -31,8 +31,8 @@ public:
 	//Paramierized constructor for 
 	Account(int id, string fName, string lName, string pictureloc, int w, int l, int d, bool online) {
 		this->accountID = id;
-		this->first_name = lName;
-		this->last_name = fName;
+		this->first_name = fName;
+		this->last_name = lName;
 		this->avatar_loc = pictureloc;
 		this->wins = w;
 		this->loses = l;
