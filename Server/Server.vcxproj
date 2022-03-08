@@ -148,6 +148,7 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\COMP72070 - TicTacToe\Packet.h" />
     <ClInclude Include="Account.h" />
     <ClInclude Include="DB_Handler.h" />
   </ItemGroup>

@@ -23,5 +23,8 @@
     <ClInclude Include="..\Server\Account.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Packet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

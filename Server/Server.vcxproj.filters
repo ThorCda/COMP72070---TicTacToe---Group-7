@@ -29,5 +29,8 @@
     <ClInclude Include="DB_Handler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\COMP72070 - TicTacToe\Packet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
