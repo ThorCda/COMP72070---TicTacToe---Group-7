@@ -7,7 +7,6 @@ using namespace std;
 
 int main() {
 	Account_DB_Handler adb;
-	Account acc(1, "Thomas", "Horvath", "bababooy", "ThorCda", 1, 1, 1, 1);
+	Account acc = adb.login();
 
-	adb.updateAccount(acc);
 }

@@ -99,7 +99,7 @@ public:
 		//temp we ask for user input to be done in GUI later
 		string fName;
 		string pw;
-		cout << "\nEnter your login first name:\n";
+		cout << "\nEnter your login user name:\n";
 		cin >> fName;
 
 		cout << "\nEnter your login password:\n";
@@ -107,14 +107,32 @@ public:
 
 		if (findAccount(fName, pw))
 		{
-			//stored procedure to find the account and join the stats and account table to then laod the information into the account
-		/*	result = mysql_store_result(conn);
-			row = mysql_fetch_row(result);
-			Account ac((int)row[0],row[1], row[2], row[3], (int)row[4],(int)row[5], (int)row[6], true);*/
+			string query = "call LoadAccount(\"" + fName + "\")";
+			const char* q = query.c_str();
+
+			qstate = mysql_query(conn, q);
+
+			if (!qstate)
+			{
+				result = mysql_store_result(conn);
+				row = mysql_fetch_row(result);
+
+				Account ac((int)row2[0], (string)row2[1], (string)row2[2], (string)row2[3], (string)row2[4],(int)row2[5],(int)row2[6], (int)row2[7], true);
+			
+				cout << "Account loaded";
+				return ac;
+			}
+			else
+			{
+				cout << "\nError loading account\n";
+			}
+
 		}
 		else
 		{
-			cout << "could not find account";
+			Account ac;
+			cout << "\nCould not find account\n";
+			return ac;
 		}
 	}
 };
