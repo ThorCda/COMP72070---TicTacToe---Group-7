@@ -1,5 +1,3 @@
-//Call stored procedures instead of queries
-
 using namespace std;
 
 //Save account to database
