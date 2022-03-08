@@ -1,3 +1,5 @@
+#pragma once
+
 #include <string>
 
 using namespace std;
@@ -9,6 +11,7 @@ private:
 	string first_name;
 	string last_name;
 	string avatar_loc;
+	string UserName;
 	int wins;
 	int loses;
 	int draws;
@@ -21,6 +24,7 @@ public:
 		this->first_name = "NULL";
 		this->last_name = "NULL";
 		this->avatar_loc = "NULL";
+		this->UserName = "NULL";
 		this->wins = -1;
 		this->loses = -1;
 		this->draws = -1;
@@ -29,10 +33,11 @@ public:
 	}
 
 	//Paramierized constructor for 
-	Account(int id, string fName, string lName, string pictureloc, int w, int l, int d, bool online) {
+	Account(int id, string fName, string lName, string pictureloc, string UserName, int w, int l, int d, bool online) {
 		this->accountID = id;
 		this->first_name = fName;
 		this->last_name = lName;
+		this->UserName = UserName;
 		this->avatar_loc = pictureloc;
 		this->wins = w;
 		this->loses = l;
@@ -49,6 +54,9 @@ public:
 
 	string getLastname() { return last_name; }
 	void setLastname(string lastname) { last_name = lastname; }
+
+	string getUserName() { return UserName; }
+	void setUserName(string User_Name) { UserName = User_Name; }
 
 	string getAvatarloc() { return avatar_loc; }
 	void setAvatarloc(string avatarloc) { avatar_loc = avatarloc; }
