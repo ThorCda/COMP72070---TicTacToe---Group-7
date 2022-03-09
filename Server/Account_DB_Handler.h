@@ -13,6 +13,7 @@ public:
 	{
 		// this will take a account that does not exist in the databaes and inserts it into it as a new record
 	}
+
 	void updateStats(Account acc)
 	{
 		string query = "call UpdateStats (" + to_string(acc.getAccountID()) + "," + to_string(acc.getWins()) + "," + to_string(acc.getLoses()) + "," + to_string(acc.getDraws()) + ")";
@@ -29,6 +30,7 @@ public:
 			cout << "\nError saving account\n";
 		}
 	}
+
 	void updateAccount(Account acc)
 	{
 		// beef this up and add the new save values
@@ -47,7 +49,7 @@ public:
 		}
 	}
 
-	void deleteAccount(int id)
+	void deleteUser(int id) 
 	{
 		string query = "call DeleteAccount(" + to_string(id) + ")";
 		const char* q = query.c_str();
@@ -63,36 +65,6 @@ public:
 		}
 	}
 
-	void getAccounts()
-	{
-		string query = "SELECT * FROM account";
-		const char* q = query.c_str();
-		qstate = mysql_query(conn, q);
-
-		if (!qstate)
-		{
-			result = mysql_store_result(conn);
-
-			while (row = mysql_fetch_row(result))
-			{
-				cout << "\nID: " << row[0] << "\nFirst Name: " << row[1] << "\nLast Name: " << row[2] << "\nPath: " << row[3];
-			}
-		}
-	}
-
-	bool findAccount(string Name, string Password)
-	{
-		string query = "call Find_User (\"" + Name + "\",\"" + Password + "\")";
-		const char* q = query.c_str();
-		qstate = mysql_query(conn, q);
-
-		if (!qstate)
-		{
-			return true;
-		}
-
-		return false;
-	}
 
 	Account login()
 	{
@@ -105,33 +77,24 @@ public:
 		cout << "\nEnter your login password:\n";
 		cin >> pw;
 
-		if (findAccount(fName, pw))
+		string query = "call Find_User (\"" + fName + "\",\"" + pw + "\")";
+
+		const char* q2 = query.c_str();
+		qstate = mysql_query(conn, q2);
+		result = mysql_store_result(conn);
+		row = mysql_fetch_row(result);
+
+		if (mysql_num_rows(result) == 1) // better way to check if the row is there rather than checking if the query didnt have errors
 		{
-			string query = "call LoadAccount(\"" + fName + "\")";
-			const char* q = query.c_str();
+			Account ac(atoi(row[0]), (string)row[1], (string)row[2], (string)row[3], (string)row[4], atoi(row[5]), atoi(row[6]), atoi(row[7]), true);
 
-			qstate = mysql_query(conn, q);
-
-			if (!qstate)
-			{
-				result = mysql_store_result(conn);
-				row = mysql_fetch_row(result);
-
-				Account ac((int)row2[0], (string)row2[1], (string)row2[2], (string)row2[3], (string)row2[4],(int)row2[5],(int)row2[6], (int)row2[7], true);
-			
-				cout << "Account loaded";
-				return ac;
-			}
-			else
-			{
-				cout << "\nError loading account\n";
-			}
-
+			cout << "Account loaded";
+			return ac;
 		}
 		else
 		{
 			Account ac;
-			cout << "\nCould not find account\n";
+			cout << "\nError loading account\n";
 			return ac;
 		}
 	}
