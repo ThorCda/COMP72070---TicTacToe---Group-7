@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Packet Headers">
+      <UniqueIdentifier>{b83faf32-fe47-4643-b53c-00510ea1a2ce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -32,14 +35,17 @@
     <ClInclude Include="DB_Handler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\COMP72070 - TicTacToe\Packet.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Account_DB_Handler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game_DB_Handler.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\COMP72070 - TicTacToe\Packet.h">
+      <Filter>Header Files\Packet Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="MovePacket.h">
+      <Filter>Header Files\Packet Headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
