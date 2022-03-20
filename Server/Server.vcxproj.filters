@@ -59,5 +59,8 @@
     <ClInclude Include="ErrorPacket.h">
       <Filter>Header Files\Packet Headers</Filter>
     </ClInclude>
+    <ClInclude Include="AccountPacket.h">
+      <Filter>Header Files\Packet Headers</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
