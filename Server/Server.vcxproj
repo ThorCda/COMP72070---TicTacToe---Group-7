@@ -152,6 +152,7 @@
     <ClInclude Include="Account.h" />
     <ClInclude Include="Account_DB_Handler.h" />
     <ClInclude Include="DB_Handler.h" />
+    <ClInclude Include="Game_DB_Handler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

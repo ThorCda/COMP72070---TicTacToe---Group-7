@@ -11,7 +11,19 @@ class Account_DB_Handler : public Database_Handler
 public:
 	void createAccount(Account acc)
 	{
+		string query = "call CreateAccount (" + acc.getFirstname() + "\",\"" + acc.getLastname() + "\",\"" + acc.getAvatarloc() + "\",\"" + acc.getUserName() + "\"" + ")";
+		cout << query;
+		const char* q = query.c_str();
 
+		qstate = mysql_query(conn, q);
+		if (!qstate)
+		{
+			cout << "\Account Created\n";
+		}
+		else
+		{
+			cout << "\nError creating account\n";
+		}
 	}
 
 	void updateStats(Account acc)
@@ -65,18 +77,9 @@ public:
 	}
 
 
-	Account login()
+	Account login(string username, string password)
 	{
-		//temp we ask for user input to be done in GUI later
-		string fName;
-		string pw;
-		cout << "\nEnter your login user name:\n";
-		cin >> fName;
-
-		cout << "\nEnter your login password:\n";
-		cin >> pw;
-
-		string query = "call Find_User (\"" + fName + "\",\"" + pw + "\")";
+		string query = "call Find_User (\"" + username + "\",\"" + password + "\")";
 
 		const char* q2 = query.c_str();
 		qstate = mysql_query(conn, q2);
