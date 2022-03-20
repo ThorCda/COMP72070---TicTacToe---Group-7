@@ -1,26 +1,28 @@
 #pragma once
 
+#include <cstdlib>
+#include <cstring>
+
+#define CLIENT_ID 0;
+#define SERVER_ID 1;
+#define DEFAULT_PACKET 10;
+
 using namespace std;
 
-
-static int PktSequence = 0; //Will iterate on each successive packet instantiation.
-const int EmptyPktSize = 21; // 4 + 4 + 4 + 4 + 1 + 1 + 1 + 1 + 1
+const int EmptyPktSize = 21; //4 + 4 + 4 + 4 + 1 + 1 + 1 + 1 + 1
 
 typedef struct Header {
 
-	int destinationID;
-	int sourceID;
-	int sequenceNumber;
-	int bodyLength;
-	char finFlag;
-	char ackFlag;
-	char packetType;
+	int destinationID = SERVER_ID;
+	int sourceID = CLIENT_ID;
+	int bodyLength = 0;
+	char packetType = DEFAULT_PACKET;
 
 };
 
 typedef struct Body {
 
-	char* msgPtr;
+	char* msgPtr = NULL;
 
 };
 
@@ -34,7 +36,7 @@ class Packet {
 	Body pktBody;
 	//Tail pktTail;
 
-	char* SerializedPacket = nullptr;
+	char* serializedPacketBuffer = NULL;
 
 public:
 
@@ -43,25 +45,22 @@ public:
 	~Packet();
 
 	//Header Setter Methods
+	void setHeaderDestinationID(int);
 	void setHeaderDestinationID();
+	void setHeaderSourceID(int);
 	void setHeaderSourceID();
-	void setHeaderSequenceNumber();
 	void setHeaderBodyLength();
-	void setHeaderFinFlag();
-	void setHeaderAckFlag();
-	void setHeaderPacketType();
+	void setHeaderPacketType(char);
 
 	//Header Getter Methods
 	int getHeaderDestinationID();
 	int getHeaderSourceID();
 	int getHeadersequenceNumber();
 	int getHeaderBodyLength();
-	char getHeaderFinFlag();
-	char getHeaderAckFlag();
 	char getHeaderPacketType();
 
 	//Body Setter Methods
-	void setBodyMsgPtr();
+	void setBodyMsgPtr(char*);
 
 	//Body Getter Methods
 	char* getBodyMsgPtr();
@@ -71,5 +70,9 @@ public:
 
 	//Tail Getter Methods
 	//void getTailCheckSum();
+
+	//Serialized Packet Methods
+	char* getSerializedTxBuffer();
+	void serializePacketTxBuffer();
 	
 };
