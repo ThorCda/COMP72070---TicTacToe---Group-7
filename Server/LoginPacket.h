@@ -63,6 +63,7 @@ public:
 
 	}
 
+	//Serizlation of packet
 	void serilizeLoginPacket() {
 
 		if (this->serLoginBuf != NULL) {
