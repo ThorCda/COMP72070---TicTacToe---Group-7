@@ -38,5 +38,14 @@
     <ClInclude Include="Game_DB_Handler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameRoom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameBoard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

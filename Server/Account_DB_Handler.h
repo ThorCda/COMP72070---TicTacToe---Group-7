@@ -12,7 +12,6 @@ public:
 	void createAccount(Account acc)
 	{
 		string query = "call CreateAccount (" + acc.getFirstname() + "\",\"" + acc.getLastname() + "\",\"" + acc.getAvatarloc() + "\",\"" + acc.getUserName() + "\"" + ")";
-		cout << query;
 		const char* q = query.c_str();
 
 		qstate = mysql_query(conn, q);
@@ -29,7 +28,6 @@ public:
 	void updateStats(Account acc)
 	{
 		string query = "call UpdateStats (" + to_string(acc.getAccountID()) + "," + to_string(acc.getWins()) + "," + to_string(acc.getLoses()) + "," + to_string(acc.getDraws()) + ")";
-		cout << query;
 		const char* q = query.c_str();
 
 		qstate = mysql_query(conn, q);
