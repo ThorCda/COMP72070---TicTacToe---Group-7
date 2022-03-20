@@ -146,6 +146,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\COMP72070 - TicTacToe\Packet.cpp" />
     <ClCompile Include="DB_Handler.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
