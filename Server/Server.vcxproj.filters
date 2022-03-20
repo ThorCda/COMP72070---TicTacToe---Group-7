@@ -47,5 +47,11 @@
     <ClInclude Include="MovePacket.h">
       <Filter>Header Files\Packet Headers</Filter>
     </ClInclude>
+    <ClInclude Include="GameStatusPacket.h">
+      <Filter>Header Files\Packet Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ErrorPacket.h">
+      <Filter>Header Files\Packet Headers</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
