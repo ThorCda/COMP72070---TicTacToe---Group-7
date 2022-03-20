@@ -46,6 +46,20 @@ public:
 
 	}
 
+	Account(Account* act) {
+
+		this->accountID = act->accountID;
+		this->first_name = act->first_name;
+		this->last_name = act->last_name;
+		this->UserName = act->UserName;
+		this->avatar_loc = act->avatar_loc;
+		this->wins = act->wins;
+		this->loses = act->loses;
+		this->draws = act->draws;
+		this->isOnline = act->isOnline;
+		
+	}
+
 	int getAccountID() { return accountID; }
 	void setAccountID(int accountID) { this->accountID = accountID; }
 
