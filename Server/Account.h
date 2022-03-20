@@ -21,7 +21,7 @@ public:
 	//Builds the account into a safe state
 	Account() {
 		this->accountID = -1;
-		this->first_name = "NULL";
+		this->first_name = "NULl";
 		this->last_name = "NULL";
 		this->avatar_loc = "NULL";
 		this->UserName = "NULL";
@@ -62,11 +62,19 @@ public:
 
 	Account(char* buffer, int uLen, int fnLen, int lnLen) {
 
-		memcpy(&this->UserName, buffer, uLen);
+		//Think we gotta split things up first
+
+		//char* un = new char[uLen];
+
+		//memcpy(un, buffer, uLen);
+
+		//this->UserName = un; 
+
+		/*
 
 		memcpy(&this->first_name, buffer + uLen, fnLen);
 
-		memcpy(&this->last_name, buffer + uLen + fnLen, lnLen);
+		memcpy(&this->last_name, buffer + uLen + fnLen, lnLen);*/
 
 		memcpy(&this->accountID, buffer + uLen + fnLen + lnLen, sizeof(accountID));
 		memcpy(&this->wins, buffer + uLen + fnLen + lnLen + sizeof(accountID), sizeof(wins));

@@ -155,6 +155,7 @@
     <ClInclude Include="Account.h" />
     <ClInclude Include="AccountPacket.h" />
     <ClInclude Include="Account_DB_Handler.h" />
+    <ClInclude Include="CreateAccountPacket.h" />
     <ClInclude Include="DB_Handler.h" />
     <ClInclude Include="ErrorPacket.h" />
     <ClInclude Include="GameStatusPacket.h" />

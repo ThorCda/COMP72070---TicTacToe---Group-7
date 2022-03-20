@@ -15,13 +15,13 @@ class AccountPacket : public Packet {
 
 private:
 
-	AccPktHead accHead;
-	Account* accountPtr;
-	char* serializedAccountPacketBuffer;
+	AccPktHead accHead;	//12
+	Account* accountPtr; // 4 byes  (pointer)?
+	char* serializedAccountPacketBuffer;	//17
 
 public:
 
-	AccountPacket(Account account) {
+	AccountPacket(Account* account) {
 
 		//Free memory that may have been allocated by OS.
 		if (this->serializedAccountPacketBuffer != NULL) {
@@ -37,7 +37,7 @@ public:
 		this->accHead.lastNameLength = 0;
 
 		//Set the account pointer to the Account object to be sent across the network.
-		this->accountPtr = &account;
+		this->accountPtr = account;
 
 		//Assign header values based on the Account field string lengths.
 		this->accHead.userNameLength = this->accountPtr->getUserName().length();
@@ -72,10 +72,22 @@ public:
 
 	}
 
+
+	 char* getSerializedAccountPacketBuffer() {
+
+		return this->serializedAccountPacketBuffer;
+
+	}
+
 	void serializeAccountPacketTxBuffer() {
 
 		//Allocate memory for the entire size of the Account object, plus the packet overhead.
-		this->serializedAccountPacketBuffer = new char[sizeof(AccountPacketHeader) + sizeof(*this->accountPtr)]; //Does sizeof(*this->accountPtr return the dynamically sized account or simply the sizeof an empty account???
+		this->serializedAccountPacketBuffer = new char[sizeof(AccountPacketHeader) + this->accHead.userNameLength + 
+			this->accHead.lastNameLength + this->accHead.firstNameLength + 17
+		]; //Does sizeof(*this->accountPtr return the dynamically sized account or simply the sizeof an empty account???
+
+		cout << sizeof(serializedAccountPacketBuffer);
+		cout << sizeof(char*);
 
 		int byteBuffer = 0;
 
@@ -88,13 +100,16 @@ public:
 		memcpy(this->serializedAccountPacketBuffer + byteBuffer, &this->accHead.lastNameLength, sizeof(this->accHead.lastNameLength));
 		byteBuffer += sizeof(this->accHead.lastNameLength);
 
-		memcpy(this->serializedAccountPacketBuffer + byteBuffer, &this->accountPtr->getUserName(), sizeof(this->accountPtr->getUserName()));
+		string un = this->accountPtr->getUserName();
+		memcpy(this->serializedAccountPacketBuffer + byteBuffer, un.c_str(), sizeof(this->accountPtr->getUserName()));
 		byteBuffer += sizeof(this->accountPtr->getUserName());
 
-		memcpy(this->serializedAccountPacketBuffer + byteBuffer, &this->accountPtr->getFirstname(), sizeof(this->accountPtr->getFirstname()));
+		string fn = this->accountPtr->getFirstname();
+		memcpy(this->serializedAccountPacketBuffer + byteBuffer, fn.c_str(), sizeof(this->accountPtr->getFirstname()));
 		byteBuffer += sizeof(this->accountPtr->getFirstname());
 
-		memcpy(this->serializedAccountPacketBuffer + byteBuffer, &this->accountPtr->getLastname(), sizeof(this->accountPtr->getLastname()));
+		string ln = this->accountPtr->getLastname();
+		memcpy(this->serializedAccountPacketBuffer + byteBuffer, ln.c_str(), sizeof(this->accountPtr->getLastname()));
 		byteBuffer += sizeof(this->accountPtr->getLastname());
 
 		int accountID = this->accountPtr->getAccountID();
