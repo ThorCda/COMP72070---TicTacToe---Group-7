@@ -124,6 +124,32 @@
     <string>Create Account</string>
    </property>
   </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>-40</x>
+     <y>-30</y>
+     <width>571</width>
+     <height>601</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap>assets/big_hashtag.PNG</pixmap>
+   </property>
+  </widget>
+  <zorder>label</zorder>
+  <zorder>titleLabel</zorder>
+  <zorder>loginLabel</zorder>
+  <zorder>usernameLabel</zorder>
+  <zorder>passwordLabel</zorder>
+  <zorder>usernameField</zorder>
+  <zorder>passwordField</zorder>
+  <zorder>loginButton</zorder>
+  <zorder>noAccountLabel</zorder>
+  <zorder>createAccountButton</zorder>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
