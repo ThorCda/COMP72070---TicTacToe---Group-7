@@ -60,6 +60,13 @@ public:
 		
 	}
 
+	Account(char* buffer, int uLen, int fnLen, int lnLen) {
+
+
+
+
+	}
+
 	int getAccountID() { return accountID; }
 	void setAccountID(int accountID) { this->accountID = accountID; }
 
@@ -86,5 +93,7 @@ public:
 
 	bool getIsOnline() { return isOnline; }
 	void setIsOnline(bool isOnline) { this->isOnline = isOnline; }
+
+	
 
 };
