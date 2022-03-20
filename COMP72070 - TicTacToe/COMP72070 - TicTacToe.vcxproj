@@ -24,7 +24,7 @@
     <ProjectGuid>{e4d46da7-9c2b-48cd-a0ac-c51c08f3d716}</ProjectGuid>
     <RootNamespace>COMP72070TicTacToe</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>Client</ProjectName>
+    <ProjectName>client_old</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
