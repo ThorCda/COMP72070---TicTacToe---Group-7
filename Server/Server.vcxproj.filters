@@ -35,5 +35,8 @@
     <ClInclude Include="Account_DB_Handler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Game_DB_Handler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
