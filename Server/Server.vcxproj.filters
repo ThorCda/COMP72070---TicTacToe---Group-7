@@ -47,6 +47,12 @@
     <ClInclude Include="MovePacket.h">
       <Filter>Header Files\Packet Headers</Filter>
     </ClInclude>
+    <ClInclude Include="LoginPacket.h">
+      <Filter>Header Files\Packet Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="LogoutPacket.h">
+      <Filter>Header Files\Packet Headers</Filter>
+    </ClInclude>
     <ClInclude Include="GameStatusPacket.h">
       <Filter>Header Files\Packet Headers</Filter>
     </ClInclude>
