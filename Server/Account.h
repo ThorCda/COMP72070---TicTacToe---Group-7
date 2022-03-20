@@ -62,9 +62,18 @@ public:
 
 	Account(char* buffer, int uLen, int fnLen, int lnLen) {
 
+		memcpy(&this->UserName, buffer, uLen);
 
+		memcpy(&this->first_name, buffer + uLen, fnLen);
 
+		memcpy(&this->last_name, buffer + uLen + fnLen, lnLen);
 
+		memcpy(&this->accountID, buffer + uLen + fnLen + lnLen, sizeof(accountID));
+		memcpy(&this->wins, buffer + uLen + fnLen + lnLen + sizeof(accountID), sizeof(wins));
+		memcpy(&this->draws, buffer + uLen + fnLen + lnLen + sizeof(accountID) + sizeof(wins), sizeof(draws));
+		memcpy(&this->loses, buffer + uLen + fnLen + lnLen + sizeof(accountID) + sizeof(wins) + sizeof(draws), sizeof(loses));
+
+		this->avatar_loc = nullptr;
 	}
 
 	int getAccountID() { return accountID; }
