@@ -15,4 +15,5 @@ MainWindow::~MainWindow()
 void MainWindow::resizeWindow(int width, int height)
 {
     this->resize(width, height);
+    this->setFixedSize(width, height);
 }
