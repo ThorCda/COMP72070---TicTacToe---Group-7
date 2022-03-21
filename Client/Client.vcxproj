@@ -55,10 +55,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <IncludePath>$(QTDIR)\include\QtCore;$(IncludePath)</IncludePath>
+    <IncludePath>$(QTDIR)\include\QtGui;$(QTDIR)\include\QtCore;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <IncludePath>$(QTDIR)\include\QtCore;$(IncludePath)</IncludePath>
+    <IncludePath>$(QTDIR)\include\QtGui;$(QTDIR)\include\QtCore;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -99,6 +99,7 @@
   <ItemGroup>
     <ClCompile Include="..\COMP72070 - TicTacToe\Source.cpp" />
     <ClCompile Include="CreateAccountWidget.cpp" />
+    <ClCompile Include="CSS.cpp" />
     <ClCompile Include="GameWidget.cpp" />
     <ClCompile Include="LoginWidget.cpp" />
     <ClCompile Include="MainWindow.cpp" />
@@ -130,6 +131,7 @@
   <ItemGroup>
     <ClInclude Include="..\COMP72070 - TicTacToe\Packet.h" />
     <ClInclude Include="..\Server\Account.h" />
+    <ClInclude Include="CSS.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

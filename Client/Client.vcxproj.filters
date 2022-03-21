@@ -27,6 +27,12 @@
     <Filter Include="Source Files\GUI Source Files">
       <UniqueIdentifier>{9bfcbac3-955c-4c79-8fa3-aadbfc5a6d93}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GUI Header Files\CSS">
+      <UniqueIdentifier>{5e6262b8-98cb-452a-8fe9-78a291a14eb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GUI Source Files\CSS">
+      <UniqueIdentifier>{72ffb205-d368-4218-a8b7-bea5a31c0ad5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="MainWindow.qrc">
@@ -51,6 +57,9 @@
     </ClCompile>
     <ClCompile Include="..\COMP72070 - TicTacToe\Source.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CSS.cpp">
+      <Filter>Source Files\GUI Source Files\CSS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -93,6 +102,9 @@
     </ClInclude>
     <ClInclude Include="..\COMP72070 - TicTacToe\Packet.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CSS.h">
+      <Filter>Header Files\GUI Header Files\CSS</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

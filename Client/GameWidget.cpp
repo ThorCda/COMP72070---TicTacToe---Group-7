@@ -17,5 +17,6 @@ GameWidget::~GameWidget()
 void GameWidget::on_logoutButton_clicked()
 {
     emit changeStackedWidgetIndex(0);
-    emit widgetChanged(500, 500);
+    emit widgetChanged(720, 720);
+    emit resetLoginWidgetCSS();
 }

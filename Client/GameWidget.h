@@ -20,6 +20,7 @@ public:
 signals:
     void changeStackedWidgetIndex(int);
     void widgetChanged(int, int);
+    void resetLoginWidgetCSS();
 
 private slots:
     void on_logoutButton_clicked();

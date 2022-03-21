@@ -18,6 +18,7 @@ public:
 public slots:
     void on_loginButton_clicked();
     void on_createAccountButton_clicked();
+    void resetLoginWidgetCSS();
 
 
 signals:
@@ -26,6 +27,6 @@ signals:
 
 private:
     Ui::LoginWidget* ui;
-    static const int height{ 500 };
-    static const int width{ 500 };
+    static const int height{ 720 };
+    static const int width{ 720 };
 };
