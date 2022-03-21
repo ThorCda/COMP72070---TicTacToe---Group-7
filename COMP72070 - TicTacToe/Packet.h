@@ -36,6 +36,8 @@ class Packet {
 	Body pktBody;
 	//Tail pktTail;
 
+protected:
+
 	char* serializedPacketBuffer = NULL;
 
 public:
