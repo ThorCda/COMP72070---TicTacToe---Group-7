@@ -19,6 +19,9 @@
     <Filter Include="Header Files\DB">
       <UniqueIdentifier>{02147966-0621-48ae-9d80-9beb27921fd9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Game">
+      <UniqueIdentifier>{5bfb6da0-730b-4165-b169-431bb7b808b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -67,6 +70,15 @@
     </ClInclude>
     <ClInclude Include="Game_DB_Handler.h">
       <Filter>Header Files\DB</Filter>
+    </ClInclude>
+    <ClInclude Include="GameBoard.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameRoom.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -11,8 +11,8 @@ class Account_DB_Handler : public Database_Handler
 public:
 	void createAccount(Account acc)
 	{
-		string query = "call CreateAccount (" + acc.getFirstName() + "\",\"" + acc.getLastName() + "\",\"" + acc.getAvatarloc() + "\",\"" + acc.getUserName() + "\"" + ")";
-		cout << query;
+		// does not work change create
+		string query = "call CreateAccount (" + (string)acc.getFirstName() + "\",\"" + acc.getLastName() + "\",\"" + acc.getAvatarloc() + "\",\"" + acc.getUserName() + "\"" + ")";
 		const char* q = query.c_str();
 
 		qstate = mysql_query(conn, q);
@@ -29,7 +29,6 @@ public:
 	void updateStats(Account acc)
 	{
 		string query = "call UpdateStats (" + to_string(acc.getAccountID()) + "," + to_string(acc.getWins()) + "," + to_string(acc.getLoses()) + "," + to_string(acc.getDraws()) + ")";
-		cout << query;
 		const char* q = query.c_str();
 
 		qstate = mysql_query(conn, q);
@@ -45,6 +44,7 @@ public:
 
 	void updateAccount(Account acc)
 	{
+		// does not work yet change update
 		string query = "call UpdateAccount (" + to_string(acc.getAccountID()) + ",\"" + acc.getFirstName() + "\",\"" + acc.getLastName() + "\",\"" + acc.getAvatarloc() + "\",\"" + acc.getUserName() + "\"" + ")";
 		const char* q = query.c_str();
 
@@ -60,7 +60,7 @@ public:
 		}
 	}
 
-	void deleteUser(int id) 
+	void deleteUser(int id)
 	{
 		string query = "call DeleteAccount(" + to_string(id) + ")";
 		const char* q = query.c_str();
@@ -86,9 +86,9 @@ public:
 		result = mysql_store_result(conn);
 		row = mysql_fetch_row(result);
 
-		if (mysql_num_rows(result) == 1) 
+		if (mysql_num_rows(result) == 1)
 		{
-			Account ac(atoi(row[0]), (string)row[1], (string)row[2], (string)row[3], (string)row[4], atoi(row[5]), atoi(row[6]), atoi(row[7]), true);
+			Account ac(atoi(row[0]), (char*)row[1], (char*)row[2], (char*)row[3], (char*)row[4], atoi(row[5]), atoi(row[6]), atoi(row[7]), true);
 
 			cout << "Account loaded";
 			return ac;

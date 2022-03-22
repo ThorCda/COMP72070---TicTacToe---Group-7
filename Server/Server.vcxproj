@@ -158,11 +158,14 @@
     <ClInclude Include="CreateAccountPacket.h" />
     <ClInclude Include="DB_Handler.h" />
     <ClInclude Include="ErrorPacket.h" />
+    <ClInclude Include="GameBoard.h" />
+    <ClInclude Include="GameRoom.h" />
     <ClInclude Include="GameStatusPacket.h" />
     <ClInclude Include="Game_DB_Handler.h" />
     <ClInclude Include="LoginPacket.h" />
     <ClInclude Include="LogoutPacket.h" />
     <ClInclude Include="MovePacket.h" />
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
