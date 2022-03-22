@@ -9,8 +9,6 @@ class LogoutPacket : public Packet {
 
 	bool isLoggedOut;
 
-	char* serLoginBuf;
-
 public:
 
 	//Safe state packet
@@ -37,18 +35,19 @@ public:
 	//Serizlation of packet
 	void serilizeLogoutPacket() {
 
-		if (this->serLoginBuf != NULL) {
-			delete serLoginBuf;
+		if (this->serializedPacketBuffer != NULL) {
+			delete serializedPacketBuffer;
 		}
 
-		serLoginBuf = new char[sizeof(this->isLoggedOut)];
+		serializedPacketBuffer = new char[sizeof(this->isLoggedOut)];
 
-		memcpy(serLoginBuf, &this->isLoggedOut, sizeof(this->isLoggedOut));
+		memcpy(serializedPacketBuffer, &this->isLoggedOut, sizeof(this->isLoggedOut));
 
 	}
 
 	~LogoutPacket() {
 
+		delete this->serializedPacketBuffer;
 		delete this;
 
 	}
