@@ -31,7 +31,7 @@ public:
 		if (this->serializedPacketBuffer != NULL) {
 			delete this->serializedPacketBuffer;
 		}
-
+		// epic comment
 		//Ensure safe state of ptr.
 		this->serializedPacketBuffer = NULL;
 
