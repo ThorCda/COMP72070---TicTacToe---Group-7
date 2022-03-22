@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget* parent) :
     foreach(QToolBar * tb, allToolBars) {
         this->removeToolBar(tb);
     }
+
     ui->setupUi(this);
 
     QScreen* screen = QGuiApplication::primaryScreen();

@@ -9,18 +9,21 @@ GameWidget::GameWidget(QWidget* parent) :
     QWidget(parent),
     ui(new Ui::GameWidget)
 {
-
-    this->setFocusPolicy(Qt::NoFocus);
     ui->setupUi(this);
-
-    this->setFocusPolicy(Qt::NoFocus);
-
 
     setButtonCSS(ui->logoutButton);
     setButtonCSS(ui->accountButton);
 
     ui->accountButton->setFocusPolicy(Qt::NoFocus);
     ui->logoutButton->setFocusPolicy(Qt::NoFocus);
+
+    QPixmap pixmap("circle_sprite.png");
+    QPalette palette;
+    palette.setBrush(ui->testButton->backgroundRole(), QBrush(pixmap));
+
+    ui->testButton->setFlat(true);
+    ui->testButton->setAutoFillBackground(true);
+    ui->testButton->setPalette(palette);
 }
 
 GameWidget::~GameWidget()
@@ -33,4 +36,11 @@ void GameWidget::on_logoutButton_clicked()
     emit changeStackedWidgetIndex(0);
     emit widgetChanged(720, 720);
     emit setLoginWidgetFocus();
+}
+
+void GameWidget::on_accountButton_clicked()
+{
+    emit changeStackedWidgetIndex(3);
+    emit widgetChanged(720, 720);
+    //emit setLoginWidgetFocus();
 }

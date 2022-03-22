@@ -62,12 +62,12 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
@@ -98,6 +98,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\COMP72070 - TicTacToe\Source.cpp" />
+    <ClCompile Include="AccountWidget.cpp" />
+    <ClCompile Include="ClickableLabelcpp.cpp" />
     <ClCompile Include="CreateAccountWidget.cpp" />
     <ClCompile Include="CSS.cpp" />
     <ClCompile Include="GameWidget.cpp" />
@@ -110,6 +112,7 @@
     <QtMoc Include="MainWindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtUic Include="AccountWidget.ui" />
     <QtUic Include="CreateAccountWidget.ui" />
     <QtUic Include="GameWidget.ui" />
     <QtUic Include="LoginWidget.ui" />
@@ -131,6 +134,8 @@
   <ItemGroup>
     <ClInclude Include="..\COMP72070 - TicTacToe\Packet.h" />
     <ClInclude Include="..\Server\Account.h" />
+    <QtMoc Include="AccountWidget.h" />
+    <QtMoc Include="ClickableLabel.h" />
     <ClInclude Include="CSS.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

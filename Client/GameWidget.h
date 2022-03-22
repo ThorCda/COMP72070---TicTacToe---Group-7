@@ -24,6 +24,7 @@ signals:
 
 private slots:
     void on_logoutButton_clicked();
+    void on_accountButton_clicked();
 
 private:
     Ui::GameWidget* ui;

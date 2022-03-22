@@ -221,8 +221,58 @@
      <property name="spacing">
       <number>0</number>
      </property>
+     <item row="2" column="1">
+      <widget class="QLabel" name="bottomMiddle">
+       <property name="minimumSize">
+        <size>
+         <width>120</width>
+         <height>120</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border-left: 5px solid black; border-right: 5px solid black;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap>assets/circle_sprite.png</pixmap>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QLabel" name="middleRight">
+       <property name="minimumSize">
+        <size>
+         <width>120</width>
+         <height>120</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border-top: 5px solid black; border-bottom: 5px solid black;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap>assets/circle_sprite.png</pixmap>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
      <item row="1" column="1">
       <widget class="QLabel" name="middle">
+       <property name="minimumSize">
+        <size>
+         <width>120</width>
+         <height>120</height>
+        </size>
+       </property>
        <property name="styleSheet">
         <string notr="true">border: 5px solid black;</string>
        </property>
@@ -237,13 +287,19 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="2">
-      <widget class="QLabel" name="topRight">
+     <item row="1" column="0">
+      <widget class="QLabel" name="middleLeft">
+       <property name="minimumSize">
+        <size>
+         <width>120</width>
+         <height>120</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border-top: 5px solid black; border-bottom: 5px solid black;</string>
+       </property>
        <property name="text">
         <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap>assets/circle_sprite.png</pixmap>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -252,6 +308,12 @@
      </item>
      <item row="0" column="1">
       <widget class="QLabel" name="topMiddle">
+       <property name="minimumSize">
+        <size>
+         <width>120</width>
+         <height>120</height>
+        </size>
+       </property>
        <property name="styleSheet">
         <string notr="true">border-left: 5px solid black; border-right: 5px solid black;</string>
        </property>
@@ -260,22 +322,6 @@
        </property>
        <property name="pixmap">
         <pixmap>assets/cross_sprite.png</pixmap>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QLabel" name="bottomMiddle">
-       <property name="styleSheet">
-        <string notr="true">border-left: 5px solid black; border-right: 5px solid black;</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap>assets/circle_sprite.png</pixmap>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -284,37 +330,27 @@
      </item>
      <item row="2" column="0">
       <widget class="QLabel" name="bottomLeft">
+       <property name="minimumSize">
+        <size>
+         <width>120</width>
+         <height>120</height>
+        </size>
+       </property>
        <property name="text">
         <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap>assets/circle_sprite.png</pixmap>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="middleLeft">
-       <property name="styleSheet">
-        <string notr="true">border-top: 5px solid black; border-bottom: 5px solid black;</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap>assets/cross_sprite.png</pixmap>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="2">
-      <widget class="QLabel" name="middleRight">
-       <property name="styleSheet">
-        <string notr="true">border-top: 5px solid black; border-bottom: 5px solid black;</string>
+     <item row="0" column="2">
+      <widget class="QLabel" name="topRight">
+       <property name="minimumSize">
+        <size>
+         <width>120</width>
+         <height>120</height>
+        </size>
        </property>
        <property name="text">
         <string/>
@@ -329,6 +365,12 @@
      </item>
      <item row="2" column="2">
       <widget class="QLabel" name="bottomRight">
+       <property name="minimumSize">
+        <size>
+         <width>120</width>
+         <height>120</height>
+        </size>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -341,15 +383,9 @@
       </widget>
      </item>
      <item row="0" column="0">
-      <widget class="QLabel" name="topLeft">
+      <widget class="QPushButton" name="testButton">
        <property name="text">
-        <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap>assets/circle_sprite.png</pixmap>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
+        <string>PushButton</string>
        </property>
       </widget>
      </item>

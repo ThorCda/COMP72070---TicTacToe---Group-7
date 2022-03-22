@@ -61,6 +61,12 @@
     <ClCompile Include="CSS.cpp">
       <Filter>Source Files\GUI Source Files\CSS</Filter>
     </ClCompile>
+    <ClCompile Include="AccountWidget.cpp">
+      <Filter>Source Files\GUI Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ClickableLabelcpp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="CreateAccountWidget.h">
@@ -78,6 +84,12 @@
     <QtMoc Include="StackedWidget.h">
       <Filter>Header Files\GUI Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="AccountWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="ClickableLabel.h">
+      <Filter>Header Files\GUI Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="MainWindow.ui">
@@ -93,6 +105,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="CreateAccountWidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="AccountWidget.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

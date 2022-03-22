@@ -3,6 +3,7 @@
 #include "Client/GameWidget.h"
 #include "Client/StackedWidget.h"
 #include "Client/CreateAccountWidget.h"
+#include "Client/AccountWidget.h"
 
 #include <qstackedwidget.h>
 #include <qmainwindow.h>
@@ -17,12 +18,14 @@ int main(int argc, char* argv[])
     LoginWidget* loginWidget = new LoginWidget;
     GameWidget* gameWidget = new GameWidget;
     CreateAccountWidget* createAccountWidget = new CreateAccountWidget;
+    AccountWidget* accountWidget = new AccountWidget;
 
     StackedWidget* stackedWidget = new StackedWidget();
 
     stackedWidget->addWidget(loginWidget);
     stackedWidget->addWidget(gameWidget);
     stackedWidget->addWidget(createAccountWidget);
+    stackedWidget->addWidget(accountWidget);
 
     mainWindow->setCentralWidget(stackedWidget);
 
