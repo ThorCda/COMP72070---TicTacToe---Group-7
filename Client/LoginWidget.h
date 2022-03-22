@@ -18,12 +18,13 @@ public:
 public slots:
     void on_loginButton_clicked();
     void on_createAccountButton_clicked();
-    void resetLoginWidgetCSS();
+    void setLoginWidgetFocus();
 
 
 signals:
     void changeStackedWidgetIndex(int);
     void widgetChanged(int, int);
+    void setCreateAccountWidgetFocus();
 
 private:
     Ui::LoginWidget* ui;

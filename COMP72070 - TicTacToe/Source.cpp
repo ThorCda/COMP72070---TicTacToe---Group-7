@@ -28,12 +28,17 @@ int main(int argc, char* argv[])
 
     QObject::connect(loginWidget, &LoginWidget::changeStackedWidgetIndex, stackedWidget, &StackedWidget::changeIndex);
     QObject::connect(loginWidget, &LoginWidget::widgetChanged, mainWindow, &MainWindow::resizeWindow);
+    QObject::connect(loginWidget, &LoginWidget::setCreateAccountWidgetFocus, createAccountWidget, &CreateAccountWidget::setCreateAccountWidgetFocus);
 
     QObject::connect(gameWidget, &GameWidget::changeStackedWidgetIndex, stackedWidget, &StackedWidget::changeIndex);
     QObject::connect(gameWidget, &GameWidget::widgetChanged, mainWindow, &MainWindow::resizeWindow);
+    QObject::connect(gameWidget, &GameWidget::setLoginWidgetFocus, loginWidget, &LoginWidget::setLoginWidgetFocus);
 
     QObject::connect(createAccountWidget, &CreateAccountWidget::changeStackedWidgetIndex, stackedWidget, &StackedWidget::changeIndex);
     QObject::connect(createAccountWidget, &CreateAccountWidget::widgetChanged, mainWindow, &MainWindow::resizeWindow);
+    QObject::connect(createAccountWidget, &CreateAccountWidget::setLoginWidgetFocus, loginWidget, &LoginWidget::setLoginWidgetFocus);
+
+    
 
     mainWindow->show();
     mainWindow->resizeWindow(loginWidget->getWidth(), loginWidget->getHeight());

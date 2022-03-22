@@ -16,12 +16,14 @@ public:
     ~CreateAccountWidget();
 
 
-private slots:
+public slots:
     void on_backButton_clicked();
+    void setCreateAccountWidgetFocus();
 
 signals:
     void changeStackedWidgetIndex(int);
     void widgetChanged(int, int);
+    void setLoginWidgetFocus();
 
 private:
     Ui::CreateAccountWidget* ui;

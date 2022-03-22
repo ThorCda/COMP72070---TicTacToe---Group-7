@@ -4,6 +4,7 @@
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QGridLayout>
+#include <QTimer>
 
 LoginWidget::LoginWidget(QWidget* parent)
     : QWidget(parent)
@@ -11,7 +12,10 @@ LoginWidget::LoginWidget(QWidget* parent)
 {
     ui->setupUi(this);
 
+    QTimer::singleShot(0, ui->usernameField, SLOT(setFocus()));
+
     setButtonCSS(ui->loginButton);
+    setButtonCSS(ui->createAccountButton);
 }
 
 LoginWidget::~LoginWidget()
@@ -40,13 +44,13 @@ void LoginWidget::on_loginButton_clicked()
 void LoginWidget::on_createAccountButton_clicked()
 {
     emit changeStackedWidgetIndex(2);
-    emit widgetChanged(1280, 720);
+    emit widgetChanged(720, 720);
+    emit setCreateAccountWidgetFocus();
 }
 
-void LoginWidget::resetLoginWidgetCSS()
+void LoginWidget::setLoginWidgetFocus()
 {
-    QList<QObject*> children = this->children();
-
+    QTimer::singleShot(0, ui->usernameField, SLOT(setFocus()));
 }
 
 

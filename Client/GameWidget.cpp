@@ -13,10 +13,9 @@ GameWidget::~GameWidget()
     delete ui;
 }
 
-
 void GameWidget::on_logoutButton_clicked()
 {
     emit changeStackedWidgetIndex(0);
     emit widgetChanged(720, 720);
-    emit resetLoginWidgetCSS();
+    emit setLoginWidgetFocus();
 }
