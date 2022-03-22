@@ -8,6 +8,8 @@ using namespace std;
 
 int main() {
 		
+	Account_DB_Handler adb;
+
 	char u[3] = "hi";
 
 	Account a = new Account(1, u, u, u, u, 1, 2, 1, true);
