@@ -13,6 +13,8 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Packet Headers">
+      <UniqueIdentifier>{b83faf32-fe47-4643-b53c-00510ea1a2ce}</UniqueIdentifier>
     <Filter Include="Header Files\DB Headers">
       <UniqueIdentifier>{85c3ebab-6d63-4b98-bb2f-85a634ede5c4}</UniqueIdentifier>
     </Filter>
@@ -24,6 +26,9 @@
     <ClCompile Include="DB_Handler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\COMP72070 - TicTacToe\Packet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Account.h">
@@ -32,6 +37,7 @@
     <ClInclude Include="..\COMP72070 - TicTacToe\Packet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Account_DB_Handler.h">
     <ClInclude Include="GameRoom.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -41,6 +47,29 @@
     <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\COMP72070 - TicTacToe\Packet.h">
+      <Filter>Header Files\Packet Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="MovePacket.h">
+      <Filter>Header Files\Packet Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="LoginPacket.h">
+      <Filter>Header Files\Packet Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="LogoutPacket.h">
+      <Filter>Header Files\Packet Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStatusPacket.h">
+      <Filter>Header Files\Packet Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ErrorPacket.h">
+      <Filter>Header Files\Packet Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="AccountPacket.h">
+      <Filter>Header Files\Packet Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="CreateAccountPacket.h">
+      <Filter>Header Files\Packet Headers</Filter>
     <ClInclude Include="Account_DB_Handler.h">
       <Filter>Header Files\DB Headers</Filter>
     </ClInclude>

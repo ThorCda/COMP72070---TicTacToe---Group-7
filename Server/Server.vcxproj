@@ -146,14 +146,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\COMP72070 - TicTacToe\Packet.cpp" />
     <ClCompile Include="DB_Handler.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\COMP72070 - TicTacToe\Packet.h" />
     <ClInclude Include="Account.h" />
+    <ClInclude Include="AccountPacket.h" />
     <ClInclude Include="Account_DB_Handler.h" />
+    <ClInclude Include="CreateAccountPacket.h" />
     <ClInclude Include="DB_Handler.h" />
+    <ClInclude Include="ErrorPacket.h" />
+    <ClInclude Include="GameStatusPacket.h" />
+    <ClInclude Include="Game_DB_Handler.h" />
+    <ClInclude Include="LoginPacket.h" />
+    <ClInclude Include="LogoutPacket.h" />
+    <ClInclude Include="MovePacket.h" />
     <ClInclude Include="GameBoard.h" />
     <ClInclude Include="GameRoom.h" />
     <ClInclude Include="Game_DB_Handler.h" />
