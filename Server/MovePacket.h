@@ -8,19 +8,18 @@ private:
 
 	int column;
 	int row;
-	char* serializedMovePacketBuffer;
 
 public:
 
 	MovePacket(int column, int row) {
 
 		//Free memory that may have been allocated by OS.
-		if (this->serializedMovePacketBuffer != NULL) {
-			delete this->serializedMovePacketBuffer;
+		if (this->serializedPacketBuffer != NULL) {
+			delete this->serializedPacketBuffer;
 		}
 		
 		//Ensure safe state of ptr.
-		this->serializedMovePacketBuffer = NULL;
+		this->serializedPacketBuffer = NULL;
 
 		//Assign values.
 		this->column = column;
@@ -31,8 +30,8 @@ public:
 	MovePacket(char* rxBuffer) {
 
 		//Free memory that may have been allocated by OS.
-		if (this->serializedMovePacketBuffer != NULL) {
-			delete this->serializedMovePacketBuffer;
+		if (this->serializedPacketBuffer != NULL) {
+			delete this->serializedPacketBuffer;
 		}
 
 		//Parse buffer for packet info.
@@ -40,13 +39,13 @@ public:
 		memcpy(&row, rxBuffer + sizeof(this->column), sizeof(row));
 
 		//Ensure safe state for future re-serialization.
-		this->serializedMovePacketBuffer = NULL;
+		this->serializedPacketBuffer = NULL;
 
 	}
 
 	~MovePacket() {
 
-		delete this->serializedMovePacketBuffer;
+		delete this->serializedPacketBuffer;
 		delete this;
 
 	}
@@ -77,16 +76,16 @@ public:
 
 	const char* getSerializedMovePacketTxBuffer() {
 
-		return this->serializedMovePacketBuffer;
+		return this->serializedPacketBuffer;
 
 	}
 
 	void serializeMovePacketTxBuffer() {
 
-		this->serializedMovePacketBuffer = new char[sizeof(this->column) + sizeof(this->row)];
+		this->serializedPacketBuffer = new char[sizeof(this->column) + sizeof(this->row)];
 
-		memcpy(this->serializedMovePacketBuffer, &this->column, sizeof(this->column));
-		memcpy(this->serializedMovePacketBuffer + sizeof(this->column), &this->row, sizeof(row));
+		memcpy(this->serializedPacketBuffer, &this->column, sizeof(this->column));
+		memcpy(this->serializedPacketBuffer + sizeof(this->column), &this->row, sizeof(row));
 
 	}
 

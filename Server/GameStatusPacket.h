@@ -7,19 +7,18 @@ class GameStatusPacket : public Packet {
 private:
 
 	int gameCode;
-	char* serializedGameStatusPacketBuffer;
 
 public:
 
 	GameStatusPacket(int gameCode) {
 
 		//Free memory that may have been allocated by OS.
-		if (this->serializedGameStatusPacketBuffer != NULL) {
-			delete this->serializedGameStatusPacketBuffer;
+		if (this->serializedPacketBuffer != NULL) {
+			delete this->serializedPacketBuffer;
 		}
 
 		//Ensure safe state of ptr.
-		this->serializedGameStatusPacketBuffer = NULL;
+		this->serializedPacketBuffer = NULL;
 
 		//Assign values.
 		this->gameCode = gameCode;
@@ -29,8 +28,8 @@ public:
 	GameStatusPacket(char* rxBuffer) {
 
 		//Free memory that may have been allocated by OS.
-		if (this->serializedGameStatusPacketBuffer != NULL) {
-			delete this->serializedGameStatusPacketBuffer;
+		if (this->serializedPacketBuffer != NULL) {
+			delete this->serializedPacketBuffer;
 		}
 
 		//Parse buffer for packet info.
@@ -40,7 +39,7 @@ public:
 
 	~GameStatusPacket() {
 
-		delete this->serializedGameStatusPacketBuffer;
+		delete this->serializedPacketBuffer;
 		delete this;
 
 	}
@@ -59,15 +58,15 @@ public:
 
 	const char* getSerializedGameStatusPacketBuffer() {
 
-		return this->serializedGameStatusPacketBuffer;
+		return this->serializedPacketBuffer;
 
 	}
 
 	void serializeGameStatusPacketBuffer() {
 
-		this->serializedGameStatusPacketBuffer = new char[sizeof(this->gameCode)];
+		this->serializedPacketBuffer = new char[sizeof(this->gameCode)];
 
-		memcpy(this->serializedGameStatusPacketBuffer, &this->gameCode, sizeof(gameCode));
+		memcpy(this->serializedPacketBuffer, &this->gameCode, sizeof(gameCode));
 
 	}
 

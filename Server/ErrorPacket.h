@@ -7,19 +7,18 @@ class ErrorPacket : public Packet {
 private:
 
 	int errorCode;
-	char* serializedErrorPacketBuffer;
 
 public:
 
 	ErrorPacket(int errorCode) {
 
 		//Free memory that may have been allocated by OS.
-		if (this->serializedErrorPacketBuffer != NULL) {
-			delete this->serializedErrorPacketBuffer;
+		if (this->serializedPacketBuffer != NULL) {
+			delete this->serializedPacketBuffer;
 		}
 
 		//Ensure safe state of ptr.
-		this->serializedErrorPacketBuffer = NULL;
+		this->serializedPacketBuffer = NULL;
 
 		//Assign values.
 		this->errorCode = errorCode;
@@ -29,21 +28,21 @@ public:
 	ErrorPacket(char* rxBuffer) {
 
 		//Free memory that may have been allocated by OS.
-		if (this->serializedErrorPacketBuffer != NULL) {
-			delete this->serializedErrorPacketBuffer;
+		if (this->serializedPacketBuffer != NULL) {
+			delete this->serializedPacketBuffer;
 		}
 
 		//Parse buffer for packet info.
 		memcpy(&errorCode, rxBuffer, sizeof(this->errorCode));
 
 		//Ensure safe state for future re-serialization.
-		this->serializedErrorPacketBuffer = NULL;
+		this->serializedPacketBuffer = NULL;
 
 	}
 
 	~ErrorPacket() {
 
-		delete this->serializedErrorPacketBuffer;
+		delete this->serializedPacketBuffer;
 		delete this;
 
 	}
@@ -62,15 +61,15 @@ public:
 
 	const char* getSerializedErrorPacketBuffer() {
 
-		return this->serializedErrorPacketBuffer;
+		return this->serializedPacketBuffer;
 
 	}
 
 	void serializeErrorPacketTxBuffer() {
 
-		this->serializedErrorPacketBuffer = new char[sizeof(this->errorCode)];
+		this->serializedPacketBuffer = new char[sizeof(this->errorCode)];
 
-		memcpy(this->serializedErrorPacketBuffer, &this->errorCode, sizeof(this->errorCode));
+		memcpy(this->serializedPacketBuffer, &this->errorCode, sizeof(this->errorCode));
 
 	}
 

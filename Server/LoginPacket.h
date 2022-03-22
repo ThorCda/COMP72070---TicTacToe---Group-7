@@ -4,19 +4,17 @@
 
 using namespace std;
 
-
-
 class LoginPacket : public Packet{
 	
 	struct LOGINHEADER {
+
 		int usernameLength;
 		int passwordLength;
 
 	}LoginHeader;
+
 	char* username;
 	char* password;
-
-	char* serLoginBuf; 
 
 public:
 
@@ -34,8 +32,8 @@ public:
 	//Packet with paremters
 	LoginPacket(char* un, char* pwd) {
 		
-		if (this->serLoginBuf != NULL) {
-			delete serLoginBuf;
+		if (this->serializedPacketBuffer != NULL) {
+			delete serializedPacketBuffer;
 		}
 
 		this->LoginHeader.usernameLength = strlen(un) + 1;
@@ -50,7 +48,7 @@ public:
 	LoginPacket(char* src) {
 
 		memcpy(&this->LoginHeader.usernameLength, src, sizeof(LoginHeader.usernameLength));
-		memcpy(&this->LoginHeader.passwordLength, src+ sizeof(LoginHeader.usernameLength), sizeof(LoginHeader.passwordLength));
+		memcpy(&this->LoginHeader.passwordLength, src + sizeof(LoginHeader.usernameLength), sizeof(LoginHeader.passwordLength));
 
 		this->username = new char[this->LoginHeader.usernameLength];
 		this->username[this->LoginHeader.usernameLength] = 00;
@@ -66,17 +64,17 @@ public:
 	//Serizlation of packet
 	void serilizeLoginPacket() {
 
-		if (this->serLoginBuf != NULL) {
-			delete serLoginBuf;
+		if (this->serializedPacketBuffer != NULL) {
+			delete serializedPacketBuffer;
 		}
 
 		int totalSize = sizeof(LoginHeader) + this->LoginHeader.usernameLength + this->LoginHeader.passwordLength;
 
-		serLoginBuf = new char[totalSize];
+		serializedPacketBuffer = new char[totalSize];
 
-		memcpy(serLoginBuf, &this->LoginHeader, sizeof(LoginHeader));
-		memcpy(serLoginBuf + sizeof(LoginHeader), this->username, this->LoginHeader.usernameLength);
-		memcpy(serLoginBuf + sizeof(LoginHeader) + this->LoginHeader.usernameLength, this->password, this->LoginHeader.passwordLength);
+		memcpy(serializedPacketBuffer, &this->LoginHeader, sizeof(LoginHeader));
+		memcpy(serializedPacketBuffer + sizeof(LoginHeader), this->username, this->LoginHeader.usernameLength);
+		memcpy(serializedPacketBuffer + sizeof(LoginHeader) + this->LoginHeader.usernameLength, this->password, this->LoginHeader.passwordLength);
 
 	}
 
@@ -84,6 +82,7 @@ public:
 
 		delete this->password;
 		delete this->username;
+		delete this->serializedPacketBuffer;
 
 		delete this;
 
