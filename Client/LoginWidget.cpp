@@ -15,7 +15,10 @@ LoginWidget::LoginWidget(QWidget* parent)
     QTimer::singleShot(0, ui->usernameField, SLOT(setFocus()));
 
     setButtonCSS(ui->loginButton);
+    ui->loginButton->setFocusPolicy(Qt::NoFocus);
+
     setButtonCSS(ui->createAccountButton);
+    ui->createAccountButton->setFocusPolicy(Qt::NoFocus);
 }
 
 LoginWidget::~LoginWidget()

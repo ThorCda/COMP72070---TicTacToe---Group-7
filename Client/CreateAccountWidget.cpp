@@ -15,7 +15,11 @@ CreateAccountWidget::CreateAccountWidget(QWidget* parent) :
     QTimer::singleShot(0, ui->firstnameField, SLOT(setFocus()));
 
     setButtonCSS(ui->backButton);
-    setButtonCSS(ui->createAccountButton);
+    ui->backButton->setFocusPolicy(Qt::NoFocus);
+
+    setButtonCSS(ui->createAccountButton);    
+    ui->createAccountButton->setFocusPolicy(Qt::NoFocus);
+
 }
 
 CreateAccountWidget::~CreateAccountWidget()

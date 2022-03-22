@@ -1,8 +1,8 @@
 #include "StackedWidget.h"
+#include <qwidget.h>
 
 StackedWidget::StackedWidget()
 {
-
 }
 
 StackedWidget::~StackedWidget()
