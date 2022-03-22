@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\DB Headers">
+      <UniqueIdentifier>{85c3ebab-6d63-4b98-bb2f-85a634ede5c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -26,16 +29,7 @@
     <ClInclude Include="Account.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DB_Handler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\COMP72070 - TicTacToe\Packet.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Account_DB_Handler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game_DB_Handler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameRoom.h">
@@ -46,6 +40,15 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Account_DB_Handler.h">
+      <Filter>Header Files\DB Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Game_DB_Handler.h">
+      <Filter>Header Files\DB Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="DB_Handler.h">
+      <Filter>Header Files\DB Headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

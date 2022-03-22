@@ -9,7 +9,7 @@
 
 using namespace std;
 
-class Account_DB_Handler : public Database_Handler
+class Game_DB_Handler : public Database_Handler
 {
 public:
 
