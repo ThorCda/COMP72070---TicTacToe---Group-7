@@ -23,19 +23,17 @@ private:
 	char* username;
 	char* password;
 
-	char* serializedCreateAccountPacketBuffer;
-
 public:
 
 	CreateAccountPacket() {
 
 		//Free memory that may have been allocated by OS.
-		if (this->serializedCreateAccountPacketBuffer != NULL) {
-			delete this->serializedCreateAccountPacketBuffer;
+		if (this->serializedPacketBuffer != NULL) {
+			delete this->serializedPacketBuffer;
 		}
 
 		//Ensure safe state of ptr.
-		this->serializedCreateAccountPacketBuffer = NULL;
+		this->serializedPacketBuffer = NULL;
 
 		//Ensure safe state of header lengths.
 		this->accHead.userNameLength = 0;
@@ -53,24 +51,31 @@ public:
 
 	}
 
-	CreateAccountPacket(string username, string fName, string lName, string pwd) {
+	CreateAccountPacket(char* username, char* fName, char* lName, char* pwd) {
 
-		this->accHead.firstNameLength = fName.length();
-		this->accHead.lastNameLength = lName.length();
-		this->accHead.userNameLength = username.length();
-		this->accHead.passwordLength = pwd.length();
+		this->accHead.firstNameLength = strlen(fName);
+		this->accHead.lastNameLength = strlen(lName);
+		this->accHead.userNameLength = strlen(username);
+		this->accHead.passwordLength = strlen(pwd);
 
-		if (this->serializedCreateAccountPacketBuffer != NULL) {
-			delete this->serializedCreateAccountPacketBuffer;
+		if (this->serializedPacketBuffer != NULL) {
+			delete this->serializedPacketBuffer;
 		}
 
 		//Ensure safe state of ptr.
-		this->serializedCreateAccountPacketBuffer = NULL;
+		this->serializedPacketBuffer = NULL;
 
-		strcpy(this->password, pwd.c_str());
-		strcpy(this->username, username.c_str());
-		strcpy(this->lName, lName.c_str());
-		strcpy(this->fName, fName.c_str());
+		this->password = new char[this->accHead.passwordLength];
+		strcpy(this->password, pwd);
+
+		this->username = new char[this->accHead.userNameLength];
+		strcpy(this->username, username);
+
+		this->lName = new char[this->accHead.firstNameLength];
+		strcpy(this->lName, lName);
+
+		this->fName = new char[this->accHead.lastNameLength];
+		strcpy(this->fName, fName);
 
 
 	}
@@ -78,12 +83,12 @@ public:
 	CreateAccountPacket(char* rxBuffer) {
 
 		//Free memory that may have been allocated by OS.
-		if (this->serializedCreateAccountPacketBuffer != NULL) {
-			delete this->serializedCreateAccountPacketBuffer;
+		if (this->serializedPacketBuffer != NULL) {
+			delete this->serializedPacketBuffer;
 		}
 
 		//Ensure safe state of txBuffer.
-		this->serializedCreateAccountPacketBuffer = NULL;
+		this->serializedPacketBuffer = NULL;
 
 		//Assign header values
 		memcpy(&this->accHead.userNameLength, rxBuffer, sizeof(this->accHead.userNameLength));
@@ -111,25 +116,25 @@ public:
 
 	void serializeCreateAccountPacketTxBuffer() {
 
-		//Allocate memory for the entire size of the Account object, plus the packet overhead.
-		this->serializedCreateAccountPacketBuffer = new char[sizeof(CreateAccountPacketHeader) + this->accHead.userNameLength +this->accHead.firstNameLength + this->accHead.lastNameLength + this->accHead.passwordLength]; //Does sizeof(*this->accountPtr return the dynamically sized account or simply the sizeof an empty account???
+		//Allocate memory for the serializedPacketBuffer size of the Account object, plus the packet overhead.
+		this->serializedPacketBuffer = new char[sizeof(CreateAccountPacketHeader) + this->accHead.userNameLength +this->accHead.firstNameLength + this->accHead.lastNameLength + this->accHead.passwordLength]; //Does sizeof(*this->accountPtr return the dynamically sized account or simply the sizeof an empty account???
 
 		int byteBuffer = 0;
 
-		memcpy(this->serializedCreateAccountPacketBuffer, &this->accHead, sizeof(this->accHead));
+		memcpy(this->serializedPacketBuffer, &this->accHead, sizeof(this->accHead));
 		byteBuffer += sizeof(this->accHead);
 
-		memcpy(this->serializedCreateAccountPacketBuffer + byteBuffer, &this->username, this->accHead.userNameLength);
+		memcpy(this->serializedPacketBuffer + byteBuffer, &this->username, this->accHead.userNameLength);
 		byteBuffer += sizeof(this->accHead.userNameLength);
 
-		memcpy(this->serializedCreateAccountPacketBuffer + byteBuffer, &this->fName, this->accHead.firstNameLength);
+		memcpy(this->serializedPacketBuffer + byteBuffer, &this->fName, this->accHead.firstNameLength);
 		byteBuffer += sizeof(this->accHead.firstNameLength);
 
 
-		memcpy(this->serializedCreateAccountPacketBuffer + byteBuffer, &this->lName, this->accHead.lastNameLength);
+		memcpy(this->serializedPacketBuffer + byteBuffer, &this->lName, this->accHead.lastNameLength);
 		byteBuffer += sizeof(this->accHead.lastNameLength);
 
-		memcpy(this->serializedCreateAccountPacketBuffer + byteBuffer, &this->password, this->accHead.passwordLength);
+		memcpy(this->serializedPacketBuffer + byteBuffer, &this->password, this->accHead.passwordLength);
 		byteBuffer += sizeof(this->accHead.passwordLength);
 
 
