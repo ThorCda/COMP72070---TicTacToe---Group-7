@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include <cstdlib>
 #include <cstring>
 
@@ -10,7 +9,7 @@
 
 using namespace std;
 
-//const int EmptyPktSize;
+const int EmptyPktSize = 21; //4 + 4 + 4 + 4 + 1 + 1 + 1 + 1 + 1
 
 typedef struct Header {
 
@@ -36,8 +35,6 @@ class Packet {
 	Header pktHead;
 	Body pktBody;
 	//Tail pktTail;
-
-protected:
 
 	char* serializedPacketBuffer = NULL;
 
