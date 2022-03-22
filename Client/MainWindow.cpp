@@ -1,5 +1,8 @@
 #include "MainWindow.h"
+#include "ui_MainWindow.h"
 #include <qwidget.h>
+#include <qscreen.h>
+#include <QApplication>
 
 MainWindow::MainWindow(QWidget* parent) :
     QMainWindow(parent),
@@ -11,6 +14,13 @@ MainWindow::MainWindow(QWidget* parent) :
         this->removeToolBar(tb);
     }
     ui->setupUi(this);
+
+    QScreen* screen = QGuiApplication::primaryScreen();
+    QRect  screenGeometry = screen->availableGeometry();
+    int height = screenGeometry.height()/2 - 360;
+    int width = screenGeometry.width()/2 - 360;
+
+    this->move(QPoint(width, height));
 }
 
 MainWindow::~MainWindow()
