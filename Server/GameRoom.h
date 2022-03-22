@@ -2,10 +2,12 @@
 #include "Player.h"
 #include "GameBoard.h"
 
+using namespace std;
+
 class GameRoom
 {
 	Player player;
-	GameBoard board;
+	GameBoard gameBoard;
 
 public:
 
@@ -16,7 +18,15 @@ public:
 
 	bool playGame() // take a newtwork handler
 	{
+		// playing moves
+		// 
+		//while(game is not over)
+		// 
+		// while(place player is false) we play until true
+		// if (place player is true and no win) then computer turn 
 
+		// while(place computer is false) we play until true
+		// if (place computer is true and no win) then player turn 
 	}
 
 	void exitRoom()
@@ -26,11 +36,11 @@ public:
 
 	GameBoard getGameBoard()
 	{
-		return board;
+		return this->gameBoard;
 	}
 
 	Player getPlayer()
 	{
-		return player;
+		return this->player;
 	}
 };

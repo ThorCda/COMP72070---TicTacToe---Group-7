@@ -1,6 +1,5 @@
 #pragma once
 #include <random>
-#include "GameRoom.h"
 
 class GameBoard
 {
@@ -10,54 +9,89 @@ class GameBoard
 	
 	enum Status // temp enum placement
 	{
-		inProgress, Ended, Quit
+		
 	};
 
 	Status currentStatus;
+	int moveCounter;
+
+	bool playerWin = false;
+	bool computerWin = false;
 
 public:
 
 	GameBoard()
 	{
-					
+		this->moveCounter = 0;
+		// set status to something
+	}
+	
+	bool getPlayerWin()
+	{
+		return this->playerWin;
 	}
 
-	void placePlayerMove(int move)
+	bool getComputerWin()
 	{
-		while(!validateMove(move,1))
-		{
-			ifEnd();
-			// some sort of confirmation move was played and initiation of response to the player
-		}
+		return this->computerWin;
 	}
 
-	void placeComputerMove()
+	bool placePlayerMove(int move)
 	{
-		int temp = rand() % 9;
-
-		while (!validateMove(temp, 0))
+		this->moveCounter++;
+		if(validateMove(move, 0))
 		{
-			ifEnd();
-			// some sort of confirmation move was played and initiation of response to the player
-		}
-
-	}
-
-	void ifEnd()
-	{
-		for (int i = 0; i <= 3, i++;)
-		{
-			if (board[i][0] == board[i][1] && board[i][1] == board[i][2])
+			if (ifEnd())
 			{
-			
+				this->playerWin = true;
 			}
-			for (int j = 0; j <= 3, j++;)
-			{
-				if (board[i][j] == board[i][j] && board[i][j] == board[i][j])
-				{
+			return true;
+		}
+		return false;
+	}
 
+	bool placeComputerMove()
+	{
+		int move = rand() % 9;
+		this->moveCounter++;
+		if (validateMove(move, 0))
+		{
+			if (ifEnd())
+			{
+				this->computerWin = true;
+			}
+			return true;
+		}
+		return false;
+	}
+
+	bool ifEnd()
+	{
+		if(this->moveCounter < 9)
+		{
+			for (int i = 0; i <= 3; i++)
+			{
+				if (this->board[i][0] == this->board[i][1] && this->board[i][1] == this->board[i][2])
+				{
+					return true;
+				}
+				if (this->board[0][i] == this->board[1][i] && this->board[1][i] == this->board[2][i])
+				{
+					return true;
+				}
+				if (this->board[0][0] == this->board[1][1] && this->board[1][1] == this->board[2][2])
+				{
+					return true;
+				}
+				if (this->board[0][2] == this->board[1][1] && this->board[1][1] == this->board[2][0])
+				{
+					return true;
 				}
 			}
+		}
+		else
+		{
+			return true;
 		}
 	}
 
@@ -80,24 +114,30 @@ public:
 			col = move - 7;
 		}
 
-		if (board[row][col] == (char)move)
+		if (this->board[row][col] == (char)move)
 		{
-			if (player == 0)
-			{
-				board[row][col] = 'x';
-			}
-			else if (player == 1)
-			{
-				board[row][col] = '0';
-			}
+			playMove(row, col, move, player);
 			return true;
 		}
 		else
 			return false;
 	}
 
+	void playMove(int row, int col, int move, int player)
+	{
+		if (player == 0)
+		{
+			this->board[row][col] = 'x';
+		}
+		else if (player == 1)
+		{
+			this->board[row][col] = '0';
+		}
+		return;
+	}
+
 	Status getStatus()
 	{
-		return currentStatus;
+		return this->currentStatus;
 	}
 };
