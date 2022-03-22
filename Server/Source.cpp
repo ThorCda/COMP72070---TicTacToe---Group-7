@@ -8,6 +8,8 @@
 #include "Account_DB_Handler.h"
 #include "GameStatusPacket.h"
 #include "ErrorPacket.h"
+#include "GameBoard.h"
+#include "GameRoom.h"
 
 using namespace std;
 
@@ -97,5 +99,6 @@ int main() {
 	char* xxx = x->getSerializedTxBuffer();
 
 	ErrorPacket* xxxx = new ErrorPacket(xxx);
+	Account_DB_Handler adb;
 
 }
