@@ -11,27 +11,27 @@ int main() {
 		
 	//Account_DB_Handler adb;
 
-	//char us[] = "Gabeele";
-	//char fis[] = "Gavin";
-	//char la[] = "Abeele";
-	//char pic[] = "C://Hello.png";
+	/*char us[] = "Gabeele";
+	char fis[] = "Gavin";
+	char la[] = "Abeele";
+	char pic[] = "C://Hello.png";
 
-	//Account a = new Account(1, fis, la, pic, us, 1, 2, 1, true);
+	Account a = new Account(1, fis, la, pic, us, 1, 2, 1, true);
 
-	//AccountPacket np(&a);
+	AccountPacket np(&a);
 
-	//np.serializeAccountPacketTxBuffer();
+	np.serializeAccountPacketTxBuffer();
 
-	//char* m = np.getSerializedAccountPacketBuffer();
+	char* m = np.getSerializedAccountPacketBuffer();*/
 
-	//AccountPacket* r = new AccountPacket(m);	//Ask elliott why we need new in release mode. Optimization?
+	//AccountPacket* r = new AccountPacket(m);	
 
 
 	//Create accont packet test
 
 	char us[] = "Gabeele";
 	char fis[] = "Gavin";
-	char la[] = "Abeele";
+	char la[] = "Abeeleee";
 	char pw[] = "Conestoga";
 	char pic[] = "C://Hello.png";
 
@@ -41,7 +41,7 @@ int main() {
 
 	char* m = np->getSerializedTxBuffer();
 
-	AccountPacket* r = new AccountPacket(m);	//Ask elliott why we need new in release mode. Optimization?
+	CreateAccountPacket* r = new CreateAccountPacket(m);	//Ask elliott why we need new in release mode. Optimization?
 
 
 }

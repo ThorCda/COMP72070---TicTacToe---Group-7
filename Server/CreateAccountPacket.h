@@ -53,10 +53,10 @@ public:
 
 	CreateAccountPacket(char* username, char* fName, char* lName, char* pwd) {
 
-		this->accHead.firstNameLength = strlen(fName);
-		this->accHead.lastNameLength = strlen(lName);
-		this->accHead.userNameLength = strlen(username);
-		this->accHead.passwordLength = strlen(pwd);
+		this->accHead.firstNameLength = strlen(fName) + 1;
+		this->accHead.lastNameLength = strlen(lName) + 1;
+		this->accHead.userNameLength = strlen(username) + 1;
+		this->accHead.passwordLength = strlen(pwd) + 1;
 
 		if (this->serializedPacketBuffer != NULL) {
 			delete this->serializedPacketBuffer;
@@ -66,16 +66,16 @@ public:
 		this->serializedPacketBuffer = NULL;
 
 		this->password = new char[this->accHead.passwordLength];
-		strcpy(this->password, pwd);
+		memcpy(this->password, pwd, this->accHead.passwordLength);
 
 		this->username = new char[this->accHead.userNameLength];
-		strcpy(this->username, username);
+		memcpy(this->username, username, this->accHead.userNameLength);
 
-		this->lName = new char[this->accHead.firstNameLength];
-		strcpy(this->lName, lName);
+		this->lName = new char[this->accHead.lastNameLength];
+		memcpy(this->lName, lName, this->accHead.lastNameLength);
 
-		this->fName = new char[this->accHead.lastNameLength];
-		strcpy(this->fName, fName);
+		this->fName = new char[this->accHead.firstNameLength];
+		memcpy(this->fName, fName, this->accHead.firstNameLength);
 
 
 	}
@@ -96,11 +96,17 @@ public:
 		memcpy(&this->accHead.lastNameLength, rxBuffer + sizeof(this->accHead.userNameLength) + sizeof(this->accHead.firstNameLength), sizeof(this->accHead.lastNameLength));
 		memcpy(&this->accHead.passwordLength, rxBuffer + sizeof(this->accHead.userNameLength) + sizeof(this->accHead.firstNameLength) + sizeof(this->accHead.lastNameLength), sizeof(this->accHead.passwordLength));
 
+		this->username = new char[this->accHead.userNameLength];
+		memcpy(this->username, rxBuffer + sizeof(this->accHead), this->accHead.userNameLength);
+		
+		this->fName = new char[this->accHead.firstNameLength];
+		memcpy(this->fName, rxBuffer + sizeof(this->accHead) + this->accHead.userNameLength, this->accHead.firstNameLength);
 
-		memcpy(&this->username, rxBuffer + sizeof(this->accHead), this->accHead.userNameLength);
-		memcpy(&this->fName, rxBuffer + sizeof(this->accHead) + this->accHead.userNameLength, this->accHead.firstNameLength);
-		memcpy(&this->lName, rxBuffer + sizeof(this->accHead) + this->accHead.userNameLength + this->accHead.firstNameLength, this->accHead.lastNameLength);
-		memcpy(&this->password, rxBuffer + sizeof(this->accHead) + this->accHead.userNameLength + this->accHead.firstNameLength + this->accHead.lastNameLength, this->accHead.passwordLength);
+		this->lName = new char[this->accHead.lastNameLength];
+		memcpy(this->lName, rxBuffer + sizeof(this->accHead) + this->accHead.userNameLength + this->accHead.firstNameLength, this->accHead.lastNameLength);
+		
+		this->password = new char[this->accHead.passwordLength];
+		memcpy(this->password, rxBuffer + sizeof(this->accHead) + this->accHead.userNameLength + this->accHead.firstNameLength + this->accHead.lastNameLength, this->accHead.passwordLength);
 
 	}
 
@@ -124,18 +130,18 @@ public:
 		memcpy(this->serializedPacketBuffer, &this->accHead, sizeof(this->accHead));
 		byteBuffer += sizeof(this->accHead);
 
-		memcpy(this->serializedPacketBuffer + byteBuffer, &this->username, this->accHead.userNameLength);
-		byteBuffer += sizeof(this->accHead.userNameLength);
+		memcpy(this->serializedPacketBuffer + byteBuffer, this->username, this->accHead.userNameLength);
+		byteBuffer += this->accHead.userNameLength;
 
-		memcpy(this->serializedPacketBuffer + byteBuffer, &this->fName, this->accHead.firstNameLength);
-		byteBuffer += sizeof(this->accHead.firstNameLength);
+		memcpy(this->serializedPacketBuffer + byteBuffer, this->fName, this->accHead.firstNameLength);
+		byteBuffer += this->accHead.firstNameLength;
 
 
-		memcpy(this->serializedPacketBuffer + byteBuffer, &this->lName, this->accHead.lastNameLength);
-		byteBuffer += sizeof(this->accHead.lastNameLength);
+		memcpy(this->serializedPacketBuffer + byteBuffer, this->lName, this->accHead.lastNameLength);
+		byteBuffer += this->accHead.lastNameLength;
 
-		memcpy(this->serializedPacketBuffer + byteBuffer, &this->password, this->accHead.passwordLength);
-		byteBuffer += sizeof(this->accHead.passwordLength);
+		memcpy(this->serializedPacketBuffer + byteBuffer, this->password, this->accHead.passwordLength);
+		byteBuffer += this->accHead.passwordLength;
 
 
 	}
