@@ -51,11 +51,11 @@ public:
 		memcpy(&this->LoginHeader.passwordLength, src + sizeof(LoginHeader.usernameLength), sizeof(LoginHeader.passwordLength));
 
 		this->username = new char[this->LoginHeader.usernameLength];
-		this->username[this->LoginHeader.usernameLength] = 00;
+		
 		memcpy(this->username, src + sizeof(LoginHeader), this->LoginHeader.usernameLength);
 
 		this->password = new char[this->LoginHeader.passwordLength];
-		this->password[this->LoginHeader.passwordLength] = 00;
+		
 		memcpy(this->password, src + sizeof(LoginHeader) + this->LoginHeader.usernameLength, this->LoginHeader.passwordLength);
 
 

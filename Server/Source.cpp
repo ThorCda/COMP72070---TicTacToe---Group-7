@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Account.h"
+#include "LoginPacket.h"
 #include "AccountPacket.h"
 #include "CreateAccountPacket.h"
 #include "Account_DB_Handler.h"
@@ -42,6 +43,21 @@ int main() {
 	char* m = np->getSerializedTxBuffer();
 
 	CreateAccountPacket* r = new CreateAccountPacket(m);	//Ask elliott why we need new in release mode. Optimization?
+
+	//Login packet test
+
+	char we[] = "Gavin";
+	char p[] = "Conestoga";
+
+	LoginPacket* l = new LoginPacket(we, p);
+
+	l->serilizeLoginPacket();
+
+	char* o = l->getSerializedTxBuffer();
+
+	LoginPacket* t = new LoginPacket(o);
+
+
 
 
 }
