@@ -8,7 +8,7 @@ using namespace std;
 
 int main() {
 		
-	Account_DB_Handler adb;
+	//Account_DB_Handler adb;
 
 	char u[3] = "hi";
 
@@ -20,6 +20,6 @@ int main() {
 
 	char* m = np.getSerializedAccountPacketBuffer();
 
-	AccountPacket r(m);
+	AccountPacket* r = new AccountPacket(m);	//Ask elliott why we need new in release mode. Optimization?
 
 }
