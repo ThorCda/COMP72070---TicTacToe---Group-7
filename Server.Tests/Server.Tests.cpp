@@ -134,5 +134,23 @@ namespace ServerTests_Packet
 
 		}
 
+		TEST_METHOD(Login_Packet)		//PKT-UNT-011 through 015
+		{
+			int gameStatus = 3;
+
+			GameStatusPacket* xx = new GameStatusPacket(gameStatus);
+
+			xx->serializeGameStatusPacketBuffer();
+
+			char* zz = xx->getSerializedTxBuffer();
+
+			GameStatusPacket* xxx = new GameStatusPacket(zz);
+
+			int x = 0;
+
+			Assert::AreEqual(xx->getGameStatusPacketGameCode(), xxx->getGameStatusPacketGameCode());
+
+		}
+
 	};
 }
