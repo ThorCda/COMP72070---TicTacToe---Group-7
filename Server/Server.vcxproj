@@ -166,6 +166,7 @@
     <ClInclude Include="LoginPacket.h" />
     <ClInclude Include="LogoutPacket.h" />
     <ClInclude Include="MovePacket.h" />
+    <ClInclude Include="NetworkHandler.h" />
     <ClInclude Include="Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
