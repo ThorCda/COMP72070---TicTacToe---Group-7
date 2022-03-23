@@ -84,13 +84,6 @@ int main() {
 
 	int x = 0;*/
 
-	int xx = 2;
-	ErrorPacket * x = new ErrorPacket(xx);
 
-	x->serializeErrorPacketTxBuffer();
-
-	char* xxx = x->getSerializedTxBuffer();
-
-	ErrorPacket* xxxx = new ErrorPacket(xxx);
 
 }
