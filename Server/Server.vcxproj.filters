@@ -83,5 +83,8 @@
     <ClInclude Include="ChildPackets.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="NetworkHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
