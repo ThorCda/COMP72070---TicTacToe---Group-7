@@ -14,6 +14,8 @@ public:
 	//Safe state packet
 	LogoutPacket() {
 
+		this->pktHead.packetType = Logoutp;
+
 		this->isLoggedOut = true;
 
 	}

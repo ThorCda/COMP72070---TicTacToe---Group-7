@@ -17,6 +17,8 @@ public:
 			delete this->serializedPacketBuffer;
 		}
 
+		this->pktHead.packetType = GameStatusp;
+
 		//Ensure safe state of ptr.
 		this->serializedPacketBuffer = NULL;
 

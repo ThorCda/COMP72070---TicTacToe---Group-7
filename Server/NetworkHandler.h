@@ -1,5 +1,7 @@
 #include <windows.networking.sockets.h>
 #pragma comment(lib, "Ws2_32.lib")
+#include "ChildPackets.h"
+#include "../COMP72070 - TicTacToe/Packet.h"
 
 using namespace std;
 
@@ -48,6 +50,9 @@ public:
 	}
 
 
-
+	void sendPacket(Packet p)
+	{
+		p.
+	}
 
 };

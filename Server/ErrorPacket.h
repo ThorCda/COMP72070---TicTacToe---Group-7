@@ -11,11 +11,12 @@ private:
 public:
 
 	ErrorPacket(int errorCode) {
-
 		//Free memory that may have been allocated by OS.
 		if (this->serializedPacketBuffer != NULL) {
 			delete this->serializedPacketBuffer;
 		}
+
+		this->pktHead.packetType = Errorp;
 
 		//Ensure safe state of ptr.
 		this->serializedPacketBuffer = NULL;

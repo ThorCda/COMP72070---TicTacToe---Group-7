@@ -22,10 +22,14 @@ public:
 
 	AccountPacket(Account* account) {
 
+		//Update Parent Packet information
+
 		//Free memory that may have been allocated by OS.
 		if (this->serializedPacketBuffer != NULL) {
 			delete this->serializedPacketBuffer;
 		}
+		
+		this->pktHead.packetType = Accountp;
 
 		//Ensure safe state of ptr.
 		this->serializedPacketBuffer = NULL;

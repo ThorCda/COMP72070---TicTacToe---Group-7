@@ -17,7 +17,7 @@ Packet::Packet() {
 	this->pktHead.destinationID = SERVER_ID;
 	this->pktHead.sourceID = CLIENT_ID;
 	this->pktHead.bodyLength = 0;
-	this->pktHead.packetType = DEFAULT_PACKET;
+	this->pktHead.packetType = PacketPacket;
 
 	pktBody.msgPtr = NULL;
 	serializedPacketBuffer = NULL;
@@ -94,13 +94,6 @@ void Packet::setHeaderBodyLength() {
 
 }
 
-void Packet::setHeaderPacketType(char packetType) {
-
-	//Discuss a constant format for packet types.
-	this->pktHead.packetType = packetType;
-
-}
-
 //Header Getter Methods
 int Packet::getHeaderDestinationID() {
 
@@ -120,7 +113,7 @@ int Packet::getHeaderBodyLength() {
 
 }
 
-char Packet::getHeaderPacketType() {
+packetType Packet::getHeaderPacketType() {
 
 	return this->pktHead.packetType;
 

@@ -12,13 +12,24 @@ using namespace std;
 
 //const int EmptyPktSize;
 
+enum packetType {
+
+	Accountp,
+	CreateAccountp,
+	Errorp,
+	GameStatusp,
+	Loginp,
+	Logoutp,
+	Movep,
+	PacketPacket
+};
+
 typedef struct Header {
 
 	int destinationID = SERVER_ID;
 	int sourceID = CLIENT_ID;
 	int bodyLength = 0;
-	char packetType = DEFAULT_PACKET;
-
+	packetType packetType;
 };
 
 typedef struct Body {
@@ -32,14 +43,12 @@ typedef struct Body {
 //};
 
 class Packet {
-
-	Header pktHead;
-	Body pktBody;
-	//Tail pktTail;
-
 protected:
 
 	char* serializedPacketBuffer = NULL;
+	Header pktHead;
+	Body pktBody;
+	//Tail pktTail;
 
 public:
 
@@ -53,14 +62,13 @@ public:
 	void setHeaderSourceID(int);
 	void setHeaderSourceID();
 	void setHeaderBodyLength();
-	void setHeaderPacketType(char);
 
 	//Header Getter Methods
 	int getHeaderDestinationID();
 	int getHeaderSourceID();
 	int getHeadersequenceNumber();
 	int getHeaderBodyLength();
-	char getHeaderPacketType();
+	packetType getHeaderPacketType();
 
 	//Body Setter Methods
 	void setBodyMsgPtr(char*);

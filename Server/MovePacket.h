@@ -17,6 +17,8 @@ public:
 			delete this->serializedPacketBuffer;
 		}
 		
+		this->pktHead.packetType = Movep;
+
 		//Ensure safe state of ptr.
 		this->serializedPacketBuffer = NULL;
 

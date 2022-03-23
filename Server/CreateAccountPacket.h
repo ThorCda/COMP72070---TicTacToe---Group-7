@@ -32,6 +32,9 @@ public:
 		if (this->serializedPacketBuffer != NULL) {
 			delete this->serializedPacketBuffer;
 		}
+
+		this->pktHead.packetType = CreateAccountp;
+
 		// epic comment
 		//Ensure safe state of ptr.
 		this->serializedPacketBuffer = NULL;

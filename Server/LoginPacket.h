@@ -21,6 +21,8 @@ public:
 	//Safe state packet
 	LoginPacket() {
 
+		this->pktHead.packetType = Loginp;
+
 		this->LoginHeader.passwordLength = 0;
 		this->LoginHeader.usernameLength = 0;
 
