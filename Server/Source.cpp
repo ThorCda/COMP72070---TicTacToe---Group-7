@@ -1,13 +1,8 @@
 #include <iostream>
 #include "Account.h"
-#include "LoginPacket.h"
-#include "AccountPacket.h"
-#include "MovePacket.h"
-#include "LogoutPacket.h"
-#include "CreateAccountPacket.h"
+#include "ChildPackets.h"
 #include "Account_DB_Handler.h"
-#include "GameStatusPacket.h"
-#include "ErrorPacket.h"
+
 
 using namespace std;
 

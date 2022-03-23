@@ -64,6 +64,10 @@ public:
 
 	}
 
+	Account* getAccount() {
+		return this->accountPtr;
+	}
+
 	~AccountPacket() {
 
 		delete this->accountPtr;

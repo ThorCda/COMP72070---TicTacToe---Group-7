@@ -17,11 +17,12 @@ class CreateAccountPacket : public Packet {
 
 private:
 
-	CrtAccPktHead accHead;
+	CrtAccPktHead accHead;	
 	char* fName; 
 	char* lName;
 	char* username;
 	char* password;
+
 
 public:
 
@@ -145,5 +146,17 @@ public:
 
 
 	}
+
+    char* getFName()  { return fName; }
+    void setFName(char* fName) { this->fName = fName; }
+
+    char* getLName()  { return lName; }
+    void setLName(char* lName) { this->lName = lName; }
+
+    char* getUsername()  { return username; }
+    void setUsername(char* username) { this->username = username; }
+
+    char* getPassword()  { return password; }
+    void setPassword(char* password) { this->password = password; }
 
 };
