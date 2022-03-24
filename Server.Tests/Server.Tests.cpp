@@ -12,7 +12,7 @@ namespace ServerTests_Packet
 	{
 	public:
 
-		TEST_METHOD(Create_Account_Packet)	//PKT_UNT_016 through 020
+		TEST_METHOD(Create_Account_Packet)	//PKT_UNT_026 through 030
 		{
 			bool isSame = true;
 
@@ -166,6 +166,29 @@ namespace ServerTests_Packet
 			LogoutPacket* q = new LogoutPacket(v);
 
 			Assert::AreEqual(j->getIsLoggedOut(), q->getIsLoggedOut());
+
+		}
+
+		TEST_METHOD(Move_Packet)		//PKT-UNT-005 through 010
+		{
+			MovePacket* x = new MovePacket(3);
+
+			x->serializeMovePacketTxBuffer();
+
+			char* z = x->getSerializedTxBuffer();
+
+			MovePacket* u = new MovePacket(z); 
+
+			Assert::AreEqual(x->getMove(), u->getMove());
+
+		}
+
+		TEST_METHOD(Parent_Packet)		//PKT-UNT-001 through 004
+		{
+
+
+
+			//Assert::AreEqual(x->getMove(), u->getMove());
 
 		}
 
