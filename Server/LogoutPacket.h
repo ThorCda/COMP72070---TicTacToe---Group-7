@@ -52,6 +52,8 @@ public:
 
 	}
 
+    bool getIsLoggedOut() const { return isLoggedOut; }
 
+    void setIsLoggedOut(bool isLoggedOut) { this->isLoggedOut = isLoggedOut; }
 
 };
