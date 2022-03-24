@@ -42,5 +42,5 @@ void GameWidget::on_accountButton_clicked()
 {
     emit changeStackedWidgetIndex(3);
     emit widgetChanged(720, 720);
-    //emit setLoginWidgetFocus();
+    emit setLoginWidgetFocus();
 }

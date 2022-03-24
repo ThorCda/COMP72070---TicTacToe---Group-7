@@ -84,10 +84,10 @@
     <QtMoc Include="StackedWidget.h">
       <Filter>Header Files\GUI Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="AccountWidget.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="ClickableLabel.h">
+      <Filter>Header Files\GUI Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="AccountWidget.h">
       <Filter>Header Files\GUI Header Files</Filter>
     </QtMoc>
   </ItemGroup>

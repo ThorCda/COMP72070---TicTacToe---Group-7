@@ -41,6 +41,9 @@ int main(int argc, char* argv[])
     QObject::connect(createAccountWidget, &CreateAccountWidget::widgetChanged, mainWindow, &MainWindow::resizeWindow);
     QObject::connect(createAccountWidget, &CreateAccountWidget::setLoginWidgetFocus, loginWidget, &LoginWidget::setLoginWidgetFocus);
 
+    QObject::connect(accountWidget, &AccountWidget::changeStackedWidgetIndex, stackedWidget, &StackedWidget::changeIndex);
+    QObject::connect(accountWidget, &AccountWidget::widgetChanged, mainWindow, &MainWindow::resizeWindow);
+
     
 
     mainWindow->show();

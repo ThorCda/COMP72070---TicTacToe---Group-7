@@ -15,6 +15,14 @@ public:
 	AccountWidget(QWidget *parent = nullptr);
 	~AccountWidget();
 
+public slots:
+	void on_changeImgButton_clicked();
+	void on_backButton_2_clicked();
+
+signals:
+	void changeStackedWidgetIndex(int);
+	void widgetChanged(int, int);
+
 private:
 	Ui::AccountWidget* ui;
 };
