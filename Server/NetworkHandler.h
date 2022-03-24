@@ -2,6 +2,7 @@
 #pragma comment(lib, "Ws2_32.lib")
 #include "ChildPackets.h"
 #include "../COMP72070 - TicTacToe/Packet.h"
+#include "Account_DB_Handler.h"
 
 using namespace std;
 
@@ -53,6 +54,85 @@ public:
 	void sendPacket(Packet p)
 	{
 		
+	}
+
+	void routePacket(Packet packet) {
+
+		Account_DB_Handler AccDBHandler;
+
+		switch (packet.getHeaderPacketType())
+		{
+
+		case Accountp: {
+			AccountPacket* newAccountPacket = new AccountPacket(packet.getSerializedTxBuffer());
+			// login(newAccountPacket)
+			break;
+		}
+
+		case CreateAccountp: {
+			CreateAccountPacket* newCreateAccountPacket = new CreateAccountPacket(packet.getSerializedTxBuffer());
+			// createAccount(newCreateAccountPacket)
+			break;
+		}
+
+		case Errorp: {
+			ErrorPacket* newErrorPacket = new ErrorPacket(packet.getSerializedTxBuffer());
+			// logError
+			break;
+		}
+
+		case GameStatusp: {
+			GameStatusPacket* newGameStatusPacket = new GameStatusPacket(packet.getSerializedTxBuffer());
+			// 
+			break;
+		}
+
+		case Loginp: {
+
+			LoginPacket* newLoginPacket = new LoginPacket(packet.getSerializedTxBuffer());
+			
+			string userName(newLoginPacket->getUsername());
+			string password(newLoginPacket->getPassword());
+
+			Account* tempAccount = new Account(AccDBHandler.login(userName, password));
+			
+			if (tempAccount == nullptr) {
+				//Change this to error packet eventually.
+				cout << "Didn't work";
+				return;
+			}
+
+			AccountPacket* newAccountPacket = new AccountPacket(tempAccount);
+
+			newAccountPacket->serializeAccountPacketTxBuffer();
+
+			//send(accountPacket) back to client.
+
+			break;
+		}
+
+		case Logoutp: {
+			LogoutPacket* newLogoutPacket = new LogoutPacket(packet.getSerializedTxBuffer());
+			break;
+		}
+
+		case Movep: {
+			MovePacket* newMovePacket = new MovePacket(packet.getSerializedTxBuffer());
+			// PlayMove(newMovePacket)
+			break;
+		}
+
+		case PacketPacket: {
+			//Parent packet creator???
+			break;
+		}
+
+		default: {
+			break;
+		}
+
+		}
+
 	}
 
 

@@ -72,10 +72,6 @@ public:
 	//Serialized Packet Methods
 	char* getSerializedTxBuffer();
 	void serializeParentPacketTxBuffer();
-	char* getSerializedParentTxBuffer();
-
-	//Packet Factory
-	void routePacket(char*);
-	
+	char* getSerializedParentTxBuffer();	
 	
 };

@@ -24,27 +24,14 @@ Packet::Packet() {
 
 }
 
-//Packet::Packet(char* RxBuffer) {
-//
-//	int byteBuffer = 0;
-//
-//	//Instantiate pktHead based on bytes in RxBuffer.
-//	memcpy(&this->pktHead.destinationID, RxBuffer, sizeof(this->pktHead.destinationID));
-//	byteBuffer += sizeof(this->pktHead.destinationID);
-//
-//	memcpy(&this->pktHead.sourceID, RxBuffer + byteBuffer, sizeof(this->pktHead.sourceID));
-//	byteBuffer += sizeof(this->pktHead.sourceID);
-//
-//	memcpy(&this->pktHead.bodyLength, RxBuffer + byteBuffer, sizeof(this->pktHead.bodyLength));
-//	byteBuffer += sizeof(this->pktHead.bodyLength);
-//
-//	memcpy(&this->pktHead.packetType, RxBuffer + byteBuffer, sizeof(this->pktHead.packetType));
-//	byteBuffer += sizeof(this->pktHead.packetType);
-//
-//	//Instantiate pktTail checkSum.
-//	//memcpy(&this->pktTail.checkSum, RxBuffer + byteBuffer, sizeof(this->pktTail.checkSum));
-//	
-//}
+Packet::Packet(char* RxBuffer) {
+
+	memcpy(&this->pktHead, RxBuffer, sizeof(pktHead));
+
+	this->serializedPacketBuffer = new char[this->pktHead.bodyLength];
+	memcpy(&this->serializedPacketBuffer, RxBuffer + sizeof(pktHead), this->pktHead.bodyLength);
+	
+}
 	
 Packet::~Packet() {
 
@@ -168,77 +155,3 @@ char* Packet::getSerializedParentTxBuffer() {
 
 }
 
-void Packet::routePacket(char* rxBuffer) {
-
-	//	0 Accountp,
-	//	CreateAccountp,
-	//	Errorp,
-	//	GameStatusp,
-	//	Loginp,
-	//	Logoutp,
-	//	Movep,
-	//	7 PacketPacket
-
-	memcpy(&this->pktHead, rxBuffer, sizeof(pktHead));
-
-	memcpy(&this->serializedPacketBuffer, rxBuffer + sizeof(pktHead), this->pktHead.bodyLength);
-	
-
-	///
-
-
-	switch (this->pktHead.packetType)
-	{
-
-	case Accountp: {
-		AccountPacket* newAccountPacket = new AccountPacket(this->serializedPacketBuffer);
-		// login(newAccountPacket)
-		break;
-	}
-
-	case CreateAccountp: {
-		CreateAccountPacket* newCreateAccountPacket = new CreateAccountPacket(this->serializedPacketBuffer);
-		// createAccount(newCreateAccountPacket)
-		break;
-	}
-
-	case Errorp: {
-		ErrorPacket* newErrorPacket = new ErrorPacket(this->serializedPacketBuffer);
-		// logError
-		break;
-	}
-
-	case GameStatusp: {
-		GameStatusPacket* newGameStatusPacket = new GameStatusPacket(this->serializedPacketBuffer);
-		// 
-		break;
-	}
-
-	case Loginp: {
-		LoginPacket* newLoginPacket = new LoginPacket(this->serializedPacketBuffer);
-		break;
-	}
-
-	case Logoutp: {
-		LogoutPacket* newLogoutPacket = new LogoutPacket(this->serializedPacketBuffer);
-		break;
-	}
-
-	case Movep: {
-		MovePacket* newMovePacket = new MovePacket(this->serializedPacketBuffer);
-		// PlayMove(newMovePacket)
-		break;
-	}
-
-	case PacketPacket: {
-		//Parent packet creator???
-		break;
-	}
-
-	default: {
-		break;
-	}
-
-	}
-
-}

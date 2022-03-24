@@ -39,9 +39,10 @@ int main() {
 
 	Packet* p = new Packet();
 
-	p = p->constructPacket(np->getSerializedParentTxBuffer());
 
+	string userName(pw);
 
+	cout << userName;
 
 	//char we[] = "Gavin";
 	//char p[] = "Conestoga";

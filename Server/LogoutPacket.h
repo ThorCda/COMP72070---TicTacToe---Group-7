@@ -23,6 +23,8 @@ public:
 	//Packet with paremters
 	LogoutPacket(bool logout) {
 	
+		this->pktHead.packetType = Logoutp;
+
 		this->isLoggedOut = logout;
 
 	}

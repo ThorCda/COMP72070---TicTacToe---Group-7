@@ -38,6 +38,8 @@ public:
 			delete serializedPacketBuffer;
 		}
 
+		this->pktHead.packetType = Loginp;
+
 		this->LoginHeader.usernameLength = strlen(un) + 1;
 		this->LoginHeader.passwordLength = strlen(pwd) + 1;
 
@@ -90,6 +92,17 @@ public:
 
 	}
 
+	char* getUsername() {
+
+		return this->username;
+
+	}
+
+	char* getPassword() {
+
+		return this->password;
+
+	}
 
 
 };

@@ -36,6 +36,8 @@ public:
 			delete this->serializedPacketBuffer;
 		}
 
+		this->pktHead.packetType = GameStatusp;
+
 		//Parse buffer for packet info.
 		memcpy(&gameCode, rxBuffer, sizeof(this->gameCode));
 

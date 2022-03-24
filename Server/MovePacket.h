@@ -36,6 +36,8 @@ public:
 			delete this->serializedPacketBuffer;
 		}
 
+		this->pktHead.packetType = Movep;
+
 		//Parse buffer for packet info.
 		memcpy(&move, rxBuffer, sizeof(this->move));
 

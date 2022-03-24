@@ -58,6 +58,8 @@ public:
 			delete this->serializedPacketBuffer;
 		}
 
+		this->pktHead.packetType = Accountp;
+
 		//Ensure safe state of txBuffer.
 		this->serializedPacketBuffer = NULL;
 

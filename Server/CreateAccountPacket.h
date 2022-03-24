@@ -92,6 +92,7 @@ public:
 		if (this->serializedPacketBuffer != NULL) {
 			delete this->serializedPacketBuffer;
 		}
+		this->pktHead.packetType = CreateAccountp;
 
 		//Ensure safe state of txBuffer.
 		this->serializedPacketBuffer = NULL;

@@ -35,6 +35,8 @@ public:
 			delete this->serializedPacketBuffer;
 		}
 
+		this->pktHead.packetType = Errorp;
+
 		//Parse buffer for packet info.
 		memcpy(&errorCode, rxBuffer, sizeof(this->errorCode));
 
