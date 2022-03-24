@@ -4,9 +4,10 @@
 #include <cstdlib>
 #include <cstring>
 
+#include "../Server/ChildPackets.h"
+
 #define CLIENT_ID 0;
 #define SERVER_ID 1;
-#define DEFAULT_PACKET 10;
 
 using namespace std;
 
@@ -30,11 +31,6 @@ typedef struct Header {
 	int sourceID = CLIENT_ID;
 	int bodyLength = 0;
 	packetType packetType;
-};
-
-typedef struct Body {
-
-	char* msgPtr = NULL;
 
 };
 
@@ -45,9 +41,9 @@ typedef struct Body {
 class Packet {
 protected:
 
+	char* serializedParentBuffer = NULL;
 	char* serializedPacketBuffer = NULL;
 	Header pktHead;
-	Body pktBody;
 	//Tail pktTail;
 
 public:
@@ -62,6 +58,7 @@ public:
 	void setHeaderSourceID(int);
 	void setHeaderSourceID();
 	void setHeaderBodyLength();
+	void swapHeaderDestAndSource();
 
 	//Header Getter Methods
 	int getHeaderDestinationID();
@@ -69,12 +66,6 @@ public:
 	int getHeadersequenceNumber();
 	int getHeaderBodyLength();
 	packetType getHeaderPacketType();
-
-	//Body Setter Methods
-	void setBodyMsgPtr(char*);
-
-	//Body Getter Methods
-	char* getBodyMsgPtr();
 
 	//Tail Setter Methods
 	void setTailCheckSum();
@@ -84,6 +75,10 @@ public:
 
 	//Serialized Packet Methods
 	char* getSerializedTxBuffer();
-	void serializePacketTxBuffer();
+	void serializeParentPacketTxBuffer();
+	char* getSerializedParentTxBuffer();
+
+	//Packet Factory
+	Packet* constructPacket(char*);
 	
 };

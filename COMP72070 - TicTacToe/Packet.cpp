@@ -6,10 +6,6 @@ using namespace std;
 
 Packet::Packet() {
 
-	if (this->pktBody.msgPtr != NULL) {
-		delete this->pktBody.msgPtr;
-	}
-
 	if (this->serializedPacketBuffer != NULL) {
 		delete this->serializedPacketBuffer;
 	}
@@ -19,7 +15,6 @@ Packet::Packet() {
 	this->pktHead.bodyLength = 0;
 	this->pktHead.packetType = PacketPacket;
 
-	pktBody.msgPtr = NULL;
 	serializedPacketBuffer = NULL;
 
 }
@@ -40,10 +35,6 @@ Packet::Packet(char* RxBuffer) {
 
 	memcpy(&this->pktHead.packetType, RxBuffer + byteBuffer, sizeof(this->pktHead.packetType));
 	byteBuffer += sizeof(this->pktHead.packetType);
-
-	//Instantiate pktBody msgPtr.
-	memcpy(this->pktBody.msgPtr, RxBuffer + byteBuffer, this->pktHead.bodyLength);
-	byteBuffer += this->pktHead.bodyLength;
 
 	//Instantiate pktTail checkSum.
 	//memcpy(&this->pktTail.checkSum, RxBuffer + byteBuffer, sizeof(this->pktTail.checkSum));
@@ -86,11 +77,17 @@ void Packet::setHeaderSourceID() {
 
 void Packet::setHeaderBodyLength() {
 
-	if (this->pktBody.msgPtr != NULL) {
+	this->pktHead.bodyLength = strlen(this->serializedPacketBuffer);
 
-		this->pktHead.bodyLength = strlen(this->pktBody.msgPtr);
+}
 
-	}
+void Packet::swapHeaderDestAndSource() {
+
+	int temp;
+
+	temp = this->pktHead.destinationID;
+	this->pktHead.destinationID = this->pktHead.sourceID;
+	this->pktHead.sourceID = temp;
 
 }
 
@@ -119,20 +116,6 @@ packetType Packet::getHeaderPacketType() {
 
 }
 
-//Body Setter Methods
-void Packet::setBodyMsgPtr(char* msg) {
-
-	this->pktBody.msgPtr = msg;
-
-}
-
-//Body Getter Methods
-char* Packet::getBodyMsgPtr() {
-
-	return this->pktBody.msgPtr;
-
-}
-
 //Tail Setter Methods
 void Packet::setTailCheckSum() {
 
@@ -144,31 +127,101 @@ void Packet::setTailCheckSum() {
 //void getTailCheckSum();
 
 //Serialization Method
-void Packet::serializePacketTxBuffer() {
-	
-	int byteBuffer = 0;
-
-	memcpy(serializedPacketBuffer, &this->pktHead.destinationID, sizeof(this->pktHead.destinationID));
-	byteBuffer += sizeof(this->pktHead.destinationID);
-
-	memcpy(serializedPacketBuffer + byteBuffer, &this->pktHead.sourceID, sizeof(this->pktHead.sourceID));
-	byteBuffer += sizeof(this->pktHead.sourceID);
-
-	memcpy(serializedPacketBuffer + byteBuffer, &this->pktHead.bodyLength, sizeof(this->pktHead.bodyLength));
-	byteBuffer += sizeof(this->pktHead.bodyLength);
-
-	memcpy(serializedPacketBuffer + byteBuffer, &this->pktHead.packetType, sizeof(this->pktHead.packetType));
-	byteBuffer += sizeof(this->pktHead.packetType);
-
-	strcpy(&serializedPacketBuffer[byteBuffer], this->pktBody.msgPtr);
-	byteBuffer += this->pktHead.bodyLength;
-
-	//memcpy(serializedPacketBuffer + byteBuffer, &this->pktTail.checksum, sizeof(this->pktTail.checksum));
-
-}
 
 char* Packet::getSerializedTxBuffer() {
 
 	return this->serializedPacketBuffer;
+
+}
+
+void Packet::serializeParentPacketTxBuffer() {
+
+	int byteBuffer = 0;
+
+	memcpy(serializedParentBuffer, &this->pktHead.destinationID, sizeof(this->pktHead.destinationID));
+	byteBuffer += sizeof(this->pktHead.destinationID);
+
+	memcpy(serializedParentBuffer + byteBuffer, &this->pktHead.sourceID, sizeof(this->pktHead.sourceID));
+	byteBuffer += sizeof(this->pktHead.sourceID);
+
+	memcpy(serializedParentBuffer + byteBuffer, &this->pktHead.packetType, sizeof(this->pktHead.packetType));
+	byteBuffer += sizeof(this->pktHead.packetType);
+
+	memcpy(serializedParentBuffer + byteBuffer, &this->pktHead.bodyLength, sizeof(this->pktHead.bodyLength));
+	byteBuffer += sizeof(this->pktHead.bodyLength);
+
+	memcpy(serializedParentBuffer + byteBuffer, &this->serializedPacketBuffer, this->pktHead.bodyLength);
+	byteBuffer += this->pktHead.bodyLength;
+
+}
+
+char* Packet::getSerializedParentTxBuffer() {
+
+	return this->serializedParentBuffer;
+
+}
+
+Packet* Packet::constructPacket(char* rxBuffer) {
+
+	//	0 Accountp,
+	//	CreateAccountp,
+	//	Errorp,
+	//	GameStatusp,
+	//	Loginp,
+	//	Logoutp,
+	//	Movep,
+	//	7 PacketPacket
+
+	memcpy(&this->pktHead, rxBuffer, sizeof(pktHead));
+
+	memcpy(&this->serializedPacketBuffer, rxBuffer + sizeof(pktHead), this->pktHead.bodyLength);
+	
+	switch (this->pktHead.packetType)
+	
+	{
+
+	case 0:
+		AccountPacket* newAccountPacket = new AccountPacket(this->serializedPacketBuffer);
+		return newAccountPacket;
+		break;
+
+	case 1:
+		CreateAccountPacket* newCreateAccountPacket = new CreateAccountPacket(this->serializedPacketBuffer);
+		return newCreateAccountPacket;
+		break;
+
+	case 2:
+		ErrorPacket* newErrorPacket = new ErrorPacket(this->serializedPacketBuffer);
+		return newErrorPacket;
+		break;
+
+	case 3:
+		GameStatusPacket* newGameStatusPacket = new GameStatusPacket(this->serializedPacketBuffer);
+		return newGameStatusPacket;
+		break;
+
+	case 4:
+		LoginPacket* newLoginPacket = new LoginPacket(this->serializedPacketBuffer);
+		return newLoginPacket;
+		break;
+
+	case 5:
+		LogoutPacket* newLogoutPacket = new LogoutPacket(this->serializedPacketBuffer);
+		return newLogoutPacket;
+		break;
+
+	case 6:
+		MovePacket * newMovePacket = new MovePacket(this->serializedPacketBuffer);
+		return newMovePacket;
+		break;
+
+	case 7:
+		//Parent packet creator???
+		break;
+
+	default:
+		break;
+	}
+
 
 }
