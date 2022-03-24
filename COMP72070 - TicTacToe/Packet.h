@@ -26,9 +26,8 @@ typedef struct Header {
 
 	int destinationID = SERVER_ID;
 	int sourceID = CLIENT_ID;
-	int bodyLength = 0;
 	packetType packetType;
-
+	int bodyLength = 0;
 };
 
 //Consider some type of checksum.
@@ -54,7 +53,7 @@ public:
 	void setHeaderDestinationID();
 	void setHeaderSourceID(int);
 	void setHeaderSourceID();
-	void setHeaderBodyLength();
+	void setHeaderBodyLength(int);
 	void swapHeaderDestAndSource();
 
 	//Header Getter Methods
@@ -76,6 +75,7 @@ public:
 	char* getSerializedParentTxBuffer();
 
 	//Packet Factory
-	Packet* constructPacket(char*);
+	void routePacket(char*);
+	
 	
 };

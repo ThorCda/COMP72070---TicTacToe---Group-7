@@ -41,7 +41,7 @@ int main() {
 
 	p = p->constructPacket(np->getSerializedParentTxBuffer());
 
-	//Login packet test
+
 
 	//char we[] = "Gavin";
 	//char p[] = "Conestoga";

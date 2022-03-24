@@ -18,7 +18,6 @@ Packet::Packet() {
 	this->pktHead.destinationID = SERVER_ID;
 	this->pktHead.sourceID = CLIENT_ID;
 	this->pktHead.bodyLength = 0;
-	this->pktHead.packetType = PacketPacket;
 
 	serializedPacketBuffer = NULL;
 	serializedParentBuffer = NULL;
@@ -81,9 +80,9 @@ void Packet::setHeaderSourceID() {
 
 }
 
-void Packet::setHeaderBodyLength() {
+void Packet::setHeaderBodyLength(int len) {
 
-	this->pktHead.bodyLength = strlen(this->serializedPacketBuffer);
+	this->pktHead.bodyLength = len;
 
 }
 
@@ -144,7 +143,7 @@ void Packet::serializeParentPacketTxBuffer() {
 
 	int byteBuffer = 0;
 
-	this->setHeaderBodyLength();
+	this->serializedParentBuffer = new char[getHeaderBodyLength() + sizeof(this->pktHead)];
 
 	memcpy(this->serializedParentBuffer, &this->pktHead.destinationID, sizeof(this->pktHead.destinationID));
 	byteBuffer += sizeof(this->pktHead.destinationID);
@@ -169,7 +168,7 @@ char* Packet::getSerializedParentTxBuffer() {
 
 }
 
-Packet* Packet::constructPacket(char* rxBuffer) {
+void Packet::routePacket(char* rxBuffer) {
 
 	//	0 Accountp,
 	//	CreateAccountp,
@@ -184,49 +183,50 @@ Packet* Packet::constructPacket(char* rxBuffer) {
 
 	memcpy(&this->serializedPacketBuffer, rxBuffer + sizeof(pktHead), this->pktHead.bodyLength);
 	
+
+	///
+
+
 	switch (this->pktHead.packetType)
-	
 	{
 
 	case Accountp: {
 		AccountPacket* newAccountPacket = new AccountPacket(this->serializedPacketBuffer);
-		return newAccountPacket;
+		// login(newAccountPacket)
 		break;
 	}
 
 	case CreateAccountp: {
 		CreateAccountPacket* newCreateAccountPacket = new CreateAccountPacket(this->serializedPacketBuffer);
-		return newCreateAccountPacket;
+		// createAccount(newCreateAccountPacket)
 		break;
 	}
 
 	case Errorp: {
 		ErrorPacket* newErrorPacket = new ErrorPacket(this->serializedPacketBuffer);
-		return newErrorPacket;
+		// logError
 		break;
 	}
 
 	case GameStatusp: {
 		GameStatusPacket* newGameStatusPacket = new GameStatusPacket(this->serializedPacketBuffer);
-		return newGameStatusPacket;
+		// 
 		break;
 	}
 
 	case Loginp: {
 		LoginPacket* newLoginPacket = new LoginPacket(this->serializedPacketBuffer);
-		return newLoginPacket;
 		break;
 	}
 
 	case Logoutp: {
 		LogoutPacket* newLogoutPacket = new LogoutPacket(this->serializedPacketBuffer);
-		return newLogoutPacket;
 		break;
 	}
 
 	case Movep: {
 		MovePacket* newMovePacket = new MovePacket(this->serializedPacketBuffer);
-		return newMovePacket;
+		// PlayMove(newMovePacket)
 		break;
 	}
 

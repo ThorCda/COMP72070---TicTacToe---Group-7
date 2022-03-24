@@ -62,6 +62,7 @@ public:
 		this->accHead.lastNameLength = strlen(lName) + 1;
 		this->accHead.userNameLength = strlen(username) + 1;
 		this->accHead.passwordLength = strlen(pwd) + 1;
+		this->pktHead.packetType = CreateAccountp;
 
 		if (this->serializedPacketBuffer != NULL) {
 			delete this->serializedPacketBuffer;
@@ -148,8 +149,11 @@ public:
 		memcpy(this->serializedPacketBuffer + byteBuffer, this->password, this->accHead.passwordLength);
 		byteBuffer += this->accHead.passwordLength;
 
+		this->setHeaderBodyLength(byteBuffer);
+
 
 	}
+
 
     char* getFName()  { return fName; }
     void setFName(char* fName) { this->fName = fName; }
