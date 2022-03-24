@@ -1,8 +1,5 @@
 #include <iostream>
-#include "Account.h"
 #include "ChildPackets.h"
-#include "Account_DB_Handler.h"
-
 
 using namespace std;
 
@@ -26,7 +23,6 @@ int main() {
 
 	//AccountPacket* r = new AccountPacket(m);	
 
-
 	//Create accont packet test
 
 	char us[] = "Gabeele";
@@ -39,9 +35,11 @@ int main() {
 
 	np->serializeCreateAccountPacketTxBuffer();
 
-	char* m = np->getSerializedTxBuffer();
+	np->serializeParentPacketTxBuffer();
 
-	CreateAccountPacket* r = new CreateAccountPacket(m);	//Ask elliott why we need new in release mode. Optimization?
+	Packet* p = new Packet();
+
+	p = p->constructPacket(np->getSerializedParentTxBuffer());
 
 	//Login packet test
 
@@ -84,13 +82,15 @@ int main() {
 
 	int x = 0;*/
 
-	int xx = 2;
-	ErrorPacket * x = new ErrorPacket(xx);
+	//int xx = 2;
+	//ErrorPacket * x = new ErrorPacket(xx);
 
-	x->serializeErrorPacketTxBuffer();
+	//x->serializeErrorPacketTxBuffer();
 
-	char* xxx = x->getSerializedTxBuffer();
+	//char* xxx = x->getSerializedTxBuffer();
 
-	ErrorPacket* xxxx = new ErrorPacket(xxx);
+	//ErrorPacket* xxxx = new ErrorPacket(xxx);
+
+
 
 }

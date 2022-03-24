@@ -52,7 +52,7 @@ public:
 
 	void sendPacket(Packet p)
 	{
-		p.
+		
 	}
 
 };

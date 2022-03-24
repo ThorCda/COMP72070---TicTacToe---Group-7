@@ -1,17 +1,14 @@
 #pragma once
 
 
-#include <cstdlib>
-#include <cstring>
 
-#include "../Server/ChildPackets.h"
+#include <cstdlib>
+#include <string.h>
 
 #define CLIENT_ID 0;
 #define SERVER_ID 1;
 
 using namespace std;
-
-//const int EmptyPktSize;
 
 enum packetType {
 

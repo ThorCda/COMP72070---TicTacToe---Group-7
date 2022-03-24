@@ -1,3 +1,5 @@
+#pragma once
+
 #include "../COMP72070 - TicTacToe/Packet.h"
 
 using namespace std;
