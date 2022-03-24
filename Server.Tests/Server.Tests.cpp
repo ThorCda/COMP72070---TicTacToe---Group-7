@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "CppUnitTest.h"
+#include <Windows.h>
 
 #include "../Server/ChildPackets.h"
 
@@ -59,18 +60,18 @@ namespace ServerTests_Packet
 
 			Account a = new Account(1, fis, la, pic, us, 1, 2, 1, true);
 
-			AccountPacket np(&a);
+			AccountPacket* np = new AccountPacket(&a);
 
-			np.serializeAccountPacketTxBuffer();
+			np->serializeAccountPacketTxBuffer();
 
-			char* m = np.getSerializedAccountPacketBuffer();
+			char* m = np->getSerializedAccountPacketBuffer();
 
 			AccountPacket* r = new AccountPacket(m);
 
-			Account* actual = np.getAccount();
-			Account* result = r->getAccount();
+			Account* actual = new Account(np->getAccount());
+			Account* result = new Account(r->getAccount());
 
-			if (actual->getAccountID() == result->getAccountID()) {
+			if (actual->getAccountID() != result->getAccountID()) {
 				isSame = false;
 			}
 			if (strcmp(actual->getUserName(), result->getUserName()) != 0) {
@@ -82,16 +83,18 @@ namespace ServerTests_Packet
 			if (strcmp(actual->getLastName(), result->getLastName()) != 0) {
 				isSame = false;
 			}
-			if (strcmp(actual->getAvatarloc(), result->getAvatarloc()) != 0) {
+			/*if (strcmp(actual->getAvatarloc(), result->getAvatarloc()) != 0) {
 				isSame = false;
 			}
-			if (actual->getWins() == result->getWins()) {
+				Avatar location is not built in the serilzation since it will be a separate send
+			*/
+			if (actual->getWins() != result->getWins()) {
 				isSame = false;
 			}
-			if (actual->getLoses() == result->getLoses()) {
+			if (actual->getLoses() != result->getLoses()) {
 				isSame = false;
 			}
-			if (actual->getDraws() == result->getDraws()) {
+			if (actual->getDraws() != result->getDraws()) {
 				isSame = false;
 			}
 
