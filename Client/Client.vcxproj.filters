@@ -65,7 +65,7 @@
       <Filter>Source Files\GUI Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ClickableLabelcpp.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GUI Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

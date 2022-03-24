@@ -2,6 +2,7 @@
 
 #include <QWidget>
 #include "ui_GameWidget.h"
+#include "ClickableLabel.h"
 
 namespace Ui {
     class GameWidget;
@@ -22,9 +23,13 @@ signals:
     void widgetChanged(int, int);
     void setLoginWidgetFocus();
 
-private slots:
+public slots:
     void on_logoutButton_clicked();
     void on_accountButton_clicked();
+    void on_newGameButton_clicked();
+
+private slots:
+    void on_gameBoardLabel_clicked(ClickableLabel*);
 
 private:
     Ui::GameWidget* ui;

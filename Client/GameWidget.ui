@@ -32,33 +32,30 @@
    <property name="bottomMargin">
     <number>20</number>
    </property>
-   <item row="2" column="5">
-    <widget class="QLabel" name="turnLabel">
-     <property name="font">
-      <font>
-       <pointsize>26</pointsize>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">margin-bottom:20px;</string>
-     </property>
+   <item row="0" column="8">
+    <widget class="QPushButton" name="accountButton">
      <property name="text">
-      <string>It's your turn</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <string>Account Name</string>
      </property>
     </widget>
    </item>
-   <item row="0" column="0" colspan="2">
-    <widget class="QLabel" name="titleLabel">
-     <property name="font">
-      <font>
-       <pointsize>26</pointsize>
-      </font>
+   <item row="3" column="3">
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
      </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="0" column="9">
+    <widget class="QPushButton" name="logoutButton">
      <property name="text">
-      <string>Tic-Tac-Toe Infinity 2.0</string>
+      <string>Logout</string>
      </property>
     </widget>
    </item>
@@ -183,15 +180,8 @@
      </item>
     </layout>
    </item>
-   <item row="0" column="6">
-    <widget class="QPushButton" name="accountButton">
-     <property name="text">
-      <string>Account Name</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="5">
-    <spacer name="verticalSpacer_2">
+   <item row="1" column="5">
+    <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
@@ -203,18 +193,17 @@
      </property>
     </spacer>
    </item>
-   <item row="3" column="3">
-    <spacer name="horizontalSpacer">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+   <item row="0" column="0" colspan="2">
+    <widget class="QLabel" name="titleLabel">
+     <property name="font">
+      <font>
+       <pointsize>26</pointsize>
+      </font>
      </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
+     <property name="text">
+      <string>Tic-Tac-Toe Infinity 2.0</string>
      </property>
-    </spacer>
+    </widget>
    </item>
    <item row="3" column="5">
     <layout class="QGridLayout" name="gameBoard">
@@ -222,11 +211,11 @@
       <number>0</number>
      </property>
      <item row="2" column="1">
-      <widget class="QLabel" name="bottomMiddle">
+      <widget class="ClickableLabel" name="bottomMiddle">
        <property name="minimumSize">
         <size>
-         <width>120</width>
-         <height>120</height>
+         <width>130</width>
+         <height>130</height>
         </size>
        </property>
        <property name="styleSheet">
@@ -235,20 +224,17 @@
        <property name="text">
         <string/>
        </property>
-       <property name="pixmap">
-        <pixmap>assets/circle_sprite.png</pixmap>
-       </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
      <item row="1" column="2">
-      <widget class="QLabel" name="middleRight">
+      <widget class="ClickableLabel" name="middleRight">
        <property name="minimumSize">
         <size>
-         <width>120</width>
-         <height>120</height>
+         <width>130</width>
+         <height>130</height>
         </size>
        </property>
        <property name="styleSheet">
@@ -257,20 +243,17 @@
        <property name="text">
         <string/>
        </property>
-       <property name="pixmap">
-        <pixmap>assets/circle_sprite.png</pixmap>
-       </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QLabel" name="middle">
+      <widget class="ClickableLabel" name="middle">
        <property name="minimumSize">
         <size>
-         <width>120</width>
-         <height>120</height>
+         <width>130</width>
+         <height>130</height>
         </size>
        </property>
        <property name="styleSheet">
@@ -279,20 +262,17 @@
        <property name="text">
         <string/>
        </property>
-       <property name="pixmap">
-        <pixmap>assets/cross_sprite.png</pixmap>
-       </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QLabel" name="middleLeft">
+      <widget class="ClickableLabel" name="middleLeft">
        <property name="minimumSize">
         <size>
-         <width>120</width>
-         <height>120</height>
+         <width>130</width>
+         <height>130</height>
         </size>
        </property>
        <property name="styleSheet">
@@ -307,11 +287,11 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QLabel" name="topMiddle">
+      <widget class="ClickableLabel" name="topMiddle">
        <property name="minimumSize">
         <size>
-         <width>120</width>
-         <height>120</height>
+         <width>130</width>
+         <height>130</height>
         </size>
        </property>
        <property name="styleSheet">
@@ -320,20 +300,17 @@
        <property name="text">
         <string/>
        </property>
-       <property name="pixmap">
-        <pixmap>assets/cross_sprite.png</pixmap>
-       </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
      <item row="2" column="0">
-      <widget class="QLabel" name="bottomLeft">
+      <widget class="ClickableLabel" name="bottomLeft">
        <property name="minimumSize">
         <size>
-         <width>120</width>
-         <height>120</height>
+         <width>130</width>
+         <height>130</height>
         </size>
        </property>
        <property name="text">
@@ -345,18 +322,15 @@
       </widget>
      </item>
      <item row="0" column="2">
-      <widget class="QLabel" name="topRight">
+      <widget class="ClickableLabel" name="topRight">
        <property name="minimumSize">
         <size>
-         <width>120</width>
-         <height>120</height>
+         <width>130</width>
+         <height>130</height>
         </size>
        </property>
        <property name="text">
         <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap>assets/circle_sprite.png</pixmap>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -364,18 +338,15 @@
       </widget>
      </item>
      <item row="2" column="2">
-      <widget class="QLabel" name="bottomRight">
+      <widget class="ClickableLabel" name="bottomRight">
        <property name="minimumSize">
         <size>
-         <width>120</width>
-         <height>120</height>
+         <width>130</width>
+         <height>130</height>
         </size>
        </property>
        <property name="text">
         <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap>assets/cross_sprite.png</pixmap>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -383,9 +354,15 @@
       </widget>
      </item>
      <item row="0" column="0">
-      <widget class="QPushButton" name="testButton">
+      <widget class="ClickableLabel" name="topLeft">
+       <property name="minimumSize">
+        <size>
+         <width>130</width>
+         <height>130</height>
+        </size>
+       </property>
        <property name="text">
-        <string>PushButton</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -406,8 +383,8 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="5">
-    <spacer name="verticalSpacer">
+   <item row="4" column="5">
+    <spacer name="verticalSpacer_2">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
@@ -419,15 +396,26 @@
      </property>
     </spacer>
    </item>
-   <item row="0" column="7">
-    <widget class="QPushButton" name="logoutButton">
+   <item row="2" column="5">
+    <widget class="QLabel" name="turnLabel">
+     <property name="font">
+      <font>
+       <pointsize>26</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">margin-bottom:20px;</string>
+     </property>
      <property name="text">
-      <string>Logout</string>
+      <string>It's your turn</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
-   <item row="3" column="6" colspan="2">
-    <spacer name="horizontalSpacer_3">
+   <item row="3" column="6">
+    <spacer name="horizontalSpacer_4">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -439,9 +427,23 @@
      </property>
     </spacer>
    </item>
+   <item row="3" column="8">
+    <widget class="QPushButton" name="newGameButton">
+     <property name="text">
+      <string>New Game</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>ClickableLabel</class>
+   <extends>QLabel</extends>
+   <header>ClickableLabel.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
