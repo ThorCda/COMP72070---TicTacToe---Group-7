@@ -155,5 +155,19 @@ namespace ServerTests_Packet
 
 		}
 
+		TEST_METHOD(Logout_Packet)		//PKT-UNT-021 through 025
+		{
+			LogoutPacket* j = new LogoutPacket(false);
+
+			j->serilizeLogoutPacket();
+
+			char* v = j->getSerializedTxBuffer();
+
+			LogoutPacket* q = new LogoutPacket(v);
+
+			Assert::AreEqual(j->getIsLoggedOut(), q->getIsLoggedOut());
+
+		}
+
 	};
 }
