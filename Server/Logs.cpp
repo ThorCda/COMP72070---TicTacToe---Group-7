@@ -1,5 +1,3 @@
-// ifstream is used for reading files
-    // We'll read from a file called Sample.txt
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <fstream>
@@ -8,9 +6,9 @@
 #include "Logs.h"
 #include <string>
 
-const char* Logs::error_file = "error_logs.txt";
-const char* Logs::game_file = "game_log.txt";
-const  char* Logs::conn_file = "conn_log.txt";
+const char* Logs::error_file = "_error_logs.txt";
+const char* Logs::game_file = "_game_log.txt";
+const  char* Logs::conn_file = "_conn_log.txt";
 
 
     /// <summary>

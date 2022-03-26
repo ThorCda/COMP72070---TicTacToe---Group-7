@@ -11,5 +11,6 @@ using namespace std;
 
 int main() {
 	
+	Logs::write(1, 1);
 
 }

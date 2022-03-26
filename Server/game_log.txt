@@ -1,2 +1,0 @@
-Sat Mar 26 16:27:19 2022
-	GameID: 1 Move: 1 Username: Hello Status: 1
