@@ -46,12 +46,10 @@ const  char* Logs::conn_file = "conn_log.txt";
     /// Writes connection logs 
     /// </summary>
     /// <param name="connection_status">True if the client is connected</param>
-    /// <param name="action_type">not_defined or send or recevice</param>
+    /// <param name="action_type">not_defined or buf_send or buf_recevice</param>
     /// <param name="buffer">Buffer of data</param>
-    void Logs::write(bool connection_status, int action_type, char* buffer)
+    void Logs::write(bool connection_status, ACTION_TYPE action_type, char* buffer)
     {
-        //String error = getErrorCode(errorCode);
-
 
         std::ofstream outf{ Logs::conn_file };
 
@@ -66,6 +64,24 @@ const  char* Logs::conn_file = "conn_log.txt";
 
         std::cout << ctime(&now) << "\tConnection Status: " << connection_status << " Action: " << action_type << "\n\tBuffer: " << buffer << '\n';
         outf << ctime(&now) << "\tConnection Status: " << connection_status << " Action: " << action_type << "\n\tBuffer: " << buffer << '\n';
+
+        outf.close();
+    }
+
+    void Logs::write(int gameID, int move, char* username, MATCH_STATUS status) {
+        std::ofstream outf{ Logs::game_file };
+
+        if (!outf)
+        {
+
+            std::cerr << "Critical Error! Cannot open game_file.txt. \n";
+            exit(1);
+        }
+
+        time_t now = time(0);
+
+        std::cout << ctime(&now) << "\tGameID: " << gameID << " Move: " << move << " Username: " << username << " Status: " << status << '\n';
+        outf << ctime(&now) << "\tGameID: " << gameID << " Move: " << move << " Username: " << username << " Status: " << status << '\n';
 
         outf.close();
     }

@@ -14,7 +14,8 @@ int main() {
 
 	Logs::write( 1, 1);
 	char e[] = "Hello";
-	Logs::write(true, 1, e);
+	Logs::write(true, buf_send, e);
+	Logs::write(1, 1, e, playing);
 
 
 }
