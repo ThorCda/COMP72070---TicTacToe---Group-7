@@ -148,6 +148,7 @@
   <ItemGroup>
     <ClCompile Include="..\COMP72070 - TicTacToe\Packet.cpp" />
     <ClCompile Include="DB_Handler.cpp" />
+    <ClCompile Include="Logs.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +166,7 @@
     <ClInclude Include="Game_DB_Handler.h" />
     <ClInclude Include="LoginPacket.h" />
     <ClInclude Include="LogoutPacket.h" />
+    <ClInclude Include="Logs.h" />
     <ClInclude Include="MovePacket.h" />
     <ClInclude Include="NetworkHandler.h" />
     <ClInclude Include="Player.h" />
