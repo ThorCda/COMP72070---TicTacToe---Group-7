@@ -16,8 +16,8 @@ const  char* Logs::conn_file = "conn_log.txt";
     /// <summary>
     /// Write an error code to the log file
     /// </summary>
-    /// <param name="error_code">Integer of the errror code.</param>
-    /// <param name="system_state">Current state of the system.</param>
+    /// <param name="error_code">Error Code: Integer of the errror code.</param>
+    /// <param name="system_state">System State: Current state of the system.</param>
     void Logs::write(int system_state, int error_code)
     {
         
@@ -36,18 +36,17 @@ const  char* Logs::conn_file = "conn_log.txt";
 
         time_t now = time(0);
 
-        std::cout << ctime(&now) << "\tError code: " << error_code << " Error: " << error << '\n';
         outf << ctime(&now) << "\tError code: " << error_code << " Error Desc: " << error << " System State: "<< system_state <<'\n';
 
         outf.close();
     }
 
     /// <summary>
-    /// Writes connection logs 
+    /// Writes to the connection logs 
     /// </summary>
-    /// <param name="connection_status">True if the client is connected</param>
-    /// <param name="action_type">not_defined or buf_send or buf_recevice</param>
-    /// <param name="buffer">Buffer of data</param>
+    /// <param name="connection_status">Connestion Status: True if connected</param>
+    /// <param name="action_type">Action Types: Defines what send or receive call is used (enum)</param>
+    /// <param name="buffer">Buffer: Serialized buffer of data</param>
     void Logs::write(bool connection_status, ACTION_TYPE action_type, char* buffer)
     {
 
@@ -62,12 +61,18 @@ const  char* Logs::conn_file = "conn_log.txt";
 
         time_t now = time(0);
 
-        std::cout << ctime(&now) << "\tConnection Status: " << connection_status << " Action: " << action_type << "\n\tBuffer: " << buffer << '\n';
         outf << ctime(&now) << "\tConnection Status: " << connection_status << " Action: " << action_type << "\n\tBuffer: " << buffer << '\n';
 
         outf.close();
     }
 
+    /// <summary>
+    /// Writes to the game log files.
+    /// </summary>
+    /// <param name="gameID">GameID: ID of the game</param>
+    /// <param name="move">Move: Integer of the move</param>
+    /// <param name="username">:Username: Username of the player</param>
+    /// <param name="status">Status: Match status (enum)</param>
     void Logs::write(int gameID, int move, char* username, MATCH_STATUS status) {
         std::ofstream outf{ Logs::game_file };
 
@@ -80,10 +85,49 @@ const  char* Logs::conn_file = "conn_log.txt";
 
         time_t now = time(0);
 
-        std::cout << ctime(&now) << "\tGameID: " << gameID << " Move: " << move << " Username: " << username << " Status: " << status << '\n';
         outf << ctime(&now) << "\tGameID: " << gameID << " Move: " << move << " Username: " << username << " Status: " << status << '\n';
 
         outf.close();
+    }
+
+    void Logs::read(FILE_TYPE type) {
+
+        const char* file;
+
+        switch (type)
+        {
+        case 0:
+            file = Logs::error_file;
+            break;
+        case 1:
+            file = Logs::conn_file;
+            break;
+        case 2:
+            file = Logs::game_file;
+            break;
+
+        default:
+            return;
+            break;
+        }
+        
+        std::ifstream inf{ file };
+
+        if (!inf)
+        {
+            std::cerr << "Error! Issue reading file.\n";
+           
+        }
+
+        while (inf)
+        {
+            std::string strInput;
+            std::getline(inf, strInput);
+            std::cout << strInput << '\n';
+        }
+
+        inf.close();
+
     }
 
     

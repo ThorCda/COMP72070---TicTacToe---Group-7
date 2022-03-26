@@ -1,7 +1,7 @@
 #pragma once
-
 #include <fstream>
 #include <iostream>
+#include <string>
 #include <ctime>
 
 enum ACTION_TYPE
@@ -12,6 +12,11 @@ enum ACTION_TYPE
 enum MATCH_STATUS
 {
      status_not_defined, playing, ended
+};
+
+enum FILE_TYPE
+{
+    error_log, game_log, conn_log
 };
  class Logs {
 
@@ -25,5 +30,6 @@ public:
     static void write(int system_state, int error_code);
     static void write(bool connectin_status, ACTION_TYPE action_type, char* buffer);
     static void write(int gameID, int move, char* username, MATCH_STATUS status);
+    static void read(FILE_TYPE type);
 
 };

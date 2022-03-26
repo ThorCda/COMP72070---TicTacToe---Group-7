@@ -1,2 +1,2 @@
-Sat Mar 26 16:07:35 2022
-	GameID: 1 Move: 1 Username: Hello Match Status: 1
+Sat Mar 26 16:27:19 2022
+	GameID: 1 Move: 1 Username: Hello Status: 1
