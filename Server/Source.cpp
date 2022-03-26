@@ -12,6 +12,9 @@ using namespace std;
 int main() {
 	
 
-	Logs::write(1);
+	Logs::write( 1, 1);
+	char e[] = "Hello";
+	Logs::write(true, 1, e);
+
 
 }

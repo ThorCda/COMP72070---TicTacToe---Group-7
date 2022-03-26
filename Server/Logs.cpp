@@ -17,7 +17,8 @@ const  char* Logs::conn_file = "conn_log.txt";
     /// Write an error code to the log file
     /// </summary>
     /// <param name="error_code">Integer of the errror code.</param>
-    void Logs::write(int error_code)
+    /// <param name="system_state">Current state of the system.</param>
+    void Logs::write(int system_state, int error_code)
     {
         
 
@@ -36,9 +37,38 @@ const  char* Logs::conn_file = "conn_log.txt";
         time_t now = time(0);
 
         std::cout << ctime(&now) << "\tError code: " << error_code << " Error: " << error << '\n';
-        outf << ctime(&now) << "\tError code: " << error_code << " Error: " << error << '\n';
+        outf << ctime(&now) << "\tError code: " << error_code << " Error Desc: " << error << " System State: "<< system_state <<'\n';
 
         outf.close();
     }
 
+    /// <summary>
+    /// Writes connection logs 
+    /// </summary>
+    /// <param name="connection_status">True if the client is connected</param>
+    /// <param name="action_type">not_defined or send or recevice</param>
+    /// <param name="buffer">Buffer of data</param>
+    void Logs::write(bool connection_status, int action_type, char* buffer)
+    {
+        //String error = getErrorCode(errorCode);
+
+
+        std::ofstream outf{ Logs::conn_file };
+
+        if (!outf)
+        {
+
+            std::cerr << "Critical Error! Cannot open conn_file.txt. \n";
+            exit(1);
+        }
+
+        time_t now = time(0);
+
+        std::cout << ctime(&now) << "\tConnection Status: " << connection_status << " Action: " << action_type << "\n\tBuffer: " << buffer << '\n';
+        outf << ctime(&now) << "\tConnection Status: " << connection_status << " Action: " << action_type << "\n\tBuffer: " << buffer << '\n';
+
+        outf.close();
+    }
+
+    
 

@@ -4,6 +4,10 @@
 #include <iostream>
 #include <ctime>
 
+enum ACTION_TYPE
+{
+    not_defined, send, receive
+};
  class Logs {
 
 
@@ -13,7 +17,7 @@ public:
     static const   char* conn_file;
 
 public:
-    static void write(int error_code);
-    static void init();
+    static void write(int system_state, int error_code);
+    static void write(bool connectin_status, int action_type, char* buffer);
 
 };
