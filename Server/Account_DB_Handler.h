@@ -11,8 +11,12 @@ class Account_DB_Handler : public Database_Handler
 public:
 	void createAccount(Account acc)
 	{
-		// does not work change create
-		string query = "call CreateAccount (" + (string)acc.getFirstName() + "\",\"" + acc.getLastName() + "\",\"" + acc.getAvatarloc() + "\",\"" + acc.getUserName() + "\"" + ")";
+		string username(acc.getUserName());
+		string firstname(acc.getFirstName());
+		string lastname(acc.getLastName());
+		string avatar(acc.getAvatarloc());
+
+		string query = "call CreateAccount (" + firstname + "\",\"" + lastname + "\",\"" + avatar + "\",\"" + username + "\"" + ")";
 		const char* q = query.c_str();
 
 		qstate = mysql_query(conn, q);
@@ -44,8 +48,12 @@ public:
 
 	void updateAccount(Account acc)
 	{
-		// does not work yet change update
-		string query = "call UpdateAccount (" + to_string(acc.getAccountID()) + ",\"" + acc.getFirstName() + "\",\"" + acc.getLastName() + "\",\"" + acc.getAvatarloc() + "\",\"" + acc.getUserName() + "\"" + ")";
+		string username(acc.getUserName());
+		string firstname(acc.getFirstName());
+		string lastname(acc.getLastName());
+		string avatar(acc.getAvatarloc());
+
+		string query = "call UpdateAccount (" + to_string(acc.getAccountID()) + ",\"" + firstname + "\",\"" + lastname + "\",\"" + avatar + "\",\"" + username + "\"" + ")";
 		const char* q = query.c_str();
 
 		qstate = mysql_query(conn, q);

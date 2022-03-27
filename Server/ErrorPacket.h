@@ -59,7 +59,7 @@ public:
 
 	}
 
-	int getErrorPacketErrorCode() {
+	int getErrorCode() {
 
 		return this->errorCode;
 

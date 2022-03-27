@@ -104,5 +104,10 @@ public:
 
 	}
 
+    char* getUsername() const { return username; }
+    void setUsername(char* username) { this->username = username; }
+
+    char* getPassword() const { return password; }
+    void setPassword(char* password) { this->password = password; }
 
 };
