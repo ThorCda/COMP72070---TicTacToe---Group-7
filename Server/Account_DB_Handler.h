@@ -9,14 +9,15 @@ using namespace std;
 class Account_DB_Handler : public Database_Handler
 {
 public:
-	void createAccount(Account acc)
+	Account createAccount(Account acc, char* password)
 	{
 		string username(acc.getUserName());
 		string firstname(acc.getFirstName());
 		string lastname(acc.getLastName());
 		string avatar(acc.getAvatarloc());
+		string pw(password);
 
-		string query = "call CreateAccount (" + firstname + "\",\"" + lastname + "\",\"" + avatar + "\",\"" + username + "\"" + ")";
+		string query = "call CreateAccount (" + firstname + "\",\"" + lastname + "\",\"" + avatar + "\",\"" + username + "\",\"" + pw + "\"" + ")";
 		const char* q = query.c_str();
 
 		qstate = mysql_query(conn, q);
@@ -28,6 +29,8 @@ public:
 		{
 			cout << "\nError creating account\n";
 		}
+
+		return login(username, pw);
 	}
 
 	void updateStats(Account acc)
