@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QWidget>
+#include <string>
 #include "ui_GameWidget.h"
 #include "ClickableLabel.h"
 
@@ -22,6 +23,8 @@ signals:
     void changeStackedWidgetIndex(int);
     void widgetChanged(int, int);
     void setLoginWidgetFocus();
+    void Logout();
+    void SendGameMove(int);
 
 public slots:
     void on_logoutButton_clicked();

@@ -4,6 +4,7 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QGridLayout>
 #include <QPixmap>
+#include <string>
 #include "ClickableLabel.h"
 #include <qwidget.h>
 #include "GameWidget.h"
@@ -23,6 +24,7 @@ GameWidget::GameWidget(QWidget* parent) :
     ui->logoutButton->setFocusPolicy(Qt::NoFocus);
     ui->newGameButton->setFocusPolicy(Qt::NoFocus);
 
+    // Don't @ me about for loops because it doesn't work
     QObject::connect(ui->topLeft, &ClickableLabel::clicked, this, &GameWidget::on_gameBoardLabel_clicked);
     QObject::connect(ui->topMiddle, &ClickableLabel::clicked, this, &GameWidget::on_gameBoardLabel_clicked);
     QObject::connect(ui->topRight, &ClickableLabel::clicked, this, &GameWidget::on_gameBoardLabel_clicked);
@@ -42,6 +44,7 @@ GameWidget::~GameWidget()
 
 void GameWidget::on_logoutButton_clicked()
 {
+    emit Logout();
     emit changeStackedWidgetIndex(0);
     emit widgetChanged(720, 720);
     emit setLoginWidgetFocus();
@@ -56,6 +59,10 @@ void GameWidget::on_accountButton_clicked()
 
 void GameWidget::on_gameBoardLabel_clicked(ClickableLabel* label)
 {
+    emit SendGameMove(label->getGridNum());
+
+    // LOGIC MISSING HERE FOR GOOD/BAD MOVES
+
     QPixmap circle("assets/circle_sprite.png");
     label->setPixmap(circle);
 }
@@ -72,10 +79,4 @@ void GameWidget::on_newGameButton_clicked()
     ui->bottomLeft->setPixmap(blank);
     ui->bottomMiddle->setPixmap(blank);
     ui->bottomRight->setPixmap(blank);
-    /*for (int i = 0; i < ui->gameBoard->count(); ++i)
-    {
-        ClickableLabel* widget = &(ClickableLabel)ui->gameBoard->itemAt(i)->widget();
-        QPixmap blank;
-        widget->setPixmap(blank);
-    }*/
 }

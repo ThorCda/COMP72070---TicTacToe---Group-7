@@ -30,6 +30,8 @@ void AccountWidget::on_changeImgButton_clicked()
 		tr("Open Image"), ".", tr("Image Files (*.png *.jpg *.bmp)"));
 
 	ui->playerImg->setPixmap(fileName);
+
+	emit ChangeImage(ui->playerImg->pixmap());
 }
 
 void AccountWidget::on_backButton_2_clicked()

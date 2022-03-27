@@ -103,6 +103,7 @@
     <ClCompile Include="CreateAccountWidget.cpp" />
     <ClCompile Include="CSS.cpp" />
     <ClCompile Include="GameWidget.cpp" />
+    <ClCompile Include="GUIHandler.cpp" />
     <ClCompile Include="LoginWidget.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="StackedWidget.cpp" />
@@ -134,6 +135,7 @@
   <ItemGroup>
     <ClInclude Include="..\COMP72070 - TicTacToe\Packet.h" />
     <ClInclude Include="..\Server\Account.h" />
+    <ClInclude Include="GUIHandler.h" />
     <QtMoc Include="AccountWidget.h" />
     <QtMoc Include="ClickableLabel.h" />
     <ClInclude Include="CSS.h" />

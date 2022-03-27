@@ -67,6 +67,9 @@
     <ClCompile Include="ClickableLabelcpp.cpp">
       <Filter>Source Files\GUI Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GUIHandler.cpp">
+      <Filter>Source Files\GUI Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="CreateAccountWidget.h">
@@ -120,6 +123,9 @@
     </ClInclude>
     <ClInclude Include="CSS.h">
       <Filter>Header Files\GUI Header Files\CSS</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIHandler.h">
+      <Filter>Header Files\GUI Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -6,6 +6,8 @@
 #include "CreateAccountWidget.h"
 #include "CSS.h"
 
+using namespace std;
+
 CreateAccountWidget::CreateAccountWidget(QWidget* parent) :
     QWidget(parent),
     ui(new Ui::CreateAccountWidget)
@@ -25,6 +27,40 @@ CreateAccountWidget::CreateAccountWidget(QWidget* parent) :
 CreateAccountWidget::~CreateAccountWidget()
 {
     delete ui;
+}
+
+string CreateAccountWidget::getUsername()
+{
+    return ui->usernameField->text().toStdString();
+}
+
+string CreateAccountWidget::getPassword()
+{
+    return ui->passwordField->text().toStdString();
+}
+string CreateAccountWidget::getFirstname()
+{
+    return ui->firstnameField->text().toStdString();
+}
+string CreateAccountWidget::getLastname()
+{
+    return ui->lastnameField->text().toStdString();
+}
+
+void CreateAccountWidget::clearFields()
+{
+    ui->firstnameField->clear();
+    ui->lastnameField->clear();
+    ui->usernameField->clear();
+    ui->passwordField->clear();
+}
+
+void CreateAccountWidget::on_createAccountButton_clicked()
+{
+    emit CreateAccount(getUsername(), getPassword(), getFirstname(), getLastname());
+    clearFields();
+
+    // LOGIC HERE FOR SUCCESS/FAILURE
 }
 
 void CreateAccountWidget::on_backButton_clicked()

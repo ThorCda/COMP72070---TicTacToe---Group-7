@@ -2,6 +2,7 @@
 
 #include <QWidget>
 #include "ui_LoginWidget.h"
+#include <string>
 
 namespace Ui { class LoginWidget; }
 
@@ -14,6 +15,10 @@ public:
     ~LoginWidget();
     int getWidth();
     int getHeight();
+    std::string getUsername();
+    void clearUsername();
+    std::string getPassword();
+    void clearPassword();
 
 public slots:
     void on_loginButton_clicked();
@@ -22,6 +27,7 @@ public slots:
 
 
 signals:
+    void Login(std::string, std::string);
     void changeStackedWidgetIndex(int);
     void widgetChanged(int, int);
     void setCreateAccountWidgetFocus();

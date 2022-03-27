@@ -22,6 +22,7 @@ public slots:
 signals:
 	void changeStackedWidgetIndex(int);
 	void widgetChanged(int, int);
+	void ChangeImage(QPixmap);
 
 private:
 	Ui::AccountWidget* ui;

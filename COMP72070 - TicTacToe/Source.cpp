@@ -4,6 +4,7 @@
 #include "Client/StackedWidget.h"
 #include "Client/CreateAccountWidget.h"
 #include "Client/AccountWidget.h"
+#include "Client/GUIHandler.h"
 
 #include <qstackedwidget.h>
 #include <qmainwindow.h>
@@ -21,6 +22,9 @@ int main(int argc, char* argv[])
     AccountWidget* accountWidget = new AccountWidget;
 
     StackedWidget* stackedWidget = new StackedWidget();
+
+    GUIHandler* guiHandler = new GUIHandler(loginWidget, createAccountWidget, gameWidget, accountWidget, stackedWidget);
+
 
     stackedWidget->addWidget(loginWidget);
     stackedWidget->addWidget(gameWidget);
