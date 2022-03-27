@@ -14,10 +14,7 @@ class NetworkHandler
 	
 public:
 
- 	enum ERROR_CODE			//Defined in another branch 
-	{
-		Login_Err, CrtAcc_Err, Quit_Err, Conn_Err
-	};
+
 
 	int winsockStartup()
 	{
