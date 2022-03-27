@@ -61,11 +61,12 @@ void Menu::print() {
 
 void Menu::terminate() {
 	//enter any server termination code here
+
+	hdlr->closeSocket();
+
 }
 
 void Menu::runServer() {
-	bool serverRun = true;
-	NetworkHandler* hdlr = new NetworkHandler();
 
 	hdlr->winsockStartup();
 	hdlr->initSocket();

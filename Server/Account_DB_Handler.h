@@ -10,7 +10,7 @@ using namespace std;
 class Account_DB_Handler : public Database_Handler
 {
 public:
-	Account createAccount(Account acc, char* password)
+	Account* createAccount(Account acc, char* password)
 	{
 		string username(acc.getUserName());
 		string firstname(acc.getFirstName());
@@ -89,7 +89,7 @@ public:
 	}
 
 
-	Account login(string username, string password)
+	Account* login(string username, string password)
 	{
 		string query = "call Find_User (\"" + username + "\",\"" + password + "\")";
 
@@ -103,7 +103,7 @@ public:
 			Account ac = new Account(atoi(row[0]), (char*)row[1], (char*)row[2], (char*)row[3], (char*)row[4], atoi(row[5]), atoi(row[6]), atoi(row[7]), true);
 
 			cout << "Account loaded";
-			return ac;
+			return &ac;
 		}
 		else
 		{

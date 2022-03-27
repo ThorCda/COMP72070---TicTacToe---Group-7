@@ -6,9 +6,10 @@
 #include "NetworkHandler.h"
 
 class Menu {
-
-public:
 	bool isRunning = true;
+	NetworkHandler* hdlr = new NetworkHandler();
+public:
+
 
 	void start();
 	void options(int option);

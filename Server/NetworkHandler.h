@@ -4,6 +4,7 @@
 #include "ChildPackets.h"
 #include "../COMP72070 - TicTacToe/Packet.h"
 #include "Account_DB_Handler.h"
+#include "Logs.h"
 
 using namespace std;
 
