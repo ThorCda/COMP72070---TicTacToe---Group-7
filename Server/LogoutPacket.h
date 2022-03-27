@@ -14,6 +14,8 @@ public:
 	//Safe state packet
 	LogoutPacket() {
 
+		this->pktHead.packetType = Logoutp;
+
 		this->isLoggedOut = true;
 
 	}
@@ -21,6 +23,8 @@ public:
 	//Packet with paremters
 	LogoutPacket(bool logout) {
 	
+		this->pktHead.packetType = Logoutp;
+
 		this->isLoggedOut = logout;
 
 	}

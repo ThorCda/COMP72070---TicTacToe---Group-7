@@ -21,6 +21,8 @@ public:
 	//Safe state packet
 	LoginPacket() {
 
+		this->pktHead.packetType = Loginp;
+
 		this->LoginHeader.passwordLength = 0;
 		this->LoginHeader.usernameLength = 0;
 
@@ -35,6 +37,8 @@ public:
 		if (this->serializedPacketBuffer != NULL) {
 			delete serializedPacketBuffer;
 		}
+
+		this->pktHead.packetType = Loginp;
 
 		this->LoginHeader.usernameLength = strlen(un) + 1;
 		this->LoginHeader.passwordLength = strlen(pwd) + 1;
@@ -88,6 +92,17 @@ public:
 
 	}
 
+	char* getUsername() {
+
+		return this->username;
+
+	}
+
+	char* getPassword() {
+
+		return this->password;
+
+	}
 
     char* getUsername() const { return username; }
     void setUsername(char* username) { this->username = username; }

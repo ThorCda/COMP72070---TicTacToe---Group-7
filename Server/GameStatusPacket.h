@@ -1,3 +1,5 @@
+#pragma once
+
 #include "../COMP72070 - TicTacToe/Packet.h"
 
 using namespace std;
@@ -17,6 +19,8 @@ public:
 			delete this->serializedPacketBuffer;
 		}
 
+		this->pktHead.packetType = GameStatusp;
+
 		//Ensure safe state of ptr.
 		this->serializedPacketBuffer = NULL;
 
@@ -31,6 +35,8 @@ public:
 		if (this->serializedPacketBuffer != NULL) {
 			delete this->serializedPacketBuffer;
 		}
+
+		this->pktHead.packetType = GameStatusp;
 
 		//Parse buffer for packet info.
 		memcpy(&gameCode, rxBuffer, sizeof(this->gameCode));

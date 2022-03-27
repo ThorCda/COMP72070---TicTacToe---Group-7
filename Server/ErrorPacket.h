@@ -1,6 +1,9 @@
+#pragma once
+
 #include "../COMP72070 - TicTacToe/Packet.h"
 
 using namespace std;
+
 
 class ErrorPacket : public Packet {
 
@@ -11,11 +14,12 @@ private:
 public:
 
 	ErrorPacket(int errorCode) {
-
 		//Free memory that may have been allocated by OS.
 		if (this->serializedPacketBuffer != NULL) {
 			delete this->serializedPacketBuffer;
 		}
+
+		this->pktHead.packetType = Errorp;
 
 		//Ensure safe state of ptr.
 		this->serializedPacketBuffer = NULL;
@@ -31,6 +35,8 @@ public:
 		if (this->serializedPacketBuffer != NULL) {
 			delete this->serializedPacketBuffer;
 		}
+
+		this->pktHead.packetType = Errorp;
 
 		//Parse buffer for packet info.
 		memcpy(&errorCode, rxBuffer, sizeof(this->errorCode));

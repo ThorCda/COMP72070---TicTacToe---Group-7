@@ -1,6 +1,7 @@
+#pragma once
+
 #include "../COMP72070 - TicTacToe/Packet.h"
-#include "../Server/Account.h"
-#include <iostream>
+#include "Account.h"
 
 using namespace std;
 
@@ -32,6 +33,9 @@ public:
 		if (this->serializedPacketBuffer != NULL) {
 			delete this->serializedPacketBuffer;
 		}
+
+		this->pktHead.packetType = CreateAccountp;
+
 		// epic comment
 		//Ensure safe state of ptr.
 		this->serializedPacketBuffer = NULL;
@@ -58,6 +62,7 @@ public:
 		this->accHead.lastNameLength = strlen(lName) + 1;
 		this->accHead.userNameLength = strlen(username) + 1;
 		this->accHead.passwordLength = strlen(pwd) + 1;
+		this->pktHead.packetType = CreateAccountp;
 
 		if (this->serializedPacketBuffer != NULL) {
 			delete this->serializedPacketBuffer;
@@ -87,6 +92,7 @@ public:
 		if (this->serializedPacketBuffer != NULL) {
 			delete this->serializedPacketBuffer;
 		}
+		this->pktHead.packetType = CreateAccountp;
 
 		//Ensure safe state of txBuffer.
 		this->serializedPacketBuffer = NULL;
@@ -144,8 +150,11 @@ public:
 		memcpy(this->serializedPacketBuffer + byteBuffer, this->password, this->accHead.passwordLength);
 		byteBuffer += this->accHead.passwordLength;
 
+		this->setHeaderBodyLength(byteBuffer);
+
 
 	}
+
 
     char* getFName()  { return fName; }
     void setFName(char* fName) { this->fName = fName; }

@@ -1,5 +1,7 @@
+#pragma once
+
 #include "../COMP72070 - TicTacToe/Packet.h"
-#include "../Server/Account.h"
+#include "Account.h"
 
 using namespace std;
 
@@ -22,10 +24,14 @@ public:
 
 	AccountPacket(Account* account) {
 
+		//Update Parent Packet information
+
 		//Free memory that may have been allocated by OS.
 		if (this->serializedPacketBuffer != NULL) {
 			delete this->serializedPacketBuffer;
 		}
+		
+		this->pktHead.packetType = Accountp;
 
 		//Ensure safe state of ptr.
 		this->serializedPacketBuffer = NULL;
@@ -51,6 +57,8 @@ public:
 		if (this->serializedPacketBuffer != NULL) {
 			delete this->serializedPacketBuffer;
 		}
+
+		this->pktHead.packetType = Accountp;
 
 		//Ensure safe state of txBuffer.
 		this->serializedPacketBuffer = NULL;
