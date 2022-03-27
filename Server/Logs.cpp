@@ -2,7 +2,6 @@
 
 #include "Logs.h"
 
-
 const char* Logs::error_file = "_error_logs.txt";
 const char* Logs::game_file = "_game_log.txt";
 const  char* Logs::conn_file = "_conn_log.txt";
