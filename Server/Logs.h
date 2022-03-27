@@ -25,11 +25,12 @@ enum ERROR_CODE
 };
  class Logs {
 
-
-public:
       static const char* error_file;
       static const char* game_file;
       static const char* conn_file;
+
+ private:
+     static std::string lookUpError(int error_code);
 
 public:
     static void write(int system_state, ERROR_CODE error_code);

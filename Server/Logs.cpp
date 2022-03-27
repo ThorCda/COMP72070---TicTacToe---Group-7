@@ -1,10 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
-#include <fstream>
-#include <iostream>
-#include <ctime>
 #include "Logs.h"
-#include <string>
+
 
 const char* Logs::error_file = "_error_logs.txt";
 const char* Logs::game_file = "_game_log.txt";
@@ -19,9 +16,8 @@ const  char* Logs::conn_file = "_conn_log.txt";
     void Logs::write(int system_state, ERROR_CODE error_code)
     {
         
-
-        //String error = getErrorCode(errorCode);
-       const char* error = "Hello";
+        std::string error = Logs::lookUpError(error_code);
+       
 
         std::ofstream outf{ Logs::error_file };
 
@@ -126,6 +122,21 @@ const  char* Logs::conn_file = "_conn_log.txt";
 
         inf.close();
 
+    }
+
+    /// <summary>
+    /// Generates the the error description
+    /// </summary>
+    /// <param name="error_code"Error Code: Integer of the error code.></param>
+    /// <returns>A string of the description of error code.</returns>
+    std::string Logs::lookUpError(int error_code) {
+        switch (error_code)
+        {
+        default:
+            break;
+        }
+
+        return "Function not defined...";
     }
 
     
