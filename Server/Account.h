@@ -93,6 +93,31 @@ public:
 
 	}
 
+
+	Account(char* fName, char* lName, char* username, char* password) {
+
+
+		this->accountID = -1;
+
+		this->first_name = new char[strlen(fName)];
+		this->first_name = fName;
+
+		this->last_name = new char[strlen(lName)];
+		this->last_name = lName;
+
+		this->UserName = new char[strlen(username)];
+		this->UserName = username;
+
+		//this->avatar_loc = new char[strlen(pictureloc)];
+		//this->avatar_loc = pictureloc;
+
+		this->wins = 0;
+		this->loses = 0;
+		this->draws = 0;
+		this->isOnline = false;
+
+	}
+
 	int getAccountID() { return accountID; }
 	void setAccountID(int accountID) { this->accountID = accountID; }
 
