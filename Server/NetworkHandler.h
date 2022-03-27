@@ -1,3 +1,4 @@
+#pragma once
 #include <windows.networking.sockets.h>
 #pragma comment(lib, "Ws2_32.lib")
 #include "ChildPackets.h"
@@ -14,10 +15,7 @@ class NetworkHandler
 	
 public:
 
- 	enum ERROR_CODE			//Defined in another branch 
-	{
-		Login_Err, CrtAcc_Err, Quit_Err, Conn_Err
-	};
+
 
 	int winsockStartup()
 	{
@@ -65,7 +63,7 @@ public:
 
 	}
 
-	int listenForPacket() {
+	bool listenForPacket() {
 
 		char RxBuffer[1028];	//Max length of the biggest packet
 
@@ -99,7 +97,7 @@ public:
 
 		bool isLoggedIn = true;
 
-		Account_DB_Handler AccDBHandler;
+		Account_DB_Handler* AccDBHandler = new Account_DB_Handler();
 
 		switch (packet->getHeaderPacketType())
 		{
@@ -115,9 +113,9 @@ public:
 
 			CreateAccountPacket* pkt = new CreateAccountPacket(packet->getSerializedTxBuffer());
 
-			Account* acc = new Account(pkt->getFName(), pkt->getLName(), pkt->getUsername(), pkt->getPassword());
+			Account* acc = new Account(pkt->getFName(), pkt->getLName(), pkt->getUsername());
 			
-			//acc = AccDBHandler.createAccount(acc);  Need modification for db to return an account
+			acc = AccDBHandler->createAccount(acc, pkt->getPassword());
 
 			if (acc == nullptr) {
 				//send error packet
@@ -125,7 +123,7 @@ public:
 				err->serializeErrorPacketTxBuffer();
 				err->getSerializedParentTxBuffer();
 				sendPacket(err);
-				return;
+				return false;
 			}
 
 			AccountPacket* accpkt = new AccountPacket(acc);
@@ -159,14 +157,14 @@ public:
 			string userName(linPkt->getUsername());
 			string password(linPkt->getPassword());
 
-			Account* acc = new Account(AccDBHandler.login(userName, password));
+			Account* acc = new Account(AccDBHandler->login(userName, password));
 			
 			if (acc == nullptr) {
 				ErrorPacket* err = new ErrorPacket(Login_Err);
 				err->serializeErrorPacketTxBuffer();
 				err->getSerializedParentTxBuffer();
 				sendPacket(err);
-				return;
+				return false;
 			}
 
 			AccountPacket* accPkt = new AccountPacket(acc);

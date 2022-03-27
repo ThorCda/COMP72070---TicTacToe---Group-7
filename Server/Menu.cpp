@@ -24,11 +24,12 @@ void Menu::start()
 //Facilitates the program flow
 void Menu::options(int option) {
 	
+
+
 	switch (option)
 	{
 	case 1:
-		//Initialize the server
-		//Call on server
+		runServer();
 		break;
 	case 2:
 		Logs::read(error_log);
@@ -60,4 +61,16 @@ void Menu::print() {
 
 void Menu::terminate() {
 	//enter any server termination code here
+}
+
+void Menu::runServer() {
+	bool serverRun = true;
+	NetworkHandler* hdlr = new NetworkHandler();
+
+	hdlr->winsockStartup();
+	hdlr->initSocket();
+	hdlr->initConnection();
+	
+	while (hdlr->listenForPacket()) {}
+
 }

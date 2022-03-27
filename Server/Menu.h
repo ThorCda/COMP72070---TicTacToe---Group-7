@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "Logs.h"
+#include "NetworkHandler.h"
 
 class Menu {
 
@@ -13,6 +14,7 @@ public:
 	void options(int option);
 	void print();
 	void terminate();
+	void runServer();
 	
 
 

@@ -18,6 +18,11 @@ enum FILE_TYPE
 {
     error_log, game_log, conn_log
 };
+
+enum ERROR_CODE	
+{
+    Login_Err, CrtAcc_Err, Quit_Err, Conn_Err
+};
  class Logs {
 
       static const char* error_file;
@@ -28,7 +33,7 @@ enum FILE_TYPE
      static std::string lookUpError(int error_code);
 
 public:
-    static void write(int system_state, int error_code);
+    static void write(int system_state, ERROR_CODE error_code);
     static void write(bool connectin_status, ACTION_TYPE action_type, char* buffer);
     static void write(int gameID, int move, char* username, MATCH_STATUS status);
     static void read(FILE_TYPE type);

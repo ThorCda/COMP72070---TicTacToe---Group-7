@@ -2,7 +2,6 @@
 
 #include "Logs.h"
 
-
 const char* Logs::error_file = "_error_logs.txt";
 const char* Logs::game_file = "_game_log.txt";
 const  char* Logs::conn_file = "_conn_log.txt";
@@ -13,7 +12,7 @@ const  char* Logs::conn_file = "_conn_log.txt";
     /// </summary>
     /// <param name="error_code">Error Code: Integer of the errror code.</param>
     /// <param name="system_state">System State: Current state of the system.</param>
-    void Logs::write(int system_state, int error_code)
+    void Logs::write(int system_state, ERROR_CODE error_code)
     {
         
         std::string error = Logs::lookUpError(error_code);

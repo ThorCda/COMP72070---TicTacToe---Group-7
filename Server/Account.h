@@ -99,7 +99,7 @@ public:
 	}
 
 
-	Account(char* fName, char* lName, char* username, char* password) {
+	Account(char* fName, char* lName, char* username) {
 
 
 		this->accountID = -1;
