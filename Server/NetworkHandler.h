@@ -113,9 +113,9 @@ public:
 
 			CreateAccountPacket* pkt = new CreateAccountPacket(packet->getSerializedTxBuffer());
 
-			Account* acc = new Account(pkt->getFName(), pkt->getLName(), pkt->getUsername(), pkt->getPassword());
+			Account* acc = new Account(pkt->getFName(), pkt->getLName(), pkt->getUsername());
 			
-			//acc = AccDBHandler.createAccount(acc);  Need modification for db to return an account
+			acc = AccDBHandler->createAccount(acc, pkt->getPassword());
 
 			if (acc == nullptr) {
 				//send error packet

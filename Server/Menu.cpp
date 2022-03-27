@@ -71,9 +71,6 @@ void Menu::runServer() {
 	hdlr->initSocket();
 	hdlr->initConnection();
 	
-	while (hdlr->listenForPacket()) {
-
-
-	}
+	while (hdlr->listenForPacket()) {}
 
 }
