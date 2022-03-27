@@ -61,6 +61,7 @@ public:
 		}
 		cout << "Connection Established" << endl;
 
+		Logs::write(true, connected, NULL);
 
 	}
 
@@ -69,6 +70,8 @@ public:
 		char RxBuffer[1028];	//Max length of the biggest packet
 
 		recv(ClientSocket, RxBuffer, sizeof(RxBuffer), 0);
+
+		Logs::write(true, buf_receive, RxBuffer);
 
 		Packet* pkt = new Packet(RxBuffer);		//Not sure if RxBuffer should be reallocated 
 
@@ -79,6 +82,9 @@ public:
 
 	void closeSocket()
 	{
+
+		Logs::write(false, disconnected, NULL);
+
 		closesocket(this->ClientSocket);	//closes incoming socket
 
 		closesocket(this->ListenSocket);	    //closes server socket	
@@ -92,6 +98,7 @@ public:
 	{
 		send(ClientSocket, p->getSerializedTxBuffer(), sizeof(Header) + p->getHeaderBodyLength(), 0);
 
+		Logs::write(true, buf_send, p->getSerializedParentTxBuffer());
 	}
 
 	bool routePacket(Packet* packet) {

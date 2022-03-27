@@ -6,7 +6,7 @@
 
 enum ACTION_TYPE
 {
-    type_not_defined, buf_send, buf_receive
+    type_not_defined, buf_send, buf_receive, connected, disconnected
 };
 
 enum MATCH_STATUS
