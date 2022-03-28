@@ -36,6 +36,5 @@ void AccountWidget::on_changeImgButton_clicked()
 
 void AccountWidget::on_backButton_2_clicked()
 {
-	emit changeStackedWidgetIndex(1);
-	emit widgetChanged(1280, 720);
+	emit SwitchView(GameWidgetView);
 }

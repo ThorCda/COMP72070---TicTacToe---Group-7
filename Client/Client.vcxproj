@@ -136,6 +136,7 @@
     <ClInclude Include="..\COMP72070 - TicTacToe\Packet.h" />
     <ClInclude Include="..\Server\Account.h" />
     <ClInclude Include="GUIHandler.h" />
+    <ClInclude Include="WidgetNames.h" />
     <QtMoc Include="AccountWidget.h" />
     <QtMoc Include="ClickableLabel.h" />
     <ClInclude Include="CSS.h" />

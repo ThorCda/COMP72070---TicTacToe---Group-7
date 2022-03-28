@@ -9,9 +9,9 @@ ClickableLabel::ClickableLabel(QWidget* parent, Qt::WindowFlags f)
 
 ClickableLabel::~ClickableLabel() {}
 
-int ClickableLabel::getGridNum()
+int ClickableLabel::GetGridNum()
 {
-    return this->gridNum;
+    return gridNum;
 }
 
 void ClickableLabel::mousePressEvent(QMouseEvent* event) {

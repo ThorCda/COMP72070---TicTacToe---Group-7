@@ -1,14 +1,16 @@
-#include "CSS.h"
-#include "QtWidgets/qgraphicswidget.h"
-#include <QtWidgets/QVBoxLayout>
-#include <QtWidgets/QHBoxLayout>
-#include <QtWidgets/QGridLayout>
-#include <QPixmap>
-#include <string>
-#include "ClickableLabel.h"
-#include <qwidget.h>
+//#include "CSS.h"
+//#include "QtWidgets/qgraphicswidget.h"
+//#include <QtWidgets/QVBoxLayout>
+//#include <QtWidgets/QHBoxLayout>
+//#include <QtWidgets/QGridLayout>
+//#include <QPixmap>
+//#include <string>
+//#include "ClickableLabel.h"
+//#include <qwidget.h>
+//#include "StackedWidget.h"
+//#include <QPixMap>
 #include "GameWidget.h"
-#include <QPixMap>
+
 
 GameWidget::GameWidget(QWidget* parent) :
     QWidget(parent),
@@ -25,15 +27,15 @@ GameWidget::GameWidget(QWidget* parent) :
     ui->newGameButton->setFocusPolicy(Qt::NoFocus);
 
     // Don't @ me about for loops because it doesn't work
-    QObject::connect(ui->topLeft, &ClickableLabel::clicked, this, &GameWidget::on_gameBoardLabel_clicked);
-    QObject::connect(ui->topMiddle, &ClickableLabel::clicked, this, &GameWidget::on_gameBoardLabel_clicked);
+    /*QObject::connect(ui->topLeft, &ClickableLabel::clicked, this, &GameWidget::on_gameBoardLabel_clicked);*/
+    /*QObject::connect(ui->topMiddle, &ClickableLabel::clicked, this, &GameWidget::on_gameBoardLabel_clicked);
     QObject::connect(ui->topRight, &ClickableLabel::clicked, this, &GameWidget::on_gameBoardLabel_clicked);
     QObject::connect(ui->middleLeft, &ClickableLabel::clicked, this, &GameWidget::on_gameBoardLabel_clicked);
     QObject::connect(ui->middle, &ClickableLabel::clicked, this, &GameWidget::on_gameBoardLabel_clicked);
     QObject::connect(ui->middleRight, &ClickableLabel::clicked, this, &GameWidget::on_gameBoardLabel_clicked);
     QObject::connect(ui->bottomLeft, &ClickableLabel::clicked, this, &GameWidget::on_gameBoardLabel_clicked);
     QObject::connect(ui->bottomMiddle, &ClickableLabel::clicked, this, &GameWidget::on_gameBoardLabel_clicked);
-    QObject::connect(ui->bottomRight, &ClickableLabel::clicked, this, &GameWidget::on_gameBoardLabel_clicked);
+    QObject::connect(ui->bottomRight, &ClickableLabel::clicked, this, &GameWidget::on_gameBoardLabel_clicked);*/
     
 }
 
@@ -44,31 +46,30 @@ GameWidget::~GameWidget()
 
 void GameWidget::on_logoutButton_clicked()
 {
+    SwitchView(LoginWidgetView);
     emit Logout();
-    emit changeStackedWidgetIndex(0);
-    emit widgetChanged(720, 720);
-    emit setLoginWidgetFocus();
+    //emit setLoginWidgetFocus();
 }
 
 void GameWidget::on_accountButton_clicked()
 {
-    emit changeStackedWidgetIndex(3);
-    emit widgetChanged(720, 720);
-    emit setLoginWidgetFocus();
+    SwitchView(AccountWidgetView);
+    //emit setLoginWidgetFocus();
 }
 
-void GameWidget::on_gameBoardLabel_clicked(ClickableLabel* label)
-{
-    emit SendGameMove(label->getGridNum());
-
-    // LOGIC MISSING HERE FOR GOOD/BAD MOVES
-
-    QPixmap circle("assets/circle_sprite.png");
-    label->setPixmap(circle);
-}
+//void GameWidget::on_gameBoardLabel_clicked(ClickableLabel* label)
+//{
+//    //emit SendGameMove(label->getGridNum());
+//
+//    // LOGIC MISSING HERE FOR GOOD/BAD MOVES
+//
+//    /*QPixmap circle("assets/circle_sprite.png");
+//    label->setPixmap(circle);*/
+//}
 
 void GameWidget::on_newGameButton_clicked()
 {
+    // Don't @ me about for loops here either!
     QPixmap blank;
     ui->topLeft->setPixmap(blank);
     ui->topMiddle->setPixmap(blank);
@@ -79,4 +80,9 @@ void GameWidget::on_newGameButton_clicked()
     ui->bottomLeft->setPixmap(blank);
     ui->bottomMiddle->setPixmap(blank);
     ui->bottomRight->setPixmap(blank);
+}
+
+Ui::GameWidget* GameWidget::GetGameWidgetUI()
+{
+    return ui;
 }

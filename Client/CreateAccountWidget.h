@@ -1,7 +1,11 @@
 #pragma once
 
 #include <QWidget>
+#include <QTimer>
+
 #include "ui_CreateAccountWidget.h"
+#include "WidgetNames.h"
+#include "CSS.h"
 
 using namespace std;
 
@@ -29,9 +33,8 @@ public slots:
     void setCreateAccountWidgetFocus();
 
 signals:
+    void SwitchView(WIDGET_VIEW_NAME);
     void CreateAccount(string, string, string, string);
-    void changeStackedWidgetIndex(int);
-    void widgetChanged(int, int);
     void setLoginWidgetFocus();
 
 private:

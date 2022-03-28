@@ -1,11 +1,12 @@
 #include "LoginWidget.h"
-#include "CSS.h"
-#include "QtWidgets/qgraphicswidget.h"
-#include <QtWidgets/QVBoxLayout>
-#include <QtWidgets/QHBoxLayout>
-#include <QtWidgets/QGridLayout>
-#include <QTimer>
-#include <string>
+//#include "CSS.h"
+//#include "StackedWidget.h"
+//#include "QtWidgets/qgraphicswidget.h"
+//#include <QtWidgets/QVBoxLayout>
+//#include <QtWidgets/QHBoxLayout>
+//#include <QtWidgets/QGridLayout>
+//#include <QTimer>
+//#include <string>
 
 using namespace std;
 
@@ -29,34 +30,18 @@ LoginWidget::~LoginWidget()
     delete ui;
 }
 
-int LoginWidget::getWidth()
-{
-    return this->width;
-}
-
-int LoginWidget::getHeight()
-{
-    return this->height;
-}
-
 
 void LoginWidget::on_loginButton_clicked()
 {
     emit Login(getUsername(), getPassword());
 
-    ui->usernameField->clear();
-
-    // logic here
-    emit changeStackedWidgetIndex(1);
-    emit widgetChanged(1280, 720);
+    ui->passwordField->clear();
 }
 
 
 void LoginWidget::on_createAccountButton_clicked()
 {
-    emit changeStackedWidgetIndex(2);
-    emit widgetChanged(720, 720);
-    emit setCreateAccountWidgetFocus();
+    emit SwitchView(CreateAccountWidgetView);
 }
 
 void LoginWidget::setLoginWidgetFocus()

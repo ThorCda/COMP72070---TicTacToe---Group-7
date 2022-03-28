@@ -127,5 +127,8 @@
     <ClInclude Include="GUIHandler.h">
       <Filter>Header Files\GUI Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="WidgetNames.h">
+      <Filter>Header Files\GUI Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

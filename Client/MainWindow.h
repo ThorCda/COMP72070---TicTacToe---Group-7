@@ -2,6 +2,8 @@
 
 #include <QMainWindow>
 #include "ui_MainWindow.h"
+#include "GUIHandler.h"
+#include "StackedWidget.h"
 
 class MainWindow : public QMainWindow
 {
@@ -10,10 +12,12 @@ class MainWindow : public QMainWindow
 public:
 	MainWindow(QWidget *parent = Q_NULLPTR);
 	~MainWindow();
+	void SetGUI(GUIHandler*);
 
 public slots:
-	void resizeWindow(int, int);
+	void ResizeWindow(int, int);
 
 private:
 	Ui::MainWindow* ui;
+	GUIHandler* gui;
 };

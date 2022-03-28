@@ -5,6 +5,7 @@
 #include "Client/CreateAccountWidget.h"
 #include "Client/AccountWidget.h"
 #include "Client/GUIHandler.h"
+#include "Client/WidgetNames.h"
 
 #include <qstackedwidget.h>
 #include <qmainwindow.h>
@@ -14,26 +15,33 @@ int main(int argc, char* argv[])
 {
     QApplication a(argc, argv);
 
+
     MainWindow* mainWindow = new MainWindow();
 
-    LoginWidget* loginWidget = new LoginWidget;
+    GUIHandler* gui = new GUIHandler();
+
+    mainWindow->SetGUI(gui);
+
+    mainWindow->show();
+
+    /*LoginWidget* loginWidget = new LoginWidget;
     GameWidget* gameWidget = new GameWidget;
     CreateAccountWidget* createAccountWidget = new CreateAccountWidget;
     AccountWidget* accountWidget = new AccountWidget;
 
     StackedWidget* stackedWidget = new StackedWidget();
 
-    GUIHandler* guiHandler = new GUIHandler(loginWidget, createAccountWidget, gameWidget, accountWidget, stackedWidget);
+    GUIHandler* guiHandler = new GUIHandler(loginWidget, createAccountWidget, gameWidget, accountWidget, stackedWidget);*/
 
 
-    stackedWidget->addWidget(loginWidget);
+    /*stackedWidget->addWidget(loginWidget);
     stackedWidget->addWidget(gameWidget);
     stackedWidget->addWidget(createAccountWidget);
-    stackedWidget->addWidget(accountWidget);
+    stackedWidget->addWidget(accountWidget);*/
 
-    mainWindow->setCentralWidget(stackedWidget);
+    //mainWindow->setCentralWidget(stackedWidget);
 
-    QObject::connect(loginWidget, &LoginWidget::changeStackedWidgetIndex, stackedWidget, &StackedWidget::changeIndex);
+   /* QObject::connect(loginWidget, &LoginWidget::changeStackedWidgetIndex, stackedWidget, &StackedWidget::changeIndex);
     QObject::connect(loginWidget, &LoginWidget::widgetChanged, mainWindow, &MainWindow::resizeWindow);
     QObject::connect(loginWidget, &LoginWidget::setCreateAccountWidgetFocus, createAccountWidget, &CreateAccountWidget::setCreateAccountWidgetFocus);
 
@@ -46,10 +54,9 @@ int main(int argc, char* argv[])
     QObject::connect(createAccountWidget, &CreateAccountWidget::setLoginWidgetFocus, loginWidget, &LoginWidget::setLoginWidgetFocus);
 
     QObject::connect(accountWidget, &AccountWidget::changeStackedWidgetIndex, stackedWidget, &StackedWidget::changeIndex);
-    QObject::connect(accountWidget, &AccountWidget::widgetChanged, mainWindow, &MainWindow::resizeWindow);
+    QObject::connect(accountWidget, &AccountWidget::widgetChanged, mainWindow, &MainWindow::resizeWindow);*/
 
-    mainWindow->show();
-    mainWindow->resizeWindow(loginWidget->getWidth(), loginWidget->getHeight());
+    //mainWindow->resizeWindow(loginWidget->getWidth(), loginWidget->getHeight());
 
     return a.exec();
 }

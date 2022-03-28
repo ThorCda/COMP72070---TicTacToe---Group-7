@@ -1,8 +1,17 @@
 #pragma once
 
 #include <QWidget>
-#include "ui_LoginWidget.h"
+//#include "QtWidgets/qgraphicswidget.h"
+//#include <QtWidgets/QVBoxLayout>
+//#include <QtWidgets/QHBoxLayout>
+//#include <QtWidgets/QGridLayout>
+#include <QTimer>
 #include <string>
+
+#include "ui_LoginWidget.h"
+#include "CSS.h"
+#include "WidgetNames.h"
+
 
 namespace Ui { class LoginWidget; }
 
@@ -13,8 +22,6 @@ class LoginWidget : public QWidget
 public:
     LoginWidget(QWidget* parent = nullptr);
     ~LoginWidget();
-    int getWidth();
-    int getHeight();
     std::string getUsername();
     void clearUsername();
     std::string getPassword();
@@ -28,12 +35,9 @@ public slots:
 
 signals:
     void Login(std::string, std::string);
-    void changeStackedWidgetIndex(int);
-    void widgetChanged(int, int);
+    void SwitchView(WIDGET_VIEW_NAME);
     void setCreateAccountWidgetFocus();
 
 private:
     Ui::LoginWidget* ui;
-    static const int height{ 720 };
-    static const int width{ 720 };
 };

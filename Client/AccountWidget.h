@@ -2,6 +2,7 @@
 
 #include <QWidget>
 #include "ui_AccountWidget.h"
+#include "WidgetNames.h"
 
 namespace Ui {
 	class AccountWidget;
@@ -20,6 +21,7 @@ public slots:
 	void on_backButton_2_clicked();
 
 signals:
+	void SwitchView(WidgetViewName);
 	void changeStackedWidgetIndex(int);
 	void widgetChanged(int, int);
 	void ChangeImage(QPixmap);

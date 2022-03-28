@@ -1,11 +1,18 @@
 #pragma once
 
 #include <QWidget>
+#include <qstackedwidget.h>
+#include <qmainwindow.h>
+#include <QtWidgets/QApplication>
+#include <qpixmap.h>
+
 #include "LoginWidget.h"
 #include "CreateAccountWidget.h"
 #include "GameWidget.h"
 #include "AccountWidget.h"
 #include "StackedWidget.h"
+#include "WidgetNames.h"
+#include "ClickableLabel.h"
 
 using namespace std;
 
@@ -21,16 +28,18 @@ private:
 	void SetupConnections();
 
 public slots:
-	void SwitchView();
+	void SwitchView(WIDGET_VIEW_NAME);
 
 	// Network plugins
 	void Login(string, string);
 	void CreateAccount(string, string, string, string);
 	void Logout();
-	void MakeGameMove(int);
+	void MakeGameMove(ClickableLabel*);
 	void ChangeImage(QPixmap);
 
 public:
-	GUIHandler(LoginWidget*, CreateAccountWidget*, GameWidget*, AccountWidget*, StackedWidget*);
+	GUIHandler();
+	StackedWidget* GetStackedWidget();
+	GameWidget* GetGameWidget();
 };
 
