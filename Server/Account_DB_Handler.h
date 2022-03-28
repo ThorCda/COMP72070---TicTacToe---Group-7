@@ -18,7 +18,8 @@ public:
 		string avatar(acc.getAvatarloc());
 		string pw(password);
 
-		string query = "call CreateAccount (" + firstname + "\",\"" + lastname + "\",\"" + avatar + "\",\"" + username + "\",\"" + pw + "\"" + ")";
+		string query = "call CreateAccount (\"" + firstname + "\",\"" + lastname + "\",\"" + avatar + "\",\"" + username + "\",\"" + pw + "\"" + ")";
+		cout << query;
 		const char* q = query.c_str();
 
 		qstate = mysql_query(conn, q);
