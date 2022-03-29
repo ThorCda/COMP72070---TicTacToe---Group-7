@@ -16,7 +16,7 @@ enum ACTION_TYPE
 
 enum MATCH_STATUS
 {
-	status_not_defined, playing, ended
+	status_not_defined, playing, ended, picture
 };
 
 enum FILE_TYPE
@@ -174,6 +174,11 @@ public:
 
 		case GameStatusp: {
 			GameStatusPacket* newGameStatusPacket = new GameStatusPacket(packet->getSerializedTxBuffer());
+
+			if (newGameStatusPacket->getGameStatusPacketGameCode() == picture) {
+				sendPicture();
+			}
+
 			// 
 			break;
 		}
@@ -252,6 +257,22 @@ public:
 
 	}
 
+	void recvPicture() {
+
+		char RxBuffer[sizeof(int)];		//Sending just an integer protocol; not sure if it we should make an integer packet for this
+		recv(ClientSocket, RxBuffer, sizeof(int), 0);
+
+		int size;
+		memcpy(&size, RxBuffer, sizeof(int));
+
+		char* picture = new char[size];
+
+		recv(ClientSocket, picture, size, 0);
+
+
+
+
+	}
 
 
 
