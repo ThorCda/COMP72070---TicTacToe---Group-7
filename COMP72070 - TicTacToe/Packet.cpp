@@ -1,11 +1,14 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include "Packet.h"
+#include "../Server/ChildPackets.h"
 
 using namespace std;
 
 Packet::Packet() {
 
-	if (this->pktBody.msgPtr != NULL) {
-		delete this->pktBody.msgPtr;
+	if (this->serializedParentBuffer) {
+		delete this->serializedParentBuffer;
 	}
 
 	if (this->serializedPacketBuffer != NULL) {
@@ -15,36 +18,18 @@ Packet::Packet() {
 	this->pktHead.destinationID = SERVER_ID;
 	this->pktHead.sourceID = CLIENT_ID;
 	this->pktHead.bodyLength = 0;
-	this->pktHead.packetType = DEFAULT_PACKET;
 
-	pktBody.msgPtr = NULL;
 	serializedPacketBuffer = NULL;
+	serializedParentBuffer = NULL;
 
 }
 
 Packet::Packet(char* RxBuffer) {
 
-	int byteBuffer = 0;
+	memcpy(&this->pktHead, RxBuffer, sizeof(pktHead));
 
-	//Instantiate pktHead based on bytes in RxBuffer.
-	memcpy(&this->pktHead.destinationID, RxBuffer, sizeof(this->pktHead.destinationID));
-	byteBuffer += sizeof(this->pktHead.destinationID);
-
-	memcpy(&this->pktHead.sourceID, RxBuffer + byteBuffer, sizeof(this->pktHead.sourceID));
-	byteBuffer += sizeof(this->pktHead.sourceID);
-
-	memcpy(&this->pktHead.bodyLength, RxBuffer + byteBuffer, sizeof(this->pktHead.bodyLength));
-	byteBuffer += sizeof(this->pktHead.bodyLength);
-
-	memcpy(&this->pktHead.packetType, RxBuffer + byteBuffer, sizeof(this->pktHead.packetType));
-	byteBuffer += sizeof(this->pktHead.packetType);
-
-	//Instantiate pktBody msgPtr.
-	memcpy(this->pktBody.msgPtr, RxBuffer + byteBuffer, this->pktHead.bodyLength);
-	byteBuffer += this->pktHead.bodyLength;
-
-	//Instantiate pktTail checkSum.
-	//memcpy(&this->pktTail.checkSum, RxBuffer + byteBuffer, sizeof(this->pktTail.checkSum));
+	this->serializedPacketBuffer = new char[this->pktHead.bodyLength];
+	memcpy(&this->serializedPacketBuffer, RxBuffer + sizeof(pktHead), this->pktHead.bodyLength);
 	
 }
 	
@@ -82,20 +67,19 @@ void Packet::setHeaderSourceID() {
 
 }
 
-void Packet::setHeaderBodyLength() {
+void Packet::setHeaderBodyLength(int len) {
 
-	if (this->pktBody.msgPtr != NULL) {
-
-		this->pktHead.bodyLength = strlen(this->pktBody.msgPtr);
-
-	}
+	this->pktHead.bodyLength = len;
 
 }
 
-void Packet::setHeaderPacketType(char packetType) {
+void Packet::swapHeaderDestAndSource() {
 
-	//Discuss a constant format for packet types.
-	this->pktHead.packetType = packetType;
+	int temp;
+
+	temp = this->pktHead.destinationID;
+	this->pktHead.destinationID = this->pktHead.sourceID;
+	this->pktHead.sourceID = temp;
 
 }
 
@@ -118,23 +102,9 @@ int Packet::getHeaderBodyLength() {
 
 }
 
-char Packet::getHeaderPacketType() {
+packetType Packet::getHeaderPacketType() {
 
 	return this->pktHead.packetType;
-
-}
-
-//Body Setter Methods
-void Packet::setBodyMsgPtr(char* msg) {
-
-	this->pktBody.msgPtr = msg;
-
-}
-
-//Body Getter Methods
-char* Packet::getBodyMsgPtr() {
-
-	return this->pktBody.msgPtr;
 
 }
 
@@ -149,31 +119,39 @@ void Packet::setTailCheckSum() {
 //void getTailCheckSum();
 
 //Serialization Method
-void Packet::serializePacketTxBuffer() {
-	
-	int byteBuffer = 0;
-
-	memcpy(serializedPacketBuffer, &this->pktHead.destinationID, sizeof(this->pktHead.destinationID));
-	byteBuffer += sizeof(this->pktHead.destinationID);
-
-	memcpy(serializedPacketBuffer + byteBuffer, &this->pktHead.sourceID, sizeof(this->pktHead.sourceID));
-	byteBuffer += sizeof(this->pktHead.sourceID);
-
-	memcpy(serializedPacketBuffer + byteBuffer, &this->pktHead.bodyLength, sizeof(this->pktHead.bodyLength));
-	byteBuffer += sizeof(this->pktHead.bodyLength);
-
-	memcpy(serializedPacketBuffer + byteBuffer, &this->pktHead.packetType, sizeof(this->pktHead.packetType));
-	byteBuffer += sizeof(this->pktHead.packetType);
-
-	strcpy(&serializedPacketBuffer[byteBuffer], this->pktBody.msgPtr);
-	byteBuffer += this->pktHead.bodyLength;
-
-	//memcpy(serializedPacketBuffer + byteBuffer, &this->pktTail.checksum, sizeof(this->pktTail.checksum));
-
-}
 
 char* Packet::getSerializedTxBuffer() {
 
 	return this->serializedPacketBuffer;
 
 }
+
+void Packet::serializeParentPacketTxBuffer() {
+
+	int byteBuffer = 0;
+
+	this->serializedParentBuffer = new char[getHeaderBodyLength() + sizeof(this->pktHead)];
+
+	memcpy(this->serializedParentBuffer, &this->pktHead.destinationID, sizeof(this->pktHead.destinationID));
+	byteBuffer += sizeof(this->pktHead.destinationID);
+
+	memcpy(this->serializedParentBuffer + byteBuffer, &this->pktHead.sourceID, sizeof(this->pktHead.sourceID));
+	byteBuffer += sizeof(this->pktHead.sourceID);
+
+	memcpy(this->serializedParentBuffer + byteBuffer, &this->pktHead.packetType, sizeof(this->pktHead.packetType));
+	byteBuffer += sizeof(this->pktHead.packetType);
+
+	memcpy(this->serializedParentBuffer + byteBuffer, &this->pktHead.bodyLength, sizeof(this->pktHead.bodyLength));
+	byteBuffer += sizeof(this->pktHead.bodyLength);
+
+	memcpy(this->serializedParentBuffer + byteBuffer, &this->serializedPacketBuffer, this->pktHead.bodyLength);
+	byteBuffer += this->pktHead.bodyLength;
+
+}
+
+char* Packet::getSerializedParentTxBuffer() {
+
+	return this->serializedParentBuffer;
+
+}
+

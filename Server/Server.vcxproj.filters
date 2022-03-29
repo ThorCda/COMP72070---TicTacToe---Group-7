@@ -13,6 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Packet Headers">
+      <UniqueIdentifier>{b83faf32-fe47-4643-b53c-00510ea1a2ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\DB">
+      <UniqueIdentifier>{02147966-0621-48ae-9d80-9beb27921fd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game">
+      <UniqueIdentifier>{5bfb6da0-730b-4165-b169-431bb7b808b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -21,30 +30,72 @@
     <ClCompile Include="DB_Handler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\COMP72070 - TicTacToe\Packet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Logs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Account.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DB_Handler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\COMP72070 - TicTacToe\Packet.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Packet Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="MovePacket.h">
+      <Filter>Header Files\Packet Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="LoginPacket.h">
+      <Filter>Header Files\Packet Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="LogoutPacket.h">
+      <Filter>Header Files\Packet Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStatusPacket.h">
+      <Filter>Header Files\Packet Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ErrorPacket.h">
+      <Filter>Header Files\Packet Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="AccountPacket.h">
+      <Filter>Header Files\Packet Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="CreateAccountPacket.h">
+      <Filter>Header Files\Packet Headers</Filter>
     </ClInclude>
     <ClInclude Include="Account_DB_Handler.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\DB</Filter>
+    </ClInclude>
+    <ClInclude Include="DB_Handler.h">
+      <Filter>Header Files\DB</Filter>
     </ClInclude>
     <ClInclude Include="Game_DB_Handler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameRoom.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\DB</Filter>
     </ClInclude>
     <ClInclude Include="GameBoard.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameRoom.h">
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="ChildPackets.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Logs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -35,6 +35,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::ResizeWindow(int width, int height)
 {
+
     resize(width, height);
     setFixedSize(width, height);
 }
@@ -48,4 +49,5 @@ void MainWindow::SetGUI(GUIHandler* gui)
 
     // Connect changing stacked widget signal to resize window slot
     QObject::connect(gui->GetStackedWidget(), &StackedWidget::ResizeWindow, this, &MainWindow::ResizeWindow);
+
 }
