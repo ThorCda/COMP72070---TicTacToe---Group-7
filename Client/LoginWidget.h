@@ -1,10 +1,6 @@
 #pragma once
 
 #include <QWidget>
-//#include "QtWidgets/qgraphicswidget.h"
-//#include <QtWidgets/QVBoxLayout>
-//#include <QtWidgets/QHBoxLayout>
-//#include <QtWidgets/QGridLayout>
 #include <QTimer>
 #include <string>
 

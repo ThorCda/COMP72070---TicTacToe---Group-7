@@ -10,7 +10,6 @@ class ClickableLabel : public QLabel {
 public:
     explicit ClickableLabel(QWidget* parent = Q_NULLPTR, Qt::WindowFlags f = Qt::WindowFlags());
     ~ClickableLabel();
-    void ChangePixmap();
     int GetGridNum();
 
 signals:

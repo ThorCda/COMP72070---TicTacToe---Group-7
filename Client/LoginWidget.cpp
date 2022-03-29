@@ -1,12 +1,4 @@
 #include "LoginWidget.h"
-//#include "CSS.h"
-//#include "StackedWidget.h"
-//#include "QtWidgets/qgraphicswidget.h"
-//#include <QtWidgets/QVBoxLayout>
-//#include <QtWidgets/QHBoxLayout>
-//#include <QtWidgets/QGridLayout>
-//#include <QTimer>
-//#include <string>
 
 using namespace std;
 

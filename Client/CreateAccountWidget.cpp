@@ -1,8 +1,3 @@
-//#include <QTimer>
-//#include "QtWidgets/qgraphicswidget.h"
-//#include <QtWidgets/QVBoxLayout>
-//#include <QtWidgets/QHBoxLayout>
-//#include <QtWidgets/QGridLayout>
 #include "CreateAccountWidget.h"
 
 using namespace std;
@@ -57,7 +52,6 @@ void CreateAccountWidget::clearFields()
 void CreateAccountWidget::on_createAccountButton_clicked()
 {
     emit CreateAccount(getUsername(), getPassword(), getFirstname(), getLastname());
-    //clearFields();
 
     // LOGIC HERE FOR SUCCESS/FAILURE
 }
@@ -65,7 +59,6 @@ void CreateAccountWidget::on_createAccountButton_clicked()
 void CreateAccountWidget::on_backButton_clicked()
 {
     emit SwitchView(LoginWidgetView);
-    //emit setLoginWidgetFocus();
 }
 
 void CreateAccountWidget::setCreateAccountWidgetFocus()

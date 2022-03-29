@@ -25,17 +25,13 @@ public:
 signals:
     void SwitchView(WIDGET_VIEW_NAME);
     void Logout();
-    //void MakeGameMove(int);
+    void NewGame();
     void setLoginWidgetFocus();
 
 public slots:
     void on_logoutButton_clicked();
     void on_accountButton_clicked();
     void on_newGameButton_clicked();
-    //void on_gameBoardLabel_clicked(ClickableLabel*);
-
-//private slots:
-    /*void on_gameBoardLabel_clicked(ClickableLabel*);*/
 
 private:
     Ui::GameWidget* ui;

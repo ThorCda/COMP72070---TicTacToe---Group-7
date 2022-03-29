@@ -29,6 +29,7 @@ private:
 
 public slots:
 	void SwitchView(WIDGET_VIEW_NAME);
+	void NewGame();
 
 	// Network plugins
 	void Login(string, string);

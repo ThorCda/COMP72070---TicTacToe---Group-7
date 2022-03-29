@@ -1,9 +1,4 @@
 #include "StackedWidget.h"
-//#include "LoginWidget.h"
-//#include "GameWidget.h"
-//#include "CreateAccountWidget.h"
-//#include "AccountWidget.h"
-//#include <qwidget.h>
 
 StackedWidget::StackedWidget()
 {
