@@ -26,6 +26,11 @@ MainWindow::MainWindow(QWidget* parent) :
     this->move(QPoint(width, height));
 
     ResizeWindow(720, 720);
+
+    SetGUI(new GUIHandler());
+    SetNetworkHandler(new NetworkHandler());
+
+    SetupConnections();
 }
 
 MainWindow::~MainWindow()
@@ -49,5 +54,14 @@ void MainWindow::SetGUI(GUIHandler* gui)
 
     // Connect changing stacked widget signal to resize window slot
     QObject::connect(gui->GetStackedWidget(), &StackedWidget::ResizeWindow, this, &MainWindow::ResizeWindow);
+}
 
+void MainWindow::SetNetworkHandler(NetworkHandler* hdlr)
+{
+    this->hdlr = hdlr;
+}
+
+void MainWindow::SetupConnections()
+{
+    //QObject::connect(this->gui, &GUIHandler::LOGIN, this->hdlr, &NetworkHandler::LOGIN);
 }

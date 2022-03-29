@@ -144,8 +144,8 @@
     <ClInclude Include="..\Server\LogoutPacket.h" />
     <ClInclude Include="..\Server\MovePacket.h" />
     <ClInclude Include="..\Server\Packet.h" />
-    <ClInclude Include="GUIHandler.h" />
-    <ClInclude Include="NetworkHandler.h" />
+    <QtMoc Include="GUIHandler.h" />
+    <QtMoc Include="NetworkHandler.h" />
     <ClInclude Include="WidgetNames.h" />
     <QtMoc Include="AccountWidget.h" />
     <QtMoc Include="ClickableLabel.h" />

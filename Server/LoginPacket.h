@@ -66,7 +66,7 @@ public:
 	}
 
 	//Serizlation of packet
-	void serilizeLoginPacket() {
+	void serializeLoginPacket() {
 
 		if (this->serializedPacketBuffer != NULL) {
 			delete serializedPacketBuffer;

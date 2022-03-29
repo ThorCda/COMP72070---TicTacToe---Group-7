@@ -102,6 +102,12 @@
     <QtMoc Include="AccountWidget.h">
       <Filter>Header Files\GUI Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="GUIHandler.h">
+      <Filter>Header Files\GUI Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="NetworkHandler.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="MainWindow.ui">
@@ -130,14 +136,8 @@
     <ClInclude Include="CSS.h">
       <Filter>Header Files\GUI Header Files\CSS</Filter>
     </ClInclude>
-    <ClInclude Include="GUIHandler.h">
-      <Filter>Header Files\GUI Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="WidgetNames.h">
       <Filter>Header Files\GUI Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NetworkHandler.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Server\AccountPacket.h">
       <Filter>Header Files\Packet Headers</Filter>

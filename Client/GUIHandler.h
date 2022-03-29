@@ -17,7 +17,7 @@
 using namespace std;
 
 class GUIHandler : public QWidget {
-
+	Q_OBJECT
 private:
 	LoginWidget* loginWidget;
 	CreateAccountWidget* createAccountWidget;
@@ -33,10 +33,15 @@ public slots:
 
 	// Network plugins
 	void Login(string, string);
+	void LOGIN_SUCCESS();
+	void LOGIN_FAILURE();
 	void CreateAccount(string, string, string, string);
 	void Logout();
 	void MakeGameMove(ClickableLabel*);
 	void ChangeImage(QPixmap);
+
+signals:
+	void LOGIN(char*, char*);
 
 public:
 	GUIHandler();
