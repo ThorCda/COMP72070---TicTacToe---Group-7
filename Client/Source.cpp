@@ -17,9 +17,9 @@ int main(int argc, char* argv[])
 
     MainWindow* mainWindow = new MainWindow();
 
-    GUIHandler* gui = new GUIHandler();
+    //GUIHandler* gui = new GUIHandler();
 
-    mainWindow->SetGUI(gui);
+    //mainWindow->SetGUI(gui);
 
     mainWindow->show();
 

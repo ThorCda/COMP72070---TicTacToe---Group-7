@@ -1,6 +1,13 @@
+#include "NetworkHandler.h"
 
-#include "../Client/NetworkHandler.h"
+using namespace std;
 
+NetworkHandler::NetworkHandler()
+{
+	winsockStartup();
+	initSocket();
+	initConnection();
+}
 
 int NetworkHandler::winsockStartup()
 {
@@ -27,7 +34,7 @@ int NetworkHandler::initConnection()
 	this->SvrAddr.sin_family = AF_INET;                        //Address family type itnernet
 	this->SvrAddr.sin_port = htons(27000);                    //port (host to network conversion)
 	this->SvrAddr.sin_addr.s_addr = inet_addr("127.0.0.1");    //IP address
-	if ((connect(this->ListenSocket, (struct sockaddr*)&this->SvrAddr, sizeof(this->SvrAddr))) == SOCKET_ERROR) {
+	if ((::connect(this->ListenSocket, (struct sockaddr*)&this->SvrAddr, sizeof(this->SvrAddr))) == SOCKET_ERROR) {
 		closesocket(this->ListenSocket);
 		WSACleanup();
 		return 0;
@@ -46,30 +53,19 @@ int NetworkHandler::acceptClient() {
 
 }
 
-bool NetworkHandler::listenForPacket() {
-
+void NetworkHandler::listenForPacket() 
+{
 	char RxBuffer[1028];	//Max length of the biggest packet
-
 	recv(ClientSocket, RxBuffer, sizeof(RxBuffer), 0);
-
-
 	Packet* pkt = new Packet(RxBuffer);		//Not sure if RxBuffer should be reallocated 
-
-	bool isRunning = routePacket(pkt);
-
-	return isRunning;
+	routePacket(pkt);
 }
 
 void NetworkHandler::closeSocket()
 {
-
-
 	closesocket(this->ClientSocket);	//closes incoming socket
-
 	closesocket(this->ListenSocket);	    //closes server socket	
-
 	WSACleanup();					//frees Winsock resources
-
 }
 
 void NetworkHandler::sendPacket(Packet* p)
@@ -78,7 +74,7 @@ void NetworkHandler::sendPacket(Packet* p)
 
 }
 
-bool NetworkHandler::routePacket(Packet* packet) {
+void NetworkHandler::routePacket(Packet* packet) {
 
 	bool isLoggedIn = true;
 
@@ -90,32 +86,30 @@ bool NetworkHandler::routePacket(Packet* packet) {
 		// login(newAccountPacket)
 		break;
 	}
-
-	case CreateAccountp: {
-
-
-		CreateAccountPacket* pkt = new CreateAccountPacket(packet->getSerializedTxBuffer());
-
-		Account* acc = new Account(pkt->getFName(), pkt->getLName(), pkt->getUsername());
+	//case CreateAccountp: {
 
 
-		if (acc == nullptr) {
-			//send error packet
-			ErrorPacket* err = new ErrorPacket(CrtAcc_Err);
-			err->serializeErrorPacketTxBuffer();
-			err->getSerializedParentTxBuffer();
-			sendPacket(err);
-			return false;
-		}
+	//	CreateAccountPacket* pkt = new CreateAccountPacket(packet->getSerializedTxBuffer());
 
-		AccountPacket* accpkt = new AccountPacket(acc);
-		accpkt->serializeAccountPacketTxBuffer();
-		accpkt->serializeParentPacketTxBuffer();
-		sendPacket(accpkt);
+	//	Account* acc = new Account(pkt->getFName(), pkt->getLName(), pkt->getUsername());
 
-		break;
-	}
 
+	//	if (acc == nullptr) {
+	//		//send error packet
+	//		ErrorPacket* err = new ErrorPacket(CrtAcc_Err);
+	//		err->serializeErrorPacketTxBuffer();
+	//		err->getSerializedParentTxBuffer();
+	//		sendPacket(err);
+	//		return false;
+	//	}
+
+	//	AccountPacket* accpkt = new AccountPacket(acc);
+	//	accpkt->serializeAccountPacketTxBuffer();
+	//	accpkt->serializeParentPacketTxBuffer();
+	//	sendPacket(accpkt);
+
+	//	break;
+	//}
 	case Errorp: {
 		ErrorPacket* newErrorPacket = new ErrorPacket(packet->getSerializedTxBuffer());
 		// logError
@@ -125,63 +119,64 @@ bool NetworkHandler::routePacket(Packet* packet) {
 
 		break;
 	}
+	//case GameStatusp: {
+	//	GameStatusPacket* newGameStatusPacket = new GameStatusPacket(packet->getSerializedTxBuffer());
+	//	// 
+	//	break;
+	//}
+	//case Loginp: {
 
-	case GameStatusp: {
-		GameStatusPacket* newGameStatusPacket = new GameStatusPacket(packet->getSerializedTxBuffer());
-		// 
-		break;
-	}
+	//	LoginPacket* linPkt = new LoginPacket(packet->getSerializedTxBuffer());
 
-	case Loginp: {
-
-		LoginPacket* linPkt = new LoginPacket(packet->getSerializedTxBuffer());
-
-		string userName(linPkt->getUsername());
-		string password(linPkt->getPassword());
+	//	string userName(linPkt->getUsername());
+	//	string password(linPkt->getPassword());
 
 
-		/*if (acc == nullptr) {
-			ErrorPacket* err = new ErrorPacket(Login_Err);
-			err->serializeErrorPacketTxBuffer();
-			err->getSerializedParentTxBuffer();
-			sendPacket(err);
-			return false;
-		}*/
+	//	/*if (acc == nullptr) {
+	//		ErrorPacket* err = new ErrorPacket(Login_Err);
+	//		err->serializeErrorPacketTxBuffer();
+	//		err->getSerializedParentTxBuffer();
+	//		sendPacket(err);
+	//		return false;
+	//	}*/
 
-		//AccountPacket* accPkt = new AccountPacket(acc);
+	//	//AccountPacket* accPkt = new AccountPacket(acc);
 
-		//accPkt->serializeAccountPacketTxBuffer();
+	//	//accPkt->serializeAccountPacketTxBuffer();
 
-		//sendPacket(accPkt);
+	//	//sendPacket(accPkt);
 
-		break;
-	}
+	//	break;
+	//}
+	//case Logoutp: {
+	//	LogoutPacket* newLogoutPacket = new LogoutPacket(packet->getSerializedTxBuffer());
 
-	case Logoutp: {
-		LogoutPacket* newLogoutPacket = new LogoutPacket(packet->getSerializedTxBuffer());
-
-		isLoggedIn = false;	//Will terminate the session
-		break;
-	}
-
-	case Movep: {
-		MovePacket* newMovePacket = new MovePacket(packet->getSerializedTxBuffer());
-		// PlayMove(newMovePacket)
-		break;
-	}
-
-	case PacketPacket: {
-		//Parent packet creator???
-		break;
-	}
-
+	//	isLoggedIn = false;	//Will terminate the session
+	//	break;
+	//}
+	//case Movep: {
+	//	MovePacket* newMovePacket = new MovePacket(packet->getSerializedTxBuffer());
+	//	// PlayMove(newMovePacket)
+	//	break;
+	//}
+	//case PacketPacket: {
+	//	//Parent packet creator???
+	//	break;
+	//}
 	default: {
 		break;
 	}
-
 	}
+}
 
-	return isLoggedIn;
 
 
+//******** SLOTS *********//
+
+void NetworkHandler::LOGIN(char* username, char* password)
+{
+	LoginPacket* p = new LoginPacket(username, password);
+	p->serializeLoginPacket();
+	p->serializeParentPacketTxBuffer();
+	sendPacket(p);
 }

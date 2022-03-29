@@ -54,12 +54,27 @@ void GUIHandler::SetupConnections()
 void GUIHandler::Login(string username, string password)
 {
 	// SEND LOGIN PACKET
+	char* usr;
+	sprintf(usr, "%s", username.c_str());
+	char* pswd;
+	sprintf(pswd, "%s", password.c_str());
+	emit LOGIN(usr, pswd);
 
 	// ON SUCCESS
 	stackedWidget->SwitchView(GameWidgetView);
 
 	// ON FAILURE
 	// do something
+}
+
+void GUIHandler::LOGIN_SUCCESS()
+{
+
+}
+
+void GUIHandler::LOGIN_FAILURE()
+{
+
 }
 
 void GUIHandler::CreateAccount(string username, string password, string firstname, string lastname)
