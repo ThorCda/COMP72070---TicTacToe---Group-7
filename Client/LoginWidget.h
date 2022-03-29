@@ -1,7 +1,13 @@
 #pragma once
 
 #include <QWidget>
+#include <QTimer>
+#include <string>
+
 #include "ui_LoginWidget.h"
+#include "CSS.h"
+#include "WidgetNames.h"
+
 
 namespace Ui { class LoginWidget; }
 
@@ -12,20 +18,22 @@ class LoginWidget : public QWidget
 public:
     LoginWidget(QWidget* parent = nullptr);
     ~LoginWidget();
-    int getWidth();
-    int getHeight();
+    std::string getUsername();
+    void clearUsername();
+    std::string getPassword();
+    void clearPassword();
 
 public slots:
     void on_loginButton_clicked();
     void on_createAccountButton_clicked();
+    void setLoginWidgetFocus();
 
 
 signals:
-    void changeStackedWidgetIndex(int);
-    void widgetChanged(int, int);
+    void Login(std::string, std::string);
+    void SwitchView(WIDGET_VIEW_NAME);
+    void setCreateAccountWidgetFocus();
 
 private:
     Ui::LoginWidget* ui;
-    static const int height{ 500 };
-    static const int width{ 500 };
 };

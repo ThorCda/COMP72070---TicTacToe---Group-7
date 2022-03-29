@@ -1,10 +1,20 @@
 #include "LoginWidget.h"
 
+using namespace std;
+
 LoginWidget::LoginWidget(QWidget* parent)
     : QWidget(parent)
     , ui(new Ui::LoginWidget)
 {
     ui->setupUi(this);
+
+    QTimer::singleShot(0, ui->usernameField, SLOT(setFocus()));
+
+    setButtonCSS(ui->loginButton);
+    ui->loginButton->setFocusPolicy(Qt::NoFocus);
+
+    setButtonCSS(ui->createAccountButton);
+    ui->createAccountButton->setFocusPolicy(Qt::NoFocus);
 }
 
 LoginWidget::~LoginWidget()
@@ -12,28 +22,43 @@ LoginWidget::~LoginWidget()
     delete ui;
 }
 
-int LoginWidget::getWidth()
-{
-    return this->width;
-}
-
-int LoginWidget::getHeight()
-{
-    return this->height;
-}
-
 
 void LoginWidget::on_loginButton_clicked()
 {
-    emit changeStackedWidgetIndex(1);
-    emit widgetChanged(1024, 576);
+    emit Login(getUsername(), getPassword());
+
+    ui->passwordField->clear();
 }
 
 
 void LoginWidget::on_createAccountButton_clicked()
 {
-    emit changeStackedWidgetIndex(2);
-    emit widgetChanged(500, 500);
+    emit SwitchView(CreateAccountWidgetView);
+}
+
+void LoginWidget::setLoginWidgetFocus()
+{
+    QTimer::singleShot(0, ui->usernameField, SLOT(setFocus()));
+}
+
+string LoginWidget::getUsername()
+{
+    return ui->usernameField->text().toStdString();
+}
+
+void LoginWidget::clearUsername()
+{
+    ui->usernameField->clear();
+}
+
+string LoginWidget::getPassword()
+{
+    return ui->passwordField->text().toStdString();
+}
+
+void LoginWidget::clearPassword()
+{
+    ui->usernameField->clear();
 }
 
 

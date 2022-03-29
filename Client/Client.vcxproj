@@ -33,7 +33,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>6.2.3_msvc2019_64</QtInstall>
     <QtModules>core;gui;widgets</QtModules>
-    <QtBuildConfig>debug</QtBuildConfig>
+    <QtBuildConfig>release</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
     <QtInstall>6.2.3_msvc2019_64</QtInstall>
@@ -55,17 +55,19 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <IncludePath>$(QTDIR)\include\QtGui;$(QTDIR)\include\QtCore;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <IncludePath>$(QTDIR)\include\QtGui;$(QTDIR)\include\QtCore;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
@@ -96,8 +98,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\COMP72070 - TicTacToe\Source.cpp" />
+    <ClCompile Include="AccountWidget.cpp" />
+    <ClCompile Include="ClickableLabelcpp.cpp" />
     <ClCompile Include="CreateAccountWidget.cpp" />
+    <ClCompile Include="CSS.cpp" />
     <ClCompile Include="GameWidget.cpp" />
+    <ClCompile Include="GUIHandler.cpp" />
     <ClCompile Include="LoginWidget.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="StackedWidget.cpp" />
@@ -107,6 +113,7 @@
     <QtMoc Include="MainWindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtUic Include="AccountWidget.ui" />
     <QtUic Include="CreateAccountWidget.ui" />
     <QtUic Include="GameWidget.ui" />
     <QtUic Include="LoginWidget.ui" />
@@ -128,6 +135,11 @@
   <ItemGroup>
     <ClInclude Include="..\COMP72070 - TicTacToe\Packet.h" />
     <ClInclude Include="..\Server\Account.h" />
+    <ClInclude Include="GUIHandler.h" />
+    <ClInclude Include="WidgetNames.h" />
+    <QtMoc Include="AccountWidget.h" />
+    <QtMoc Include="ClickableLabel.h" />
+    <ClInclude Include="CSS.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

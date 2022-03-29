@@ -27,6 +27,12 @@
     <Filter Include="Source Files\GUI Source Files">
       <UniqueIdentifier>{9bfcbac3-955c-4c79-8fa3-aadbfc5a6d93}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GUI Header Files\CSS">
+      <UniqueIdentifier>{5e6262b8-98cb-452a-8fe9-78a291a14eb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GUI Source Files\CSS">
+      <UniqueIdentifier>{72ffb205-d368-4218-a8b7-bea5a31c0ad5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="MainWindow.qrc">
@@ -52,6 +58,18 @@
     <ClCompile Include="..\COMP72070 - TicTacToe\Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CSS.cpp">
+      <Filter>Source Files\GUI Source Files\CSS</Filter>
+    </ClCompile>
+    <ClCompile Include="AccountWidget.cpp">
+      <Filter>Source Files\GUI Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ClickableLabelcpp.cpp">
+      <Filter>Source Files\GUI Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIHandler.cpp">
+      <Filter>Source Files\GUI Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="CreateAccountWidget.h">
@@ -67,6 +85,12 @@
       <Filter>Header Files\GUI Header Files</Filter>
     </QtMoc>
     <QtMoc Include="StackedWidget.h">
+      <Filter>Header Files\GUI Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="ClickableLabel.h">
+      <Filter>Header Files\GUI Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="AccountWidget.h">
       <Filter>Header Files\GUI Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -86,6 +110,9 @@
     <QtUic Include="CreateAccountWidget.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtUic Include="AccountWidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Server\Account.h">
@@ -93,6 +120,15 @@
     </ClInclude>
     <ClInclude Include="..\COMP72070 - TicTacToe\Packet.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CSS.h">
+      <Filter>Header Files\GUI Header Files\CSS</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIHandler.h">
+      <Filter>Header Files\GUI Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WidgetNames.h">
+      <Filter>Header Files\GUI Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
