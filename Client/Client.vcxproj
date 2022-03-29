@@ -107,6 +107,7 @@
     <ClCompile Include="GUIHandler.cpp" />
     <ClCompile Include="LoginWidget.cpp" />
     <ClCompile Include="MainWindow.cpp" />
+    <ClCompile Include="NetworkHandler.cpp" />
     <ClCompile Include="StackedWidget.cpp" />
     <QtRcc Include="MainWindow.qrc" />
   </ItemGroup>

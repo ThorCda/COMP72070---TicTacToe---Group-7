@@ -76,6 +76,9 @@
     <ClCompile Include="..\COMP72070 - TicTacToe\Packet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="NetworkHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="CreateAccountWidget.h">
