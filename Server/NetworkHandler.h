@@ -5,6 +5,7 @@
 #include "../COMP72070 - TicTacToe/Packet.h"
 #include "Account_DB_Handler.h"
 #include "Logs.h"
+#include "GameRoom.h"
 
 using namespace std;
 
@@ -13,10 +14,9 @@ class NetworkHandler
 	SOCKET ListenSocket;
 	SOCKET ClientSocket;
 	sockaddr_in SvrAddr;
-	
+	GameRoom* gr = new GameRoom();
+
 public:
-
-
 
 	int winsockStartup()
 	{
@@ -193,7 +193,26 @@ public:
 
 		case Movep: {
 			MovePacket* newMovePacket = new MovePacket(packet->getSerializedTxBuffer());
-			// PlayMove(newMovePacket)
+			
+
+			int move = newMovePacket->getMove();
+
+			if (this->gr->updateBoard(move))
+			{
+				int compMove = this->gr->getGameBoard().placeComputerMove();
+				MovePacket* compMovePacket = new MovePacket(compMove);
+				compMovePacket->serializeMovePacketTxBuffer();
+				compMovePacket->serializeParentPacketTxBuffer();
+				sendPacket(compMovePacket);
+			}
+			else
+			{
+				ErrorPacket* err = new ErrorPacket(Move_Err);
+				err->serializeErrorPacketTxBuffer();
+				err->getSerializedParentTxBuffer();
+				sendPacket(err);
+				return false;
+			}
 			break;
 		}
 

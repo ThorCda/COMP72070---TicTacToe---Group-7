@@ -50,19 +50,23 @@ public:
 		return false;
 	}
 
-	bool placeComputerMove()
+	int placeComputerMove()
 	{
-		int move = rand() % 9;
-		this->moveCounter++;
-		if (validateMove(move, 0))
+		int move = 0;
+		while (!validateComputerMove(move, 1));
 		{
-			if (ifEnd())
+			move = rand() % 9;
+			this->moveCounter++;
+			if (validateMove(move, 1))
 			{
-				this->computerWin = true;
+				if (ifEnd())
+				{
+					this->computerWin = true;
+				}
+				return move;
 			}
-			return true;
 		}
-		return false;
+		return;
 	}
 
 	bool ifEnd()
@@ -117,6 +121,33 @@ public:
 		if (this->board[row][col] == (char)move)
 		{
 			playMove(row, col, move, player);
+			return true;
+		}
+		else
+			return false;
+	}
+
+	bool validateComputerMove(int move, int player)
+	{
+		int col = 0;
+		int row = 0;
+		if (move <= 3)
+		{
+			col = move - 1;
+		}
+		else if (move <= 6)
+		{
+			row = 1;
+			col = move - 4;
+		}
+		else if (move <= 9)
+		{
+			row = 2;
+			col = move - 7;
+		}
+
+		if (this->board[row][col] == (char)move)
+		{
 			return true;
 		}
 		else

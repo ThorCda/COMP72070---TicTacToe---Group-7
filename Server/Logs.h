@@ -21,7 +21,7 @@ enum FILE_TYPE
 
 enum ERROR_CODE	
 {
-    Login_Err, CrtAcc_Err, Quit_Err, Conn_Err
+    Login_Err, CrtAcc_Err, Quit_Err, Conn_Err, Move_Err
 };
  class Logs {
 
