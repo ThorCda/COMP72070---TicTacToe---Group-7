@@ -2,7 +2,7 @@
 #include <windows.networking.sockets.h>
 #pragma comment(lib, "Ws2_32.lib")
 #include "../Server/ChildPackets.h"
-#include "../COMP72070 - TicTacToe/Packet.h"
+#include "../Server/Packet.h"
 using namespace std;
 
 enum ACTION_TYPE { type_not_defined, buf_send, buf_receive, connected, disconnected };

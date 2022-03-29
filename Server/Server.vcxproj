@@ -146,14 +146,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\COMP72070 - TicTacToe\Packet.cpp" />
     <ClCompile Include="DB_Handler.cpp" />
     <ClCompile Include="Logs.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Packet.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\COMP72070 - TicTacToe\Packet.h" />
     <ClInclude Include="Account.h" />
     <ClInclude Include="AccountPacket.h" />
     <ClInclude Include="Account_DB_Handler.h" />
@@ -171,6 +170,7 @@
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MovePacket.h" />
     <ClInclude Include="NetworkHandler.h" />
+    <ClInclude Include="Packet.h" />
     <ClInclude Include="Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

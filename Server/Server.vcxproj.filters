@@ -30,22 +30,19 @@
     <ClCompile Include="DB_Handler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\COMP72070 - TicTacToe\Packet.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Logs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Packet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Account.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\COMP72070 - TicTacToe\Packet.h">
-      <Filter>Header Files\Packet Headers</Filter>
     </ClInclude>
     <ClInclude Include="MovePacket.h">
       <Filter>Header Files\Packet Headers</Filter>
@@ -97,6 +94,9 @@
     </ClInclude>
     <ClInclude Include="Menu.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet.h">
+      <Filter>Header Files\Packet Headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

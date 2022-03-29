@@ -1,7 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "Packet.h"
-#include "../Server/ChildPackets.h"
+#include "ChildPackets.h"
 
 using namespace std;
 

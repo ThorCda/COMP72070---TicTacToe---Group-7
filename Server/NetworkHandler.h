@@ -4,7 +4,7 @@
 #include <windows.networking.sockets.h>
 #pragma comment(lib, "Ws2_32.lib")
 #include "ChildPackets.h"
-#include "../COMP72070 - TicTacToe/Packet.h"
+#include "Packet.h"
 #include "Account_DB_Handler.h"
 #include "Logs.h"
 #include "GameRoom.h"

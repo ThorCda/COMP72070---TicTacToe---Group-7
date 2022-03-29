@@ -34,7 +34,7 @@
       <UniqueIdentifier>{72ffb205-d368-4218-a8b7-bea5a31c0ad5}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Packet Headers">
-      <UniqueIdentifier>{23210ec3-2d43-4826-83b4-f19c248aeaf6}</UniqueIdentifier>
+      <UniqueIdentifier>{2ef3986e-bd1b-4d48-a441-d5d360bd35ee}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -58,9 +58,6 @@
     <ClCompile Include="StackedWidget.cpp">
       <Filter>Source Files\GUI Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\COMP72070 - TicTacToe\Source.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CSS.cpp">
       <Filter>Source Files\GUI Source Files\CSS</Filter>
     </ClCompile>
@@ -73,10 +70,13 @@
     <ClCompile Include="GUIHandler.cpp">
       <Filter>Source Files\GUI Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\COMP72070 - TicTacToe\Packet.cpp">
+    <ClCompile Include="NetworkHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="NetworkHandler.cpp">
+    <ClCompile Include="Source.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Server\Packet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -139,9 +139,6 @@
     <ClInclude Include="NetworkHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\COMP72070 - TicTacToe\Packet.h">
-      <Filter>Header Files\Packet Headers</Filter>
-    </ClInclude>
     <ClInclude Include="..\Server\AccountPacket.h">
       <Filter>Header Files\Packet Headers</Filter>
     </ClInclude>
@@ -163,8 +160,8 @@
     <ClInclude Include="..\Server\MovePacket.h">
       <Filter>Header Files\Packet Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\Server\ChildPackets.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\Server\Packet.h">
+      <Filter>Header Files\Packet Headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
