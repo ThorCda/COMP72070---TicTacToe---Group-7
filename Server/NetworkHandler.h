@@ -42,7 +42,28 @@ public:
 		}
 	}
 
-	int initConnection()
+	int bindConnect() {
+		sockaddr_in SvrAddr;
+		SvrAddr.sin_family = AF_INET;
+		SvrAddr.sin_addr.s_addr = INADDR_ANY;
+		SvrAddr.sin_port = htons(27500);
+		if (bind(ListenSocket, (struct sockaddr*)&SvrAddr, sizeof(SvrAddr)) == SOCKET_ERROR)
+		{
+			closesocket(ListenSocket);
+			WSACleanup();
+			return 0;
+		}
+	}
+
+	int listenSocket() {
+		if (listen(ListenSocket, 1) == SOCKET_ERROR) {
+			closesocket(ListenSocket);
+			WSACleanup();
+			return 0;
+		}
+	}
+	//Used in client?
+	int connectSocket()
 	{
 		//Connect socket to specified server
 		this->SvrAddr.sin_family = AF_INET;                        //Address family type itnernet
@@ -72,9 +93,11 @@ public:
 
 	bool listenForPacket() {
 
-		char RxBuffer[1028];	//Max length of the biggest packet
+		char RxBuffer[1028] = {};	//Max length of the biggest packet
 
 		recv(ClientSocket, RxBuffer, sizeof(RxBuffer), 0);
+		
+		cout << RxBuffer;
 
 		Logs::write(true, buf_receive, RxBuffer);
 

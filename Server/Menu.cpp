@@ -70,7 +70,9 @@ void Menu::runServer() {
 
 	hdlr->winsockStartup();
 	hdlr->initSocket();
-	hdlr->initConnection();
+	hdlr->bindConnect();
+	hdlr->listenSocket();
+	hdlr->acceptClient();
 	
 	while (hdlr->listenForPacket()) {}
 
