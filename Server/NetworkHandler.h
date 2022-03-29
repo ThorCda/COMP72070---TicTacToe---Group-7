@@ -1,4 +1,6 @@
+
 #pragma once
+
 #include <windows.networking.sockets.h>
 #pragma comment(lib, "Ws2_32.lib")
 #include "ChildPackets.h"
@@ -9,25 +11,7 @@
 
 using namespace std;
 
-enum ACTION_TYPE
-{
-	type_not_defined, buf_send, buf_receive, connected, disconnected
-};
 
-enum MATCH_STATUS
-{
-	status_not_defined, playing, ended, picture
-};
-
-enum FILE_TYPE
-{
-	error_log, game_log, conn_log
-};
-
-enum ERROR_CODE
-{
-	Login_Err, CrtAcc_Err, Quit_Err, Conn_Err, Move_Err
-};
 
 class NetworkHandler
 {
@@ -176,7 +160,7 @@ public:
 			GameStatusPacket* newGameStatusPacket = new GameStatusPacket(packet->getSerializedTxBuffer());
 
 			if (newGameStatusPacket->getGameStatusPacketGameCode() == picture) {
-				sendPicture();
+				//recvPicture();
 			}
 
 			// 
@@ -257,7 +241,10 @@ public:
 
 	}
 
+	//send and recv should also be ported to client
 	void recvPicture() {
+
+		//Needs a string for the name or to set it to an account?
 
 		char RxBuffer[sizeof(int)];		//Sending just an integer protocol; not sure if it we should make an integer packet for this
 		recv(ClientSocket, RxBuffer, sizeof(int), 0);
@@ -269,9 +256,48 @@ public:
 
 		recv(ClientSocket, picture, size, 0);
 
+		FILE* image;
+
+		fopen_s(&image, "user.png", "wb");
+
+		fwrite(picture, sizeof(char), sizeof(picture), image);
+
+		fclose(image);
 
 
+	}
 
+	void sendPicture() {
+		FILE* picture;
+		fopen_s(&picture, "Dog.png", "rb");
+		if (picture == NULL) {
+			return;
+		}
+
+		fseek(picture, 0, SEEK_END);
+
+		int size = ftell(picture);
+
+		char* TxBuffer = new char[sizeof(int)];
+
+		memcpy(TxBuffer, &size, sizeof(size));
+
+		send(ClientSocket, TxBuffer, sizeof(size), 0);
+
+
+		TxBuffer = new char[size];
+
+
+		fseek(picture, 0, SEEK_SET);
+
+		
+		send(ClientSocket, TxBuffer, sizeof(TxBuffer), 0); 
+
+		fclose(picture);
+
+			
+
+		
 	}
 
 
