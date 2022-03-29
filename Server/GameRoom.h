@@ -37,7 +37,7 @@ public:
 
 	}
 
-	GameBoard getGameBoard()
+	GameBoard* getGameBoard()
 	{
 		return this->gameBoard;
 	}

@@ -66,7 +66,7 @@ public:
 				return move;
 			}
 		}
-		return;
+		return move;
 	}
 
 	bool ifEnd()

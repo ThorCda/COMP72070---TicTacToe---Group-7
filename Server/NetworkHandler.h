@@ -199,7 +199,7 @@ public:
 
 			if (this->gr->updateBoard(move))
 			{
-				int compMove = this->gr->getGameBoard().placeComputerMove();
+				int compMove = this->gr->getGameBoard()->placeComputerMove();
 				MovePacket* compMovePacket = new MovePacket(compMove);
 				compMovePacket->serializeMovePacketTxBuffer();
 				compMovePacket->serializeParentPacketTxBuffer();
