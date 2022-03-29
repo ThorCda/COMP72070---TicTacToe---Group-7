@@ -97,6 +97,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\COMP72070 - TicTacToe\Packet.cpp" />
     <ClCompile Include="..\COMP72070 - TicTacToe\Source.cpp" />
     <ClCompile Include="AccountWidget.cpp" />
     <ClCompile Include="ClickableLabelcpp.cpp" />
@@ -135,7 +136,16 @@
   <ItemGroup>
     <ClInclude Include="..\COMP72070 - TicTacToe\Packet.h" />
     <ClInclude Include="..\Server\Account.h" />
+    <ClInclude Include="..\Server\AccountPacket.h" />
+    <ClInclude Include="..\Server\ChildPackets.h" />
+    <ClInclude Include="..\Server\CreateAccountPacket.h" />
+    <ClInclude Include="..\Server\ErrorPacket.h" />
+    <ClInclude Include="..\Server\GameStatusPacket.h" />
+    <ClInclude Include="..\Server\LoginPacket.h" />
+    <ClInclude Include="..\Server\LogoutPacket.h" />
+    <ClInclude Include="..\Server\MovePacket.h" />
     <ClInclude Include="GUIHandler.h" />
+    <ClInclude Include="NetworkHandler.h" />
     <ClInclude Include="WidgetNames.h" />
     <QtMoc Include="AccountWidget.h" />
     <QtMoc Include="ClickableLabel.h" />
