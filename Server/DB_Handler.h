@@ -17,15 +17,15 @@ public:
 
 	Database_Handler()
 	{
-		conn = mysql_real_connect(this->conn, "tictactoedbv3.cjzonevwncmb.us-east-2.rds.amazonaws.com", "admin", "Conestoga", "tictactoeDB", 3306, NULL, 0);
-		if (conn)
-		{
-			cout << "\nConnection established\n";
-		}
-		else
-		{
-			cout << "\nError creating connection\n";
-		}
+			conn = mysql_real_connect(this->conn, "tictactoedbv3.cjzonevwncmb.us-east-2.rds.amazonaws.com", "admin", "Conestoga", "tictactoeDB", 3306, NULL, 0);
+			if (conn)
+			{
+				cout << "\nConnection established\n";
+			}
+			else
+			{
+				cout << "\nError creating connection\n";
+			}
 	}
 
 

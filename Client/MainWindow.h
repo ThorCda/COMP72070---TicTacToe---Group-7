@@ -1,5 +1,5 @@
 #pragma once
-
+#include "NetworkHandler.h"
 #include <QMainWindow>
 #include "ui_MainWindow.h"
 #include "GUIHandler.h"

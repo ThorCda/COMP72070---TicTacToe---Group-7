@@ -19,6 +19,7 @@ class NetworkHandler
 	SOCKET ClientSocket;
 	sockaddr_in SvrAddr;
 	GameRoom* gr = new GameRoom();
+	Account_DB_Handler* AccDBHandler = new Account_DB_Handler();
 
 public:
 
@@ -109,7 +110,6 @@ public:
 
 		bool isLoggedIn = true;
 
-		Account_DB_Handler* AccDBHandler = new Account_DB_Handler();
 
 		switch (packet->getHeaderPacketType())
 		{
@@ -127,7 +127,7 @@ public:
 
 			Account* acc = new Account(pkt->getFName(), pkt->getLName(), pkt->getUsername());
 			
-			acc = AccDBHandler->createAccount(acc, pkt->getPassword());
+			acc = this->AccDBHandler->createAccount(acc, pkt->getPassword());
 
 			if (acc == nullptr) {
 				//send error packet

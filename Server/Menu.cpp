@@ -1,9 +1,9 @@
 #include "Menu.h"
+#include "DB_Handler.h"
 
 void Menu::start()
 {
 	do {
-		
 		int option;
 		Menu::print();
 		do {
