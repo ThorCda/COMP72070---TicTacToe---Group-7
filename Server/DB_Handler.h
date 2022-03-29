@@ -31,7 +31,7 @@ public:
 
 	~Database_Handler()
 	{
-
+		mysql_close(conn);
 	}
 
 
