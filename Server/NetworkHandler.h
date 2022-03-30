@@ -152,7 +152,7 @@ public:
 				//send error packet
 				ErrorPacket* err = new ErrorPacket(CrtAcc_Err);
 				err->serializeErrorPacketTxBuffer();
-				err->getSerializedParentTxBuffer();
+				err->serializeParentPacketTxBuffer();
 				sendPacket(err);
 				return false;
 			}
