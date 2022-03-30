@@ -9,6 +9,8 @@ class Database_Handler
 {
 protected:
 	MYSQL* conn = mysql_init(0);
+	MYSQL_ROW row;
+	MYSQL_RES* result;
 	int qstate;
 
 public:
@@ -29,7 +31,6 @@ public:
 
 	~Database_Handler()
 	{
-		mysql_close(conn);
 	}
 
 
