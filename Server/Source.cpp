@@ -22,12 +22,12 @@ int main() {
 	char usr[] = "xxKarlxx";
 	char pwd[] = "Conestoga";
 
-	Account_DB_Handler adb;
+	//Account_DB_Handler adb;
 
-	adb.login(usr, pwd);
-	adb.login(usr, pwd);
+	//adb.login(usr, pwd);
+	//adb.login(usr, pwd);
 
-	//Menu* menu = new Menu();
-	//menu->start();
+	Menu* menu = new Menu();
+	menu->start();
 
 }

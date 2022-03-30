@@ -48,7 +48,7 @@ public:
 
 	void viewGames() // views all the games in the table, mostly for server side admin use
 	{
-		Database_Handler db;
+		createConnection();
 		string query = "SELECT * FROM game";
 		const char* q = query.c_str();
 		qstate = mysql_query(conn, q);
@@ -62,14 +62,14 @@ public:
 				cout << "\nID: " << row[0] << "\nDate: " << row[1] << "\nWinner ID: " << row[2] << "\nStatus: " << row[3];
 			}
 			mysql_free_result(result);
-			mysql_close(conn);
+			terminate();
 		}
 
 	}
 
 	void viewSpecificGame(int id) // views a specific game at the users request. will have to send packet back later instead of console printing
 	{
-		Database_Handler db;
+		createConnection();
 		string query = "SELECT * FROM game where gameID = " + id;
 		const char* q = query.c_str();
 		qstate = mysql_query(conn, q);
@@ -79,7 +79,7 @@ public:
 			result = mysql_store_result(conn);
 			cout << "\nID: " << row[0] << "\nDate: " << row[1] << "\nWinner ID: " << row[2] << "\nStatus: " << row[3];
 			mysql_free_result(result);
-			mysql_close(conn);
+			terminate();
 		}
 	}
 };
