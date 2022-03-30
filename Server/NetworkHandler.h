@@ -108,12 +108,7 @@ public:
 		
 		//Logs::write(true, buf_receive, RxBuffer);
 
-		cout << RxBuffer;
-
-
-
-
-
+		cout << "no crash :)";
 
 		Packet* pkt = new Packet(RxBuffer);		//Not sure if RxBuffer should be reallocated 
 
@@ -225,6 +220,7 @@ public:
 			AccountPacket* accPkt = new AccountPacket(acc);
 
 			accPkt->serializeAccountPacketTxBuffer();
+			accPkt->serializeParentPacketTxBuffer();
 
 			sendPacket(accPkt);
 

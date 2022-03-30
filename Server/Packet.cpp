@@ -29,7 +29,7 @@ Packet::Packet(char* RxBuffer) {
 	memcpy(&this->pktHead, RxBuffer, sizeof(pktHead));
 
 	this->serializedPacketBuffer = new char[this->pktHead.bodyLength];
-	memcpy(&this->serializedPacketBuffer, RxBuffer + sizeof(pktHead), this->pktHead.bodyLength);
+	memcpy(this->serializedPacketBuffer, RxBuffer + sizeof(pktHead), this->pktHead.bodyLength);
 	
 }
 	
@@ -128,6 +128,9 @@ char* Packet::getSerializedTxBuffer() {
 
 void Packet::serializeParentPacketTxBuffer() {
 
+	if (serializedParentBuffer)
+		delete[] serializedParentBuffer;
+
 	int byteBuffer = 0;
 
 	this->serializedParentBuffer = new char[getHeaderBodyLength() + sizeof(this->pktHead)];
@@ -144,7 +147,7 @@ void Packet::serializeParentPacketTxBuffer() {
 	memcpy(this->serializedParentBuffer + byteBuffer, &this->pktHead.bodyLength, sizeof(this->pktHead.bodyLength));
 	byteBuffer += sizeof(this->pktHead.bodyLength);
 
-	memcpy(this->serializedParentBuffer + byteBuffer, &this->serializedPacketBuffer, this->pktHead.bodyLength);
+	memcpy(this->serializedParentBuffer + byteBuffer, this->serializedPacketBuffer, this->pktHead.bodyLength);
 	byteBuffer += this->pktHead.bodyLength;
 
 }
