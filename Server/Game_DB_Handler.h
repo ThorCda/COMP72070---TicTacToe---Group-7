@@ -13,9 +13,9 @@ class Game_DB_Handler : public Database_Handler
 {
 public:
 
-	void createGame(GameRoom g) // takes a game and creates a record in the database
+	void createGame(GameRoom* g) // takes a game and creates a record in the database
 	{
-		string query = "call CreateGame (" + g.getGameBoard().getStatus(); +"\"," + to_string(g.getPlayer().getAccount().getAccountID()) + ")";
+		string query = "call CreateGame (" + g->getGameBoard()->getStatus(); +"\"," + to_string(g->getPlayer().getAccount().getAccountID()) + ")";
 		const char* q = query.c_str();
 
 		qstate = mysql_query(conn, q);
@@ -63,6 +63,7 @@ public:
 				cout << "\nID: " << row[0] << "\nDate: " << row[1] << "\nWinner ID: " << row[2] << "\nStatus: " << row[3];
 			}
 		}
+		mysql_free_result(result);
 	}
 
 	void viewSpecificGame(int id) // views a specific game at the users request. will have to send packet back later instead of console printing
@@ -78,5 +79,6 @@ public:
 			result = mysql_store_result(conn);
 			cout << "\nID: " << row[0] << "\nDate: " << row[1] << "\nWinner ID: " << row[2] << "\nStatus: " << row[3];
 		}
+		mysql_free_result(result);
 	}
 };

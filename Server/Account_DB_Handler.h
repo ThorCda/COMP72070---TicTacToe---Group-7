@@ -106,11 +106,13 @@ public:
 			Account* ac = new Account(atoi(row[0]), (char*)row[1], (char*)row[2], (char*)row[3], (char*)row[4], atoi(row[5]), atoi(row[6]), atoi(row[7]), true);
 
 			cout << "Account loaded";
+			mysql_free_result(result);
 			return ac;
 		}
 		else
 		{
 			cout << "\nError loading account\n";
+			mysql_free_result(result);
 			return nullptr;
 		}
 	}
