@@ -210,6 +210,8 @@ public:
 
 			sendPacket(accPkt);
 
+			//Sends a picture packet
+
 			break;
 		}
 
@@ -243,6 +245,11 @@ public:
 				return false;
 			}
 			break;
+		}
+		case Imagep: {
+
+
+
 		}
 
 		case PacketPacket: {
