@@ -89,10 +89,50 @@ public:
 		}
 	}
 
+	void insertImage(char* username, char* picloc)
+	{
+		string un(username);
+		string path(picloc);
+
+		string query = "call InsertImage(\"" + un + "\",\"" + path + "\"" + ")";
+		const char* q = query.c_str();
+
+		qstate = mysql_query(conn, q);
+		if (!qstate)
+		{
+			cout << "\nAvatar path updated\n";
+		}
+		else
+		{
+			cout << "\nError updating avatar path\n";
+		}
+	}
+
+	char* getImage(char* username)
+	{
+		string un(username);
+
+		string query = "call FindImage (\"" + un +"\")";
+
+		const char* q2 = query.c_str();
+		qstate = mysql_query(conn, q2);
+		result = mysql_store_result(conn);
+		row = mysql_fetch_row(result);
+
+		if (mysql_num_rows(result) == 1)
+		{
+			char* picloc = row[0];
+			return picloc;
+		}
+		else
+		{
+			return nullptr;
+		}
+	}
 
 	Account* login(string username, string password)
 	{
-		Database_Handler db;
+		createConnection();
 		string query = "call Find_User (\"" + username + "\",\"" + password + "\")";
 
 		const char* q2 = query.c_str();
@@ -106,14 +146,14 @@ public:
 
 			cout << "Account loaded";
 			mysql_free_result(result);
-			mysql_close(conn);
+			terminate();
 			return ac;
 		}
 		else
 		{
 			cout << "\nError loading account\n";
 			mysql_free_result(result);
-			mysql_close(conn);
+			terminate();
 			return nullptr;
 		}
 	}

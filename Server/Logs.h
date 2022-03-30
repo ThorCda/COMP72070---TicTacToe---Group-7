@@ -6,7 +6,7 @@
 
 enum ACTION_TYPE
 {
-    type_not_defined, buf_send, buf_receive, connected, disconnected
+    type_not_defined, buf_send, buf_receive, connected, disconnected, Photo
 };
 
 enum MATCH_STATUS
@@ -21,7 +21,7 @@ enum FILE_TYPE
 
 enum ERROR_CODE
 {
-    Login_Err, CrtAcc_Err, Quit_Err, Conn_Err, Move_Err
+    Login_Err, CrtAcc_Err, Quit_Err, Conn_Err, Move_Err, Image_Err
 };
  class Logs {
 
