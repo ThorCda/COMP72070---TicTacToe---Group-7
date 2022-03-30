@@ -193,9 +193,11 @@ public:
 			string userName(linPkt->getUsername());
 			string password(linPkt->getPassword());
 
+			AccDBHandler->createConnection();
 			Account* acc = AccDBHandler->login(userName, password);
+			AccDBHandler->terminate();
 			
-			if (acc == nullptr) {
+			if (acc == nullptr || acc->getUserName()) {
 				ErrorPacket* err = new ErrorPacket(Login_Err);
 				err->serializeErrorPacketTxBuffer();
 				err->getSerializedParentTxBuffer();
@@ -209,6 +211,7 @@ public:
 			accPkt->serializeParentPacketTxBuffer();
 
 			sendPacket(accPkt);
+			AccDBHandler->terminate();
 
 			break;
 		}

@@ -69,7 +69,8 @@ void NetworkHandler::routePacket(Packet* packet) {
 
 	case Accountp: {
 		AccountPacket* newAccountPacket = new AccountPacket(packet->getSerializedTxBuffer());
-		emit LOGIN_SUCCESS();
+		Account* acc = new Account(newAccountPacket->getAccount());
+		emit LOGIN_SUCCESS(acc);
 		break;
 	}
 	//case CreateAccountp: {
@@ -141,11 +142,11 @@ void NetworkHandler::routePacket(Packet* packet) {
 	//	isLoggedIn = false;	//Will terminate the session
 	//	break;
 	//}
-	//case Movep: {
-	//	MovePacket* newMovePacket = new MovePacket(packet->getSerializedTxBuffer());
-	//	// PlayMove(newMovePacket)
-	//	break;
-	//}
+	case Movep: {
+		MovePacket* newMovePacket = new MovePacket(packet->getSerializedTxBuffer());
+		emit UPDATE_GAME_BOARD(newMovePacket->getMove());
+		break;
+	}
 	//case PacketPacket: {
 	//	//Parent packet creator???
 	//	break;
@@ -169,6 +170,13 @@ void NetworkHandler::LOGIN()
 	p->serializeParentPacketTxBuffer();
 	sendPacket(p);
 	listenForPacket();
+}
 
-
+void NetworkHandler::GAME_MOVE(int gridNum)
+{
+	MovePacket* p = new MovePacket(gridNum);
+	p->serializeMovePacketTxBuffer();
+	p->serializeParentPacketTxBuffer();
+	sendPacket(p);
+	listenForPacket();
 }

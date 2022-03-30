@@ -31,8 +31,10 @@ public:
 
 public slots:
 	void LOGIN();
+	void GAME_MOVE(int);
 
 signals:
-	void LOGIN_SUCCESS();
+	void LOGIN_SUCCESS(Account*);
 	void LOGIN_FAILURE();
+	void UPDATE_GAME_BOARD(int);
 };

@@ -14,7 +14,8 @@ GameWidget::GameWidget(QWidget* parent) :
     ui->accountButton->setFocusPolicy(Qt::NoFocus);
     ui->logoutButton->setFocusPolicy(Qt::NoFocus);
     ui->newGameButton->setFocusPolicy(Qt::NoFocus);
-    
+
+    InitGameBoard();
 }
 
 GameWidget::~GameWidget()
@@ -41,4 +42,33 @@ void GameWidget::on_newGameButton_clicked()
 Ui::GameWidget* GameWidget::GetGameWidgetUI()
 {
     return ui;
+}
+
+//void GameWidget::SetLabelGridNums()
+//{
+//
+//    for (int i = 1; i < 10; i++)
+//    {
+//        gameLabels[i]->SetGridNum(i);
+//    }
+//}
+
+void GameWidget::InitGameBoard()
+{
+    gameLabels[0] = NULL;
+
+    QPixmap blank;
+
+    for (int i = 1; i < 10; i++)
+    {
+        gameLabels[i]->SetGridNum(i);
+        gameLabels[i]->setPixmap(blank);
+    }
+}
+
+void GameWidget::UpdateStats(Account* account)
+{
+    ui->winsCounter->setText(QString::number(account->getWins()));
+    ui->lossesCounter->setText(QString::number(account->getLoses()));
+    ui->drawsCounter->setText(QString::number(account->getDraws()));
 }
