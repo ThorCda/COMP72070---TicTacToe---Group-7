@@ -13,6 +13,22 @@
 using namespace std;
 
 
+//hdlr->listenSocket();
+//hdlr->acceptClient();
+//hdlr->listenForPacket();
+//
+//while (hdlr->listenForPacket()) {}
+
+enum ServerState {
+
+	UNINITIALIZED,
+	INITIALIZING,
+	CONNECTING,
+	CONNECTED,
+	LISTENING,
+	EXECUTING
+
+};
 
 class NetworkHandler
 {
@@ -21,21 +37,37 @@ class NetworkHandler
 	sockaddr_in SvrAddr;
 	GameRoom* gr = new GameRoom();
 	Account_DB_Handler* AccDBHandler = new Account_DB_Handler();
-
+	ServerState currentState = UNINITIALIZED;
+	
 public:
+
+	int getState() {
+
+		return this->currentState;
+
+	}
+
+	void setState(ServerState state) {
+
+		this->currentState = state;
+
+	}
 
 	int winsockStartup()
 	{
+		setState(INITIALIZING);
 		//starts Winsock DLLs
 		WSADATA wsaData;
 		if ((WSAStartup(MAKEWORD(2, 2), &wsaData)) != 0) {
 			return 0;
 		}
-		cout << "Winsock: Initalized..." << endl;
+		cout << "Winsock: Initalized..." << endl;		
+
 	}
 
 	int initSocket()
 	{
+		setState(INITIALIZING);
 		//initializes socket. SOCK_STREAM: TCP
 		this->ListenSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 		if (this->ListenSocket == INVALID_SOCKET) {
@@ -43,9 +75,12 @@ public:
 			return 0;
 		}
 		cout << "Winsock: Socket created..." << endl;
+		
 	}
 
 	int bindConnect() {
+		
+		setState(INITIALIZING);
 		sockaddr_in SvrAddr;
 		SvrAddr.sin_family = AF_INET;
 		SvrAddr.sin_addr.s_addr = INADDR_ANY;
@@ -57,9 +92,12 @@ public:
 			return 0;
 		}
 		cout << "Winsock: Bound socket..." << endl;
+		
+
 	}
 
 	int listenSocket() {
+		
 		if (listen(ListenSocket, 1) == SOCKET_ERROR) {
 			closesocket(ListenSocket);
 			WSACleanup();
@@ -69,22 +107,24 @@ public:
 
 	int acceptClient() {
 
+		
 		this->ClientSocket = SOCKET_ERROR;
 
 		cout << "Winsock: Waiting for connection..." << endl;
-
+		setState(CONNECTING);
 		if ((this->ClientSocket = accept(this->ListenSocket, NULL, NULL)) == SOCKET_ERROR) {
 			closesocket(this->ListenSocket);
 			WSACleanup();
 			return 0;
 		}
 		cout << "Winsock: Connection Established" << endl;
-
-		Logs::write(true, connected, NULL);
+		setState(CONNECTED);
+		Logs::write(this->getState(), connected, NULL);
 	}
 
 	bool listenForPacket() {
 
+		setState(LISTENING);
 		cout << "Winsock: Lisening for packet..." << endl;
 
 		char RxBuffer[1028] = {};	//Max length of the biggest packet
@@ -94,7 +134,7 @@ public:
 
 		recv(ClientSocket, RxBuffer, sizeof(RxBuffer), 0);
 		
-		Logs::write(true, buf_receive, RxBuffer);
+		Logs::write(this->getState(), buf_receive, RxBuffer);
 
 		Packet* pkt = new Packet(RxBuffer);		//Not sure if RxBuffer should be reallocated 
 
@@ -106,27 +146,31 @@ public:
 	void closeSocket()
 	{
 
-		Logs::write(false, disconnected, NULL);
+		Logs::write(this->getState(), disconnected, NULL);
 
 		closesocket(this->ClientSocket);	//closes incoming socket
 
 		closesocket(this->ListenSocket);	    //closes server socket	
 
 		WSACleanup();					//frees Winsock resources
+		setState(UNINITIALIZED);
 
 	}
 
 
 	void sendPacket(Packet* p)
 	{
+		setState(EXECUTING);
 		cout << "Winsock: Sending packet..." << endl;
+		
 		send(ClientSocket, p->getSerializedParentTxBuffer(), sizeof(Header) + p->getHeaderBodyLength(), 0);
 
-		Logs::write(true, buf_send, p->getSerializedParentTxBuffer());
+		Logs::write(this->getState(), buf_send, p->getSerializedParentTxBuffer());
 	}
 
 	bool routePacket(Packet* packet) {
 
+		setState(EXECUTING);
 		bool isLoggedIn = true;
 
 
@@ -272,6 +316,7 @@ public:
 	//send and recv should also be ported to client and server
 	void recvImage(int size, char* username) {
 
+		setState(EXECUTING);
 		char* pathname = username;
 
 		strcat(pathname, ".jpeg");
@@ -295,7 +340,7 @@ public:
 
 
 	void sendImageFromDB(char* username) {
-
+		setState(EXECUTING);
 		FILE* picture;
 
 		char* pathname = AccDBHandler->getImage(username);
@@ -307,7 +352,7 @@ public:
 			err->serializeErrorPacketTxBuffer();
 			err->getSerializedParentTxBuffer();
 			sendPacket(err);
-			Logs::write(1, Image_Err);
+			Logs::write(this->getState(), Image_Err);
 			return;
 		}
 
@@ -327,7 +372,7 @@ public:
 		fread(TxBuffer, sizeof(char), size, picture);
 		
 		send(ClientSocket, TxBuffer, sizeof(TxBuffer), 0);
-		Logs::write(true, Photo, NULL);
+		Logs::write(this->getState(), Photo, NULL);
 
 		fclose(picture);
 
