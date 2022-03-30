@@ -30,6 +30,7 @@ public:
 		if ((WSAStartup(MAKEWORD(2, 2), &wsaData)) != 0) {
 			return 0;
 		}
+		cout << "Winsock: Initalized..." << endl;
 	}
 
 	int initSocket()
@@ -40,6 +41,7 @@ public:
 			WSACleanup();
 			return 0;
 		}
+		cout << "Winsock: Socket created..." << endl;
 	}
 
 	int bindConnect() {
@@ -53,6 +55,7 @@ public:
 			WSACleanup();
 			return 0;
 		}
+		cout << "Winsock: Bound socket..." << endl;
 	}
 
 	int listenSocket() {
@@ -80,6 +83,8 @@ public:
 
 		this->ClientSocket = SOCKET_ERROR;
 
+		cout << "Winsock: Waiting for connection..." << endl;
+
 		if ((this->ClientSocket = accept(this->ListenSocket, NULL, NULL)) == SOCKET_ERROR) {
 			closesocket(this->ListenSocket);
 			WSACleanup();
@@ -92,6 +97,8 @@ public:
 	}
 
 	bool listenForPacket() {
+
+		cout << "Winsock: Lisening for packet..." << endl;
 
 		char RxBuffer[1028] = {};	//Max length of the biggest packet
 
@@ -122,6 +129,7 @@ public:
 
 	void sendPacket(Packet* p)
 	{
+		cout << "Winsock: Sending packet..." << endl;
 		send(ClientSocket, p->getSerializedTxBuffer(), sizeof(Header) + p->getHeaderBodyLength(), 0);
 
 		Logs::write(true, buf_send, p->getSerializedParentTxBuffer());
