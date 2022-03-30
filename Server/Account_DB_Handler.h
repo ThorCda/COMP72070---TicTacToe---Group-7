@@ -92,6 +92,8 @@ public:
 
 	Account* login(string username, string password)
 	{
+		MYSQL_ROW row;
+		MYSQL_RES* result;
 		string query = "call Find_User (\"" + username + "\",\"" + password + "\")";
 
 		const char* q2 = query.c_str();

@@ -48,6 +48,8 @@ public:
 
 	void viewGames() // views all the games in the table, mostly for server side admin use
 	{
+		MYSQL_ROW row;
+		MYSQL_RES* result;
 		string query = "SELECT * FROM game";
 		const char* q = query.c_str();
 		qstate = mysql_query(conn, q);
@@ -65,6 +67,8 @@ public:
 
 	void viewSpecificGame(int id) // views a specific game at the users request. will have to send packet back later instead of console printing
 	{
+		MYSQL_ROW row;
+		MYSQL_RES* result;
 		string query = "SELECT * FROM game where gameID = " + id;
 		const char* q = query.c_str();
 		qstate = mysql_query(conn, q);
