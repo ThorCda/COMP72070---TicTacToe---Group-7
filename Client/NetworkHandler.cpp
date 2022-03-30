@@ -176,10 +176,6 @@ void NetworkHandler::LOGIN()
 
 }
 
-
-
-
-
 //************* Images **************//
 
 	//send and recv should also be ported to client and server
@@ -199,7 +195,8 @@ void NetworkHandler::recvImage(int size) {
 }
 
 
-void  NetworkHandler::sendImage(char* username) {
+void  NetworkHandler::sendImage(char* username) 
+{
 
 	FILE* picture;
 
@@ -231,6 +228,7 @@ void  NetworkHandler::sendImage(char* username) {
 	send(ClientSocket, TxBuffer, sizeof(TxBuffer), 0);
 
 	fclose(picture);
+}
 
 void NetworkHandler::GAME_MOVE(int gridNum)
 {

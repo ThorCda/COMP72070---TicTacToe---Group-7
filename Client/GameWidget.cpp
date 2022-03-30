@@ -57,6 +57,16 @@ void GameWidget::InitGameBoard()
 {
     gameLabels[0] = NULL;
 
+    gameLabels[1] = ui->topLeft;
+    gameLabels[2] = ui->topMiddle;
+    gameLabels[3] = ui->topRight;
+    gameLabels[4] = ui->middleLeft;
+    gameLabels[5] = ui->middle;
+    gameLabels[6] = ui->middleRight;
+    gameLabels[7] = ui->bottomLeft;
+    gameLabels[8] = ui->bottomMiddle;
+    gameLabels[9] = ui->bottomRight;
+
     QPixmap blank;
 
     for (int i = 1; i < 10; i++)

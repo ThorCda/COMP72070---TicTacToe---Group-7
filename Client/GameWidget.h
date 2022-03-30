@@ -25,7 +25,6 @@ public:
     void InitGameBoard();
     ~GameWidget();
     Ui::GameWidget* GetGameWidgetUI();
-    //void SetLabelGridNums();
     void UpdateStats(Account*);
 
 signals:
