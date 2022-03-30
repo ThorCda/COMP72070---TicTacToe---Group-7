@@ -8,6 +8,7 @@
 #include "Account_DB_Handler.h"
 #include "Logs.h"
 #include "GameRoom.h"
+#include <exception>
 
 using namespace std;
 
@@ -206,7 +207,7 @@ public:
 			string userName(linPkt->getUsername());
 			string password(linPkt->getPassword());
 
-			Account* acc = new Account(AccDBHandler->login(userName, password));
+			Account* acc = AccDBHandler->login(userName, password);
 			
 			if (acc == nullptr) {
 				ErrorPacket* err = new ErrorPacket(Login_Err);

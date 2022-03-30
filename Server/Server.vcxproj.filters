@@ -27,9 +27,6 @@
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DB_Handler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Logs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
