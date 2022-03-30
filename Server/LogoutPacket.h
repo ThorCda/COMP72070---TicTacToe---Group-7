@@ -43,7 +43,9 @@ public:
 			delete serializedPacketBuffer;
 		}
 
-		serializedPacketBuffer = new char[sizeof(this->isLoggedOut)];
+		int totalSize = sizeof(this->isLoggedOut);
+		serializedPacketBuffer = new char[totalSize];
+		this->setHeaderBodyLength(totalSize);
 
 		memcpy(serializedPacketBuffer, &this->isLoggedOut, sizeof(this->isLoggedOut));
 

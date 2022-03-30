@@ -13,6 +13,7 @@
 #include "StackedWidget.h"
 #include "WidgetNames.h"
 #include "ClickableLabel.h"
+#include "../Server/Account.h"
 
 using namespace std;
 
@@ -24,6 +25,7 @@ private:
 	GameWidget* gameWidget;
 	AccountWidget* accountWidget;
 	StackedWidget* stackedWidget;
+	Account* account;
 
 	void SetupConnections();
 
@@ -41,7 +43,7 @@ public slots:
 	void ChangeImage(QPixmap);
 
 signals:
-	void LOGIN(char*, char*);
+	void LOGIN();
 
 public:
 	GUIHandler();

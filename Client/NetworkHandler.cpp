@@ -21,8 +21,8 @@ int NetworkHandler::winsockStartup()
 int NetworkHandler::initSocket()
 {
 	//initializes socket. SOCK_STREAM: TCP
-	this->ListenSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-	if (this->ListenSocket == INVALID_SOCKET) {
+	this->ClientSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+	if (this->ClientSocket == INVALID_SOCKET) {
 		WSACleanup();
 		return 0;
 	}
@@ -34,23 +34,11 @@ int NetworkHandler::initConnection()
 	this->SvrAddr.sin_family = AF_INET;                        //Address family type itnernet
 	this->SvrAddr.sin_port = htons(27000);                    //port (host to network conversion)
 	this->SvrAddr.sin_addr.s_addr = inet_addr("127.0.0.1");    //IP address
-	if ((::connect(this->ListenSocket, (struct sockaddr*)&this->SvrAddr, sizeof(this->SvrAddr))) == SOCKET_ERROR) {
-		closesocket(this->ListenSocket);
+	if ((::connect(this->ClientSocket, (struct sockaddr*)&this->SvrAddr, sizeof(this->SvrAddr))) == SOCKET_ERROR) {
+		closesocket(this->ClientSocket);
 		WSACleanup();
 		return 0;
 	}
-}
-
-int NetworkHandler::acceptClient() {
-
-	this->ClientSocket = SOCKET_ERROR;
-
-	if ((this->ClientSocket = accept(this->ListenSocket, NULL, NULL)) == SOCKET_ERROR) {
-		closesocket(this->ListenSocket);
-		WSACleanup();
-		return 0;
-	}
-
 }
 
 void NetworkHandler::listenForPacket() 
@@ -64,14 +52,12 @@ void NetworkHandler::listenForPacket()
 void NetworkHandler::closeSocket()
 {
 	closesocket(this->ClientSocket);	//closes incoming socket
-	closesocket(this->ListenSocket);	    //closes server socket	
 	WSACleanup();					//frees Winsock resources
 }
 
 void NetworkHandler::sendPacket(Packet* p)
 {
 	send(ClientSocket, p->getSerializedTxBuffer(), sizeof(Header) + p->getHeaderBodyLength(), 0);
-
 }
 
 void NetworkHandler::routePacket(Packet* packet) {
@@ -173,10 +159,13 @@ void NetworkHandler::routePacket(Packet* packet) {
 
 //******** SLOTS *********//
 
-void NetworkHandler::LOGIN(char* username, char* password)
+void NetworkHandler::LOGIN()
 {
-	LoginPacket* p = new LoginPacket(username, password);
+	char usr[] = "xxKarlxx";
+	char pwd[] = "Conestoga";
+	LoginPacket* p = new LoginPacket(usr, pwd);
 	p->serializeLoginPacket();
 	p->serializeParentPacketTxBuffer();
 	sendPacket(p);
+	//listenForPacket();
 }

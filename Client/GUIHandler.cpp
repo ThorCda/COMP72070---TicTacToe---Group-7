@@ -10,6 +10,8 @@ GUIHandler::GUIHandler()
 	accountWidget = new AccountWidget;
 	stackedWidget = new StackedWidget(this->loginWidget, this->createAccountWidget, this->gameWidget, this->accountWidget);
 
+	account = NULL;
+
 	SetupConnections();
 
 	SwitchView(LoginWidgetView);
@@ -54,14 +56,16 @@ void GUIHandler::SetupConnections()
 void GUIHandler::Login(string username, string password)
 {
 	// SEND LOGIN PACKET
-	char* usr;
+	/*char* usr;
 	sprintf(usr, "%s", username.c_str());
 	char* pswd;
-	sprintf(pswd, "%s", password.c_str());
-	emit LOGIN(usr, pswd);
+	sprintf(pswd, "%s", password.c_str());*/
+	/*char usr[] = "xxKarlxx";
+	char pwd[] = "Conestoga";*/
+	emit LOGIN();
 
 	// ON SUCCESS
-	stackedWidget->SwitchView(GameWidgetView);
+	//stackedWidget->SwitchView(GameWidgetView);
 
 	// ON FAILURE
 	// do something
@@ -69,12 +73,12 @@ void GUIHandler::Login(string username, string password)
 
 void GUIHandler::LOGIN_SUCCESS()
 {
-
+	stackedWidget->SwitchView(GameWidgetView);
 }
 
 void GUIHandler::LOGIN_FAILURE()
 {
-
+	// implement error message
 }
 
 void GUIHandler::CreateAccount(string username, string password, string firstname, string lastname)

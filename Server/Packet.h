@@ -20,6 +20,7 @@ enum packetType {
 	PacketPacket
 };
 
+// 16 bytes
 typedef struct Header {
 
 	int destinationID = SERVER_ID;

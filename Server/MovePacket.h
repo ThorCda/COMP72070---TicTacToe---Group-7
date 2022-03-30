@@ -73,8 +73,9 @@ public:
 
 	void serializeMovePacketTxBuffer() {
 
-		this->serializedPacketBuffer = new char[sizeof(this->move)];
-
+		int totalSize = sizeof(this->move);
+		this->serializedPacketBuffer = new char[totalSize];
+		this->setHeaderBodyLength(totalSize);
 		memcpy(this->serializedPacketBuffer, &this->move, sizeof(this->move));
 	}
 

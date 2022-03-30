@@ -48,7 +48,7 @@ public:
 		sockaddr_in SvrAddr;
 		SvrAddr.sin_family = AF_INET;
 		SvrAddr.sin_addr.s_addr = INADDR_ANY;
-		SvrAddr.sin_port = htons(27500);
+		SvrAddr.sin_port = htons(27000);
 		if (bind(ListenSocket, (struct sockaddr*)&SvrAddr, sizeof(SvrAddr)) == SOCKET_ERROR)
 		{
 			closesocket(ListenSocket);
@@ -92,8 +92,7 @@ public:
 		}
 		cout << "Winsock: Connection Established" << endl;
 
-		Logs::write(true, connected, NULL);
-
+		//Logs::write(true, connected, NULL);
 	}
 
 	bool listenForPacket() {
@@ -102,9 +101,19 @@ public:
 
 		char RxBuffer[1028] = {};	//Max length of the biggest packet
 
+		cout << "here";
+
+
 		recv(ClientSocket, RxBuffer, sizeof(RxBuffer), 0);
 		
-		Logs::write(true, buf_receive, RxBuffer);
+		//Logs::write(true, buf_receive, RxBuffer);
+
+		cout << RxBuffer;
+
+
+
+
+
 
 		Packet* pkt = new Packet(RxBuffer);		//Not sure if RxBuffer should be reallocated 
 
@@ -116,7 +125,7 @@ public:
 	void closeSocket()
 	{
 
-		Logs::write(false, disconnected, NULL);
+		//Logs::write(false, disconnected, NULL);
 
 		closesocket(this->ClientSocket);	//closes incoming socket
 
@@ -132,7 +141,7 @@ public:
 		cout << "Winsock: Sending packet..." << endl;
 		send(ClientSocket, p->getSerializedTxBuffer(), sizeof(Header) + p->getHeaderBodyLength(), 0);
 
-		Logs::write(true, buf_send, p->getSerializedParentTxBuffer());
+		//Logs::write(true, buf_send, p->getSerializedParentTxBuffer());
 	}
 
 	bool routePacket(Packet* packet) {

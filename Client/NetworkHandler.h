@@ -15,7 +15,6 @@ class NetworkHandler : public QWidget
 {
 	Q_OBJECT
 
-	SOCKET ListenSocket;
 	SOCKET ClientSocket;
 	sockaddr_in SvrAddr;
 	
@@ -31,8 +30,8 @@ public:
 	void routePacket(Packet* packet);
 
 public slots:
-	void LOGIN(char*, char*);
+	void LOGIN();
 
 signals:
-
+	void LOGIN_SUCCESS();
 };

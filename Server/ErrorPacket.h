@@ -73,7 +73,9 @@ public:
 
 	void serializeErrorPacketTxBuffer() {
 
-		this->serializedPacketBuffer = new char[sizeof(this->errorCode)];
+		int totalSize = sizeof(this->errorCode);
+		this->serializedPacketBuffer = new char[totalSize];
+		this->setHeaderBodyLength(totalSize);
 
 		memcpy(this->serializedPacketBuffer, &this->errorCode, sizeof(this->errorCode));
 

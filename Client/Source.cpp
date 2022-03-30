@@ -17,10 +17,6 @@ int main(int argc, char* argv[])
 
     MainWindow* mainWindow = new MainWindow();
 
-    //GUIHandler* gui = new GUIHandler();
-
-    //mainWindow->SetGUI(gui);
-
     mainWindow->show();
 
     return a.exec();

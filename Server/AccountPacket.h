@@ -136,6 +136,8 @@ public:
 		memcpy(this->serializedPacketBuffer + byteBuffer, &losses, sizeof(this->accountPtr->getLoses()));
 		byteBuffer += sizeof(this->accountPtr->getLoses());
 
+
+		this->setHeaderBodyLength(byteBuffer);
 	}
 
 };

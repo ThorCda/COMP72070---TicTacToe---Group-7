@@ -70,7 +70,9 @@ public:
 
 	void serializeGameStatusPacketBuffer() {
 
-		this->serializedPacketBuffer = new char[sizeof(this->gameCode)];
+		int totalSize = sizeof(this->gameCode);
+		this->serializedPacketBuffer = new char[totalSize];
+		this->setHeaderBodyLength(totalSize);
 
 		memcpy(this->serializedPacketBuffer, &this->gameCode, sizeof(gameCode));
 

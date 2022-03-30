@@ -4,6 +4,8 @@
 
 using namespace std;
 
+// LOGIN PACKET SECTION : 24 BYTES
+// LOGIN PACKET TOTAL: 40 BYTES
 class LoginPacket : public Packet{
 	
 	struct LOGINHEADER {
@@ -73,6 +75,7 @@ public:
 		}
 
 		int totalSize = sizeof(LoginHeader) + this->LoginHeader.usernameLength + this->LoginHeader.passwordLength;
+		this-> setHeaderBodyLength(totalSize);
 
 		serializedPacketBuffer = new char[totalSize];
 
