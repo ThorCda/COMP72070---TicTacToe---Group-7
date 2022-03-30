@@ -119,7 +119,7 @@ public:
 		}
 		cout << "Winsock: Connection Established" << endl;
 		setState(CONNECTED);
-		Logs::write(true, connected, NULL);
+		Logs::write(this->getState(), connected, NULL);
 	}
 
 	bool listenForPacket() {
@@ -134,7 +134,7 @@ public:
 
 		recv(ClientSocket, RxBuffer, sizeof(RxBuffer), 0);
 		
-		Logs::write(true, buf_receive, RxBuffer);
+		Logs::write(this->getState(), buf_receive, RxBuffer);
 
 		Packet* pkt = new Packet(RxBuffer);		//Not sure if RxBuffer should be reallocated 
 
@@ -146,7 +146,7 @@ public:
 	void closeSocket()
 	{
 
-		Logs::write(false, disconnected, NULL);
+		Logs::write(this->getState(), disconnected, NULL);
 
 		closesocket(this->ClientSocket);	//closes incoming socket
 
@@ -165,7 +165,7 @@ public:
 		
 		send(ClientSocket, p->getSerializedParentTxBuffer(), sizeof(Header) + p->getHeaderBodyLength(), 0);
 
-		Logs::write(true, buf_send, p->getSerializedParentTxBuffer());
+		Logs::write(this->getState(), buf_send, p->getSerializedParentTxBuffer());
 	}
 
 	bool routePacket(Packet* packet) {
@@ -316,6 +316,7 @@ public:
 	//send and recv should also be ported to client and server
 	void recvImage(int size, char* username) {
 
+		setState(EXECUTING);
 		char* pathname = username;
 
 		strcat(pathname, ".jpeg");
@@ -339,7 +340,7 @@ public:
 
 
 	void sendImageFromDB(char* username) {
-
+		setState(EXECUTING);
 		FILE* picture;
 
 		char* pathname = AccDBHandler->getImage(username);
@@ -351,7 +352,7 @@ public:
 			err->serializeErrorPacketTxBuffer();
 			err->getSerializedParentTxBuffer();
 			sendPacket(err);
-			Logs::write(1, Image_Err);
+			Logs::write(this->getState(), Image_Err);
 			return;
 		}
 
@@ -371,7 +372,7 @@ public:
 		fread(TxBuffer, sizeof(char), size, picture);
 		
 		send(ClientSocket, TxBuffer, sizeof(TxBuffer), 0);
-		Logs::write(true, Photo, NULL);
+		Logs::write(this->getState(), Photo, NULL);
 
 		fclose(picture);
 
