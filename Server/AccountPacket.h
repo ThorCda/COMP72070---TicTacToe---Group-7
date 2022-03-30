@@ -45,9 +45,9 @@ public:
 		this->accountPtr = account;
 
 		//Assign header values based on the Account field string lengths.
-		this->accHead.userNameLength = strlen(this->accountPtr->getUserName()) + 1;
-		this->accHead.firstNameLength = strlen(this->accountPtr->getFirstName()) + 1;
-		this->accHead.lastNameLength = strlen(this->accountPtr->getLastName()) + 1;
+		this->accHead.userNameLength = strlen(account->getUserName()) + 1;
+		this->accHead.firstNameLength = strlen(account->getFirstName()) + 1;
+		this->accHead.lastNameLength = strlen(account->getLastName()) + 1;
 
 	}
 

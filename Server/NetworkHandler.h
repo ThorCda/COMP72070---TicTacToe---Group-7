@@ -108,7 +108,6 @@ public:
 		
 		//Logs::write(true, buf_receive, RxBuffer);
 
-		cout << "no crash :)";
 
 		Packet* pkt = new Packet(RxBuffer);		//Not sure if RxBuffer should be reallocated 
 
@@ -134,7 +133,7 @@ public:
 	void sendPacket(Packet* p)
 	{
 		cout << "Winsock: Sending packet..." << endl;
-		send(ClientSocket, p->getSerializedTxBuffer(), sizeof(Header) + p->getHeaderBodyLength(), 0);
+		send(ClientSocket, p->getSerializedParentTxBuffer(), sizeof(Header) + p->getHeaderBodyLength(), 0);
 
 		//Logs::write(true, buf_send, p->getSerializedParentTxBuffer());
 	}

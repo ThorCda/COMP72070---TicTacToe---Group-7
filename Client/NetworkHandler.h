@@ -34,4 +34,5 @@ public slots:
 
 signals:
 	void LOGIN_SUCCESS();
+	void LOGIN_FAILURE();
 };

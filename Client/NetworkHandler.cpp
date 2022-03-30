@@ -57,7 +57,7 @@ void NetworkHandler::closeSocket()
 
 void NetworkHandler::sendPacket(Packet* p)
 {
-	send(ClientSocket, p->getSerializedTxBuffer(), sizeof(Header) + p->getHeaderBodyLength(), 0);
+	send(ClientSocket, p->getSerializedParentTxBuffer(), sizeof(Header) + p->getHeaderBodyLength(), 0);
 }
 
 void NetworkHandler::routePacket(Packet* packet) {
@@ -69,7 +69,7 @@ void NetworkHandler::routePacket(Packet* packet) {
 
 	case Accountp: {
 		AccountPacket* newAccountPacket = new AccountPacket(packet->getSerializedTxBuffer());
-		// login(newAccountPacket)
+		emit LOGIN_SUCCESS();
 		break;
 	}
 	//case CreateAccountp: {
@@ -98,6 +98,7 @@ void NetworkHandler::routePacket(Packet* packet) {
 	//}
 	case Errorp: {
 		ErrorPacket* newErrorPacket = new ErrorPacket(packet->getSerializedTxBuffer());
+		emit LOGIN_FAILURE();
 		// logError
 
 		//If the error packet is a early quit or smt that it cannot recover from then 
@@ -167,5 +168,7 @@ void NetworkHandler::LOGIN()
 	p->serializeLoginPacket();
 	p->serializeParentPacketTxBuffer();
 	sendPacket(p);
-	//listenForPacket();
+	listenForPacket();
+
+
 }

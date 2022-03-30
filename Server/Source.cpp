@@ -10,7 +10,9 @@ int main() {
 
 	//char usr[] = "xxKarlxx";
 	//char pwd[] = "Conestoga";
-	//LoginPacket* p = new LoginPacket(usr, pwd);
+	//Account acc = new Account();
+
+	//AccountPacket* p = new AccountPacket();
 	//p->serializeLoginPacket();
 	//p->serializeParentPacketTxBuffer();
 
