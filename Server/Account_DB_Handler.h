@@ -92,8 +92,7 @@ public:
 
 	Account* login(string username, string password)
 	{
-		MYSQL_ROW row;
-		MYSQL_RES* result;
+		Database_Handler db;
 		string query = "call Find_User (\"" + username + "\",\"" + password + "\")";
 
 		const char* q2 = query.c_str();
@@ -107,6 +106,7 @@ public:
 
 			cout << "Account loaded";
 			mysql_free_result(result);
+			mysql_close(conn);
 			return ac;
 		}
 		else

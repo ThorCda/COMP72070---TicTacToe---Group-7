@@ -19,7 +19,15 @@ int main() {
 	//Packet* pkt = new Packet(p->getSerializedParentTxBuffer());		//Not sure if RxBuffer should be reallocated 
 	//LoginPacket* linPkt = new LoginPacket(pkt->getSerializedTxBuffer());
 
-	Menu* menu = new Menu();
-	menu->start();
+	char usr[] = "xxKarlxx";
+	char pwd[] = "Conestoga";
+
+	Account_DB_Handler adb;
+
+	adb.login(usr, pwd);
+	adb.login(usr, pwd);
+
+	//Menu* menu = new Menu();
+	//menu->start();
 
 }
