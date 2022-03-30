@@ -163,5 +163,8 @@
     <ClInclude Include="..\Server\Packet.h">
       <Filter>Header Files\Packet Headers</Filter>
     </ClInclude>
+    <ClInclude Include="..\Server\ImagePacket.h">
+      <Filter>Header Files\Packet Headers</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

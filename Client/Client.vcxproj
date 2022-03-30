@@ -140,6 +140,7 @@
     <ClInclude Include="..\Server\CreateAccountPacket.h" />
     <ClInclude Include="..\Server\ErrorPacket.h" />
     <ClInclude Include="..\Server\GameStatusPacket.h" />
+    <ClInclude Include="..\Server\ImagePacket.h" />
     <ClInclude Include="..\Server\LoginPacket.h" />
     <ClInclude Include="..\Server\LogoutPacket.h" />
     <ClInclude Include="..\Server\MovePacket.h" />

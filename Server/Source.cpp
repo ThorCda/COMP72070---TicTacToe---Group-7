@@ -22,10 +22,16 @@ int main() {
 	char usr[] = "xxKarlxx";
 	char pwd[] = "Conestoga";
 
-	//Account_DB_Handler adb;
+
+	Account_DB_Handler adb;
+	adb.createConnection();
+	adb.insertImage(usr, pwd);
+	cout << adb.getImage(usr);
+
 
 	//adb.login(usr, pwd);
 	//adb.login(usr, pwd);
+
 
 	Menu* menu = new Menu();
 	menu->start();

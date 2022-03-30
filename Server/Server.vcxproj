@@ -163,6 +163,7 @@
     <ClInclude Include="GameRoom.h" />
     <ClInclude Include="GameStatusPacket.h" />
     <ClInclude Include="Game_DB_Handler.h" />
+    <ClInclude Include="ImagePacket.h" />
     <ClInclude Include="LoginPacket.h" />
     <ClInclude Include="LogoutPacket.h" />
     <ClInclude Include="Logs.h" />
