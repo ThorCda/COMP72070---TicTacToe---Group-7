@@ -210,7 +210,7 @@ public:
 
 			sendPacket(accPkt);
 
-			//Sends a picture packet
+			//Sends a picture packet sendImageFromDB(acc->getUsername());
 
 			break;
 		}
@@ -269,35 +269,45 @@ public:
 
 	}
 
-	//send and recv should also be ported to client
+	//send and recv should also be ported to client and server
 	void recvImage(int size, char* username) {
-
-		//Needs a string for the name or to set it to an account?
 
 		char* pathname = username;
 
 		strcat(pathname, ".jpeg");
 
-		char* picture = new char[size];
+		char* RxBuffer = new char[size];
 
-		recv(ClientSocket, picture, size, 0);
+		recv(ClientSocket, RxBuffer, size, 0);
 
 		FILE* image;
 
 		fopen_s(&image, username, "wb");
 
-		fwrite(picture, sizeof(char), sizeof(picture), image);
+		fwrite(RxBuffer, sizeof(char), sizeof(RxBuffer), image);
+
+		
+
+		AccDBHandler->insertImage(username, pathname);
 
 		fclose(image);
-
-		//AccDBHandler->insertImage(username, pathname);
-
 	}
 
-	void sendImage() {
+
+	void sendImageFromDB(char* username) {
+
 		FILE* picture;
-		fopen_s(&picture, "Dog.png", "rb");
+
+		char* pathname = AccDBHandler->getImage(username);
+
+		fopen_s(&picture, pathname, "rb");
+
 		if (picture == NULL) {
+			ErrorPacket* err = new ErrorPacket(Image_Err);
+			err->serializeErrorPacketTxBuffer();
+			err->getSerializedParentTxBuffer();
+			sendPacket(err);
+			Logs::write(1, Image_Err);
 			return;
 		}
 
@@ -305,30 +315,22 @@ public:
 
 		int size = ftell(picture);
 
-		char* TxBuffer = new char[sizeof(int)];
+		ImagePacket* imgPkt = new ImagePacket(size, strlen(username), username);
+		imgPkt->serializeImagePacketTxBuffer();
+		imgPkt->serializeParentPacketTxBuffer();
+		sendPacket(imgPkt);
 
-		memcpy(TxBuffer, &size, sizeof(size));
-
-		send(ClientSocket, TxBuffer, sizeof(size), 0);
-
-
-		TxBuffer = new char[size];
-
+		char* TxBuffer = new char[size];
 
 		fseek(picture, 0, SEEK_SET);
 
+		fread(TxBuffer, sizeof(char), size, picture);
 		
-		send(ClientSocket, TxBuffer, sizeof(TxBuffer), 0); 
+		send(ClientSocket, TxBuffer, sizeof(TxBuffer), 0);
+		Logs::write(true, Photo, NULL);
 
 		fclose(picture);
 
-			
-
-		
 	}
-
-
-
-
 
 };

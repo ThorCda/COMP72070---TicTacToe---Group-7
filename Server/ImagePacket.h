@@ -63,7 +63,7 @@ public:
 		return this->username;
 	}
 
-	void serializeAccountPacketTxBuffer() {
+	void serializeImagePacketTxBuffer() {
 		int packetSize = sizeof(ImageHeader) + this->head.UsernameLength;
 
 		this->serializedPacketBuffer = new char[packetSize] {};
@@ -71,6 +71,8 @@ public:
 		memcpy(this->serializedPacketBuffer, &this->head.ImageByteSize, sizeof(this->head.ImageByteSize));
 		memcpy(this->serializedPacketBuffer, &this->head.UsernameLength, sizeof(this->head.UsernameLength));
 		memcpy(this->serializedPacketBuffer, this->username, sizeof(this->head.UsernameLength));
+
+		this->setHeaderBodyLength(packetSize);
 	}
 
 };
