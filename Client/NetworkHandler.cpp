@@ -158,6 +158,8 @@ void NetworkHandler::routePacket(Packet* packet) {
 
 
 
+
+
 //******** SLOTS *********//
 
 void NetworkHandler::LOGIN()
@@ -170,5 +172,63 @@ void NetworkHandler::LOGIN()
 	sendPacket(p);
 	listenForPacket();
 
+
+}
+
+
+
+
+
+//************* Images **************//
+
+	//send and recv should also be ported to client and server
+void NetworkHandler::recvImage(int size) {
+
+	char* RxBuffer = new char[size];
+
+	recv(ClientSocket, RxBuffer, size, 0);
+
+	FILE* image;
+	 
+	fopen_s(&image, "Avatar.jpeg", "wb"); //Not sure where to get the pathname from
+
+	fwrite(RxBuffer, sizeof(char), sizeof(RxBuffer), image);
+
+	fclose(image);
+}
+
+
+void  NetworkHandler::sendImage(char* username) {
+
+	FILE* picture;
+
+	fopen_s(&picture, username, "rb");
+
+	if (picture == NULL) {
+		ErrorPacket* err = new ErrorPacket(Image_Err);
+		err->serializeErrorPacketTxBuffer();
+		err->getSerializedParentTxBuffer();
+		sendPacket(err);
+		return;
+	}
+
+	fseek(picture, 0, SEEK_END);
+
+	int size = ftell(picture);
+
+	ImagePacket* imgPkt = new ImagePacket(size, strlen(username), username);
+	imgPkt->serializeImagePacketTxBuffer();
+	imgPkt->serializeParentPacketTxBuffer();
+	sendPacket(imgPkt);
+
+	char* TxBuffer = new char[size];
+
+	fseek(picture, 0, SEEK_SET);
+
+	fread(TxBuffer, sizeof(char), size, picture);
+
+	send(ClientSocket, TxBuffer, sizeof(TxBuffer), 0);
+
+	fclose(picture);
 
 }
