@@ -54,7 +54,12 @@ const  char* Logs::conn_file = "_conn_log.txt";
 
         time_t now = time(0);
 
-        outf << ctime(&now) << "\tConnection Status: " << connection_status << " Action: " << action_type << "\n\tBuffer: " << buffer << '\n';
+        std::string type = Logs::lookUpActionType(action_type);       
+
+        outf << ctime(&now) << "\tConnection Status: " << connection_status << " Action: " << type << "\n\tBuffer: ";
+        if (buffer != NULL) {
+            outf.write(buffer, strlen(buffer));
+        }
 
         outf.close();
     }
@@ -89,13 +94,13 @@ const  char* Logs::conn_file = "_conn_log.txt";
 
         switch (type)
         {
-        case 0:
+        case 1:
             file = Logs::error_file;
             break;
-        case 1:
+        case 2:
             file = Logs::conn_file;
             break;
-        case 2:
+        case 3:
             file = Logs::game_file;
             break;
 
@@ -138,5 +143,15 @@ const  char* Logs::conn_file = "_conn_log.txt";
         return "Function not defined...";
     }
 
+    std::string Logs::lookUpActionType(ACTION_TYPE action_type) {
+        switch (action_type)
+        {
+        default:
+            break;
+        }
+
+        return "Function not defined...";
+
+    }
     
 
