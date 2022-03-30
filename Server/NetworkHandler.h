@@ -248,7 +248,8 @@ public:
 		}
 		case Imagep: {
 
-
+			ImagePacket* imgPkt = new ImagePacket(packet->getSerializedTxBuffer());
+			recvImage(imgPkt->getImageSize(), imgPkt->getUsername());
 
 		}
 
@@ -269,15 +270,13 @@ public:
 	}
 
 	//send and recv should also be ported to client
-	void recvPicture() {
+	void recvImage(int size, char* username) {
 
 		//Needs a string for the name or to set it to an account?
 
-		char RxBuffer[sizeof(int)];		//Sending just an integer protocol; not sure if it we should make an integer packet for this
-		recv(ClientSocket, RxBuffer, sizeof(int), 0);
+		char* pathname = username;
 
-		int size;
-		memcpy(&size, RxBuffer, sizeof(int));
+		strcat(pathname, ".jpeg");
 
 		char* picture = new char[size];
 
@@ -285,16 +284,17 @@ public:
 
 		FILE* image;
 
-		fopen_s(&image, "user.png", "wb");
+		fopen_s(&image, username, "wb");
 
 		fwrite(picture, sizeof(char), sizeof(picture), image);
 
 		fclose(image);
 
+		//AccDBHandler->insertImage(username, pathname);
 
 	}
 
-	void sendPicture() {
+	void sendImage() {
 		FILE* picture;
 		fopen_s(&picture, "Dog.png", "rb");
 		if (picture == NULL) {
