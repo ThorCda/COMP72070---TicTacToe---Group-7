@@ -62,19 +62,19 @@ public:
 			return 0;
 		}
 	}
-	//Used in client?
-	int connectSocket()
-	{
-		//Connect socket to specified server
-		this->SvrAddr.sin_family = AF_INET;                        //Address family type itnernet
-		this->SvrAddr.sin_port = htons(27000);                    //port (host to network conversion)
-		this->SvrAddr.sin_addr.s_addr = inet_addr("127.0.0.1");    //IP address
-		if ((connect(this->ListenSocket, (struct sockaddr*)&this->SvrAddr, sizeof(this->SvrAddr))) == SOCKET_ERROR) {
-			closesocket(this->ListenSocket);
-			WSACleanup();
-			return 0;
-		}
-	}
+	//Used in client? Not used on the server side
+	//int connectSocket()
+	//{
+	//	//Connect socket to specified server
+	//	this->SvrAddr.sin_family = AF_INET;                        //Address family type itnernet
+	//	this->SvrAddr.sin_port = htons(27000);                    //port (host to network conversion)
+	//	this->SvrAddr.sin_addr.s_addr = inet_addr("127.0.0.1");    //IP address
+	//	if ((connect(this->ListenSocket, (struct sockaddr*)&this->SvrAddr, sizeof(this->SvrAddr))) == SOCKET_ERROR) {
+	//		closesocket(this->ListenSocket);
+	//		WSACleanup();
+	//		return 0;
+	//	}
+	//}
 
 	int acceptClient() {
 
@@ -85,7 +85,7 @@ public:
 			WSACleanup();
 			return 0;
 		}
-		cout << "Connection Established" << endl;
+		cout << "Winsock: Connection Established" << endl;
 
 		Logs::write(true, connected, NULL);
 
@@ -97,8 +97,6 @@ public:
 
 		recv(ClientSocket, RxBuffer, sizeof(RxBuffer), 0);
 		
-		cout << RxBuffer;
-
 		Logs::write(true, buf_receive, RxBuffer);
 
 		Packet* pkt = new Packet(RxBuffer);		//Not sure if RxBuffer should be reallocated 
