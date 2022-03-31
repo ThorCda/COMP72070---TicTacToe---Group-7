@@ -28,11 +28,30 @@ int main() {
 	//adb.insertImage(usr, pwd);
 	//cout << adb.getImage(usr);
 
-	GameRoom gb;
-	gb.updateBoard(7);
-	gb.updateBoard(4);
-	gb.updateBoard(1);
-	gb.getGameBoard()->placeComputerMove();
+	//GameRoom gb;
+	//gb.updateBoard(7);
+	//gb.getGameBoard()->placeComputerMoveTemp(4);
+	//gb.updateBoard(9);
+	//gb.getGameBoard()->placeComputerMoveTemp(8);
+	//gb.updateBoard(5);
+	//gb.getGameBoard()->placeComputerMoveTemp(6);
+	//gb.updateBoard(2);
+	//gb.getGameBoard()->placeComputerMoveTemp(3);
+	//gb.updateBoard(1);
+	//gb.getGameBoard()->placeComputerMove();
+
+	//if (gb.getGameBoard()->getComputerWin())
+	//{
+	//	cout << "comp win =[";
+	//}
+	//if (gb.getGameBoard()->getPlayerWin())
+	//{
+	//	cout << "player win =[";
+	//}
+	//if (gb.getGameBoard()->getDraw())
+	//{
+	//	cout << "big draw o7";
+	//}
 
 	//int gabr;
 	//cin >> gabr;

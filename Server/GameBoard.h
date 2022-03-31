@@ -55,6 +55,27 @@ public:
 		return false;
 	}
 
+	int placeComputerMoveTemp(int move)
+	{
+		while (!validateComputerMove(move, 1));
+		{
+			this->moveCounter++;
+			if (validateMove(move, 1))
+			{
+				if (!this->draw)
+				{
+					if (ifEnd())
+					{
+						this->computerWin = true;
+					}
+				}
+				return move;
+			}
+		}
+		return move;
+	}
+
+
 	bool getDraw()
 	{
 		return this->draw;
@@ -64,21 +85,24 @@ public:
 	{
 		srand(time(nullptr));
 		compMove = rand() % 9 + 1;
-		while (!validateComputerMove(compMove, 1));
+		if (!this->draw)
 		{
-			this->moveCounter++;
-			if (validateMove(compMove, 1))
+			while (!validateComputerMove(compMove, 1));
 			{
-				if (!this->draw)
+				this->moveCounter++;
+				if (validateMove(compMove, 1))
 				{
-					if (ifEnd())
+					if (!this->draw)
 					{
-						this->computerWin = true;
+						if (ifEnd())
+						{
+							this->computerWin = true;
+						}
 					}
+					return compMove;
 				}
-				return compMove;
+				compMove = rand() % 9 + 1;
 			}
-			compMove = rand() % 9 + 1;
 		}
 		return compMove;
 	}

@@ -302,7 +302,7 @@ public:
 						sendPacket(gameStatusPacket);
 						this->gr->NewBoard();*/
 					}
-					else if (gr->getGameBoard()->getDraw())
+					else if (this->gr->getGameBoard()->getDraw())
 					{
 						GameStatusPacket* gameStatusPacket = new GameStatusPacket(0);
 						gameStatusPacket->serializeGameStatusPacketBuffer();
