@@ -37,6 +37,7 @@ void GameWidget::on_accountButton_clicked()
 void GameWidget::on_newGameButton_clicked()
 {
     emit NewGame();
+    enableGameBoard();
 }
 
 Ui::GameWidget* GameWidget::GetGameWidgetUI()
@@ -82,3 +83,20 @@ void GameWidget::UpdateStats(Account* account)
     ui->lossesCounter->setText(QString::number(account->getLoses()));
     ui->drawsCounter->setText(QString::number(account->getDraws()));
 }
+
+void GameWidget::disableGameBoard()
+{
+    for (int i = 1; i < 10; i++)
+    {
+        gameLabels[i]->setDisabled(true);
+    }
+}
+
+void GameWidget::enableGameBoard()
+{
+    for (int i = 1; i < 10; i++)
+    {
+        gameLabels[i]->setEnabled(true);
+    }
+}
+

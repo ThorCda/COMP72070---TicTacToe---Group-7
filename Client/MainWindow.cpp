@@ -68,6 +68,6 @@ void MainWindow::SetupConnections()
     QObject::connect(this->hdlr, &NetworkHandler::LOGIN_FAILURE, this->gui, &GUIHandler::LOGIN_FAILURE);
     QObject::connect(this->gui, &GUIHandler::GAME_MOVE, this->hdlr, &NetworkHandler::GAME_MOVE);
     QObject::connect(this->hdlr, &NetworkHandler::UPDATE_GAME_BOARD, this->gui, &GUIHandler::UPDATE_GAME_BOARD);
-
+    QObject::connect(this->hdlr, &NetworkHandler::GAME_STATUS, this->gui, &GUIHandler::GAME_STATUS);
 
 }

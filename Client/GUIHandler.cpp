@@ -128,14 +128,22 @@ void GUIHandler::UPDATE_GAME_BOARD(int computerMove)
 
 void GUIHandler::GAME_STATUS(int gameCode)
 {
-	if (gameCode == 1)
+	Ui::GameWidget* gameWidgetUI = gameWidget->GetGameWidgetUI();
+
+	if (gameCode == 0)
 	{
-		// player won
+		gameWidgetUI->turnLabel->setText(QString::fromStdString("Draw Game"));
 	}
-	else if (gameCode == 0)
+	else if (gameCode == 1)
 	{
-		// draw
+		gameWidgetUI->turnLabel->setText(QString::fromStdString("Player Won"));
 	}
+	else if (gameCode == 2)
+	{
+		gameWidgetUI->turnLabel->setText(QString::fromStdString("You Lost"));
+	}
+
+	gameWidget->disableGameBoard();
 }
 
 // For profile pictures

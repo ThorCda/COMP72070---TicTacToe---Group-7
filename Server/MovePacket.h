@@ -9,11 +9,11 @@ class MovePacket : public Packet {
 private:
 
 	int move;
-	bool gameStatus;
+	int gameStatus;
 
 public:
 
-	MovePacket(int move, bool gameStatus) {
+	MovePacket(int move, int gameStatus) {
 
 		//Free memory that may have been allocated by OS.
 		if (this->serializedPacketBuffer != NULL) {
@@ -68,12 +68,12 @@ public:
 
 	}
 
-	void setGameStatus(bool gameStatus)
+	void setGameStatus(int gameStatus)
 	{
 		this->gameStatus = gameStatus;
 	}
 
-	bool getGameStatus()
+	int getGameStatus()
 	{
 		return this->gameStatus;
 	}

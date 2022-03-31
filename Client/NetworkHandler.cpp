@@ -146,6 +146,11 @@ void NetworkHandler::routePacket(Packet* packet) {
 	case Movep: {
 		MovePacket* newMovePacket = new MovePacket(packet->getSerializedTxBuffer());
 		emit UPDATE_GAME_BOARD(newMovePacket->getMove());
+		if (newMovePacket->getGameStatus() == 2)
+		{
+			emit GAME_STATUS(newMovePacket->getGameStatus());
+		}
+		
 		break;
 	}
 	

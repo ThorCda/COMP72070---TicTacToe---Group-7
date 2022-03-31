@@ -279,7 +279,7 @@ public:
 				if (this->gr->getGameBoard()->getComputerWin())
 				{
 					int compMove = this->gr->getGameBoard()->placeComputerMove();
-					MovePacket* compMovePacket = new MovePacket(compMove, false);
+					MovePacket* compMovePacket = new MovePacket(compMove, 2);
 					compMovePacket->serializeMovePacketTxBuffer();
 					compMovePacket->serializeParentPacketTxBuffer();
 					sendPacket(compMovePacket);
@@ -301,7 +301,7 @@ public:
 				else
 				{
 					int compMove = this->gr->getGameBoard()->placeComputerMove();
-					MovePacket* compMovePacket = new MovePacket(compMove, true);
+					MovePacket* compMovePacket = new MovePacket(compMove, 0);
 					compMovePacket->serializeMovePacketTxBuffer();
 					compMovePacket->serializeParentPacketTxBuffer();
 					sendPacket(compMovePacket);

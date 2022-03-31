@@ -26,6 +26,9 @@ public:
     ~GameWidget();
     Ui::GameWidget* GetGameWidgetUI();
     void UpdateStats(Account*);
+    void disableGameBoard();
+    void enableGameBoard();
+
 
 signals:
     void SwitchView(WIDGET_VIEW_NAME);
