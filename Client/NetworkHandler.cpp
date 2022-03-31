@@ -239,7 +239,7 @@ void  NetworkHandler::sendImage(char* username)
 
 void NetworkHandler::GAME_MOVE(int gridNum)
 {
-	MovePacket* p = new MovePacket(gridNum, false);
+	MovePacket* p = new MovePacket(gridNum, 0);
 	p->serializeMovePacketTxBuffer();
 	p->serializeParentPacketTxBuffer();
 	sendPacket(p);

@@ -137,6 +137,8 @@ void GUIHandler::GAME_STATUS(int gameCode)
 	else if (gameCode == 1)
 	{
 		gameWidgetUI->turnLabel->setText(QString::fromStdString("Player Won"));
+		QPixmap circle("assets/circle_sprite.png");
+		currentMove->setPixmap(circle);
 	}
 	else if (gameCode == 2)
 	{

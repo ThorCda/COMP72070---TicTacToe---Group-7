@@ -90,7 +90,7 @@ public:
 		this->serializedPacketBuffer = new char[totalSize];
 		this->setHeaderBodyLength(totalSize);
 		memcpy(this->serializedPacketBuffer, &this->move, sizeof(this->move));
-		memcpy(this->serializedPacketBuffer, &this->gameStatus, sizeof(this->gameStatus));
+		memcpy(this->serializedPacketBuffer + sizeof(this->move), &this->gameStatus, sizeof(this->gameStatus));
 	}
 
 };

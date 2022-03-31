@@ -32,9 +32,10 @@ public:
 		}
 	}
 
-	void exitRoom()
+	void NewBoard()
 	{
-
+		delete gameBoard;
+		gameBoard = new GameBoard();
 	}
 
 	GameBoard* getGameBoard()

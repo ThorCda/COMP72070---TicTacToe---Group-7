@@ -36,6 +36,9 @@ int main() {
 	//adb.login(usr, pwd);
 	//adb.login(usr, pwd);
 
+	/*MovePacket* p = new MovePacket(1, 0);
+	p->serializeMovePacketTxBuffer();
+	p->serializeParentPacketTxBuffer();*/
 
 	Menu* menu = new Menu();
 	menu->start();

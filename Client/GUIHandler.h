@@ -55,6 +55,5 @@ public:
 	GUIHandler();
 	StackedWidget* GetStackedWidget();
 	GameWidget* GetGameWidget();
-
 };
 

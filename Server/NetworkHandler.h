@@ -283,6 +283,7 @@ public:
 					compMovePacket->serializeMovePacketTxBuffer();
 					compMovePacket->serializeParentPacketTxBuffer();
 					sendPacket(compMovePacket);
+					this->gr->NewBoard();
 				}
 				if (this->gr->getGameBoard()->getPlayerWin())
 				{
@@ -290,6 +291,7 @@ public:
 					gameStatusPacket->serializeGameStatusPacketBuffer();
 					gameStatusPacket->getSerializedParentTxBuffer();
 					sendPacket(gameStatusPacket);
+					this->gr->NewBoard();
 				}
 				else if (!this->gr->getGameBoard()->getPlayerWin() && !this->gr->getGameBoard()->getComputerWin() && gr->getGameBoard()->ifEnd())
 				{
@@ -297,6 +299,7 @@ public:
 					gameStatusPacket->serializeGameStatusPacketBuffer();
 					gameStatusPacket->getSerializedParentTxBuffer();
 					sendPacket(gameStatusPacket);
+					this->gr->NewBoard();
 				}
 				else
 				{
