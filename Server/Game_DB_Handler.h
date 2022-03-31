@@ -13,11 +13,11 @@ class Game_DB_Handler : public Database_Handler
 {
 public:
 
-	void createGame(GameRoom* g) // takes a game and creates a record in the database
+	void createGame(GameRoom* g, Account* acc) // takes a game and creates a record in the database
 	{
-		string query = "call CreateGame (" + g->getGameBoard()->getStatus(); +"\"," + to_string(g->getPlayer().getAccount().getAccountID()) + ")";
+		string query = "call CreateGame (\"" + to_string(g->getGameBoard()->getStatus()) + "\",\"" + to_string(acc->getAccountID()) + "\"" + ")";
 		const char* q = query.c_str();
-
+		cout << query;
 		qstate = mysql_query(conn, q);
 		if (!qstate)
 		{

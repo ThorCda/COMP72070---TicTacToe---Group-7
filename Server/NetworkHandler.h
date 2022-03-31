@@ -295,7 +295,7 @@ public:
 					// new stuff, could break, maybe
 					gdb->createConnection();
 					this->gr->getGameBoard()->setPlayerWinStatus();
-					gdb->createGame(this->gr);
+					gdb->createGame(this->gr, this->acc);
 					gdb->terminate();
 
 					int wins = acc->getWins();
@@ -319,7 +319,7 @@ public:
 						// new stuff, could break, maybe
 						gdb->createConnection();
 						this->gr->getGameBoard()->setComputerWinStatus();
-						gdb->createGame(this->gr);
+						gdb->createGame(this->gr, this->acc);
 						gdb->terminate();
 
 						int loss = acc->getLoses();
@@ -338,7 +338,7 @@ public:
 						// new stuff, could break, maybe
 						gdb->createConnection(); 
 						this->gr->getGameBoard()->setDrawStatus();
-						gdb->createGame(this->gr);
+						gdb->createGame(this->gr, this->acc);
 						gdb->terminate();
 
 						int draw = acc->getDraws();
