@@ -18,6 +18,7 @@ class GameBoard
 	int compMove = 0;
 	bool playerWin = false;
 	bool computerWin = false;
+	bool draw = false;
 
 public:
 
@@ -44,11 +45,19 @@ public:
 		{
 			if (ifEnd())
 			{
-				this->playerWin = true;
+				if (!this - draw)
+				{
+					this->playerWin = true;
+				}
 			}
 			return true;
 		}
 		return false;
+	}
+
+	bool getDraw()
+	{
+		return this->draw;
 	}
 
 	int placeComputerMove()
@@ -62,7 +71,10 @@ public:
 			{
 				if (ifEnd())
 				{
-					this->computerWin = true;
+					if (!this-draw)
+					{
+						this->computerWin = true;
+					}
 				}
 				return compMove;
 			}
@@ -97,7 +109,8 @@ public:
 		}
 		else
 		{
-			return true;
+			this->draw = true;
+			return false;
 		}
 
 		return false;
