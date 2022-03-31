@@ -6,6 +6,7 @@
 #include "ChildPackets.h"
 #include "Packet.h"
 #include "Account_DB_Handler.h"
+#include "Game_DB_Handler.h"
 #include "Logs.h"
 #include "GameRoom.h"
 #include <exception>
@@ -35,7 +36,9 @@ class NetworkHandler
 	SOCKET ListenSocket;
 	SOCKET ClientSocket;
 	sockaddr_in SvrAddr;
+	Account* acc;
 	GameRoom* gr = new GameRoom();
+	Game_DB_Handler* gdb = new Game_DB_Handler();
 	Account_DB_Handler* AccDBHandler = new Account_DB_Handler();
 	ServerState currentState = UNINITIALIZED;
 	
@@ -190,8 +193,8 @@ public:
 			
 
 			CreateAccountPacket* pkt = new CreateAccountPacket(packet->getSerializedTxBuffer());
-
-			Account* acc = new Account(pkt->getFName(), pkt->getLName(), pkt->getUsername());
+			// move account definition to acc
+			acc = new Account(pkt->getFName(), pkt->getLName(), pkt->getUsername());
 			
 			acc = this->AccDBHandler->createAccount(acc, pkt->getPassword());
 
@@ -286,6 +289,16 @@ public:
 					gameStatusPacket->serializeGameStatusPacketBuffer();
 					gameStatusPacket->serializeParentPacketTxBuffer();
 					sendPacket(gameStatusPacket);
+
+					// new stuff, could break, maybe
+					gdb->createConnection();
+					gdb->createGame(this->gr);
+					gdb->terminate();
+
+					int wins = acc->getWins();
+					acc->setWins(wins++);
+					//
+
 					this->gr->NewBoard();
 				}
 				else
@@ -299,12 +312,17 @@ public:
 						compMovePacket->serializeMovePacketTxBuffer();
 						compMovePacket->serializeParentPacketTxBuffer();
 						sendPacket(compMovePacket);
+
+						// new stuff, could break, maybe
+						gdb->createConnection();
+						gdb->createGame(this->gr);
+						gdb->terminate();
+
+						int loss = acc->getLoses();
+						acc->setLoses(loss++);
+						//
+
 						this->gr->NewBoard();
-						/*GameStatusPacket* gameStatusPacket = new GameStatusPacket(2);
-						gameStatusPacket->serializeGameStatusPacketBuffer();
-						gameStatusPacket->serializeParentPacketTxBuffer();
-						sendPacket(gameStatusPacket);
-						this->gr->NewBoard();*/
 					}
 					else if (this->gr->getGameBoard()->getDraw())
 					{
@@ -312,6 +330,16 @@ public:
 						gameStatusPacket->serializeGameStatusPacketBuffer();
 						gameStatusPacket->serializeParentPacketTxBuffer();
 						sendPacket(gameStatusPacket);
+
+						// new stuff, could break, maybe
+						gdb->createConnection(); 
+						gdb->createGame(this->gr);
+						gdb->terminate();
+
+						int draw = acc->getDraws();
+						acc->setDraws(draw++);
+						// 
+
 						this->gr->NewBoard();
 					}
 					else
