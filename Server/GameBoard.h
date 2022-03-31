@@ -53,9 +53,10 @@ public:
 	int placeComputerMove()
 	{
 		int move = 0;
+		move = rand() % 9 + 1;
 		while (!validateComputerMove(move, 1));
 		{
-			move = rand() % 9;
+			move = rand() % 9 + 1;
 			this->moveCounter++;
 			if (validateMove(move, 1))
 			{
@@ -151,7 +152,10 @@ public:
 			col = move - 7;
 		}
 
-		if (this->board[row][col] == (char)move)
+		int temp = board[row][col] - '0';
+		int temp2 = move;
+
+		if (temp == temp2)
 		{
 			return true;
 		}
@@ -163,11 +167,11 @@ public:
 	{
 		if (player == 0)
 		{
-			this->board[row][col] = 'x';
+			this->board[row][col] = 'o';
 		}
 		else if (player == 1)
 		{
-			this->board[row][col] = '0';
+			this->board[row][col] = 'x';
 		}
 		return;
 	}
