@@ -170,6 +170,8 @@ StackedWidget* GUIHandler::GetStackedWidget()
 void GUIHandler::NewGame()
 {
 	Ui::GameWidget* gameWidgetUI = gameWidget->GetGameWidgetUI();
+	gameWidgetUI->turnLabel->setText(QString::fromStdString("Your turn"));
+
 	QPixmap blank;
 	for (int i = 1; i < 10; i++)
 	{

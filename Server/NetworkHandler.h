@@ -276,16 +276,7 @@ public:
 
 			if (this->gr->updateBoard(move))
 			{
-				if (this->gr->getGameBoard()->getComputerWin())
-				{
-					int compMove = this->gr->getGameBoard()->placeComputerMove();
-					MovePacket* compMovePacket = new MovePacket(compMove, 2);
-					compMovePacket->serializeMovePacketTxBuffer();
-					compMovePacket->serializeParentPacketTxBuffer();
-					sendPacket(compMovePacket);
-					this->gr->NewBoard();
-				}
-				else if (this->gr->getGameBoard()->getPlayerWin())
+				if (this->gr->getGameBoard()->getPlayerWin())
 				{
 					GameStatusPacket* gameStatusPacket = new GameStatusPacket(1);
 					gameStatusPacket->serializeGameStatusPacketBuffer();
@@ -293,21 +284,39 @@ public:
 					sendPacket(gameStatusPacket);
 					this->gr->NewBoard();
 				}
-				else if (!this->gr->getGameBoard()->getPlayerWin() && !this->gr->getGameBoard()->getComputerWin() && gr->getGameBoard()->ifEnd())
-				{
-					GameStatusPacket* gameStatusPacket = new GameStatusPacket(0);
-					gameStatusPacket->serializeGameStatusPacketBuffer();
-					gameStatusPacket->serializeParentPacketTxBuffer();
-					sendPacket(gameStatusPacket);
-					this->gr->NewBoard();
-				}
 				else
 				{
+
 					int compMove = this->gr->getGameBoard()->placeComputerMove();
-					MovePacket* compMovePacket = new MovePacket(compMove, 0);
-					compMovePacket->serializeMovePacketTxBuffer();
-					compMovePacket->serializeParentPacketTxBuffer();
-					sendPacket(compMovePacket);
+
+					if (this->gr->getGameBoard()->getComputerWin())
+					{
+						MovePacket* compMovePacket = new MovePacket(compMove, 2);
+						compMovePacket->serializeMovePacketTxBuffer();
+						compMovePacket->serializeParentPacketTxBuffer();
+						sendPacket(compMovePacket);
+						this->gr->NewBoard();
+						/*GameStatusPacket* gameStatusPacket = new GameStatusPacket(2);
+						gameStatusPacket->serializeGameStatusPacketBuffer();
+						gameStatusPacket->serializeParentPacketTxBuffer();
+						sendPacket(gameStatusPacket);
+						this->gr->NewBoard();*/
+					}
+					else if (gr->getGameBoard()->ifEnd())
+					{
+						GameStatusPacket* gameStatusPacket = new GameStatusPacket(0);
+						gameStatusPacket->serializeGameStatusPacketBuffer();
+						gameStatusPacket->serializeParentPacketTxBuffer();
+						sendPacket(gameStatusPacket);
+						this->gr->NewBoard();
+					}
+					else
+					{
+						MovePacket* compMovePacket = new MovePacket(compMove, 0);
+						compMovePacket->serializeMovePacketTxBuffer();
+						compMovePacket->serializeParentPacketTxBuffer();
+						sendPacket(compMovePacket);
+					}
 				}
 			}
 			else
