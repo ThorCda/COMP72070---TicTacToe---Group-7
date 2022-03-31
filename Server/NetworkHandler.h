@@ -276,6 +276,14 @@ public:
 
 			if (this->gr->updateBoard(move))
 			{
+				if (this->gr->getGameBoard()->getComputerWin())
+				{
+					// send computer win packey
+				}
+				if (this->gr->getGameBoard()->getPlayerWin())
+				{
+					// send player win packey
+				}
 				int compMove = this->gr->getGameBoard()->placeComputerMove();
 				MovePacket* compMovePacket = new MovePacket(compMove);
 				compMovePacket->serializeMovePacketTxBuffer();
