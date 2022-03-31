@@ -285,11 +285,11 @@ public:
 					sendPacket(compMovePacket);
 					this->gr->NewBoard();
 				}
-				if (this->gr->getGameBoard()->getPlayerWin())
+				else if (this->gr->getGameBoard()->getPlayerWin())
 				{
 					GameStatusPacket* gameStatusPacket = new GameStatusPacket(1);
 					gameStatusPacket->serializeGameStatusPacketBuffer();
-					gameStatusPacket->getSerializedParentTxBuffer();
+					gameStatusPacket->serializeParentPacketTxBuffer();
 					sendPacket(gameStatusPacket);
 					this->gr->NewBoard();
 				}
@@ -297,7 +297,7 @@ public:
 				{
 					GameStatusPacket* gameStatusPacket = new GameStatusPacket(0);
 					gameStatusPacket->serializeGameStatusPacketBuffer();
-					gameStatusPacket->getSerializedParentTxBuffer();
+					gameStatusPacket->serializeParentPacketTxBuffer();
 					sendPacket(gameStatusPacket);
 					this->gr->NewBoard();
 				}
