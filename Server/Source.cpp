@@ -30,6 +30,8 @@ int main() {
 
 	//GameRoom gb;
 	//gb.updateBoard(7);
+	//gb.updateBoard(4);
+	//gb.updateBoard(1);
 	//gb.getGameBoard()->placeComputerMove();
 
 	//int gabr;
