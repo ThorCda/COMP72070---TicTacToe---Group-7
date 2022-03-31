@@ -56,6 +56,7 @@ int main() {
 	//int gabr;
 	//cin >> gabr;
 
+
 	//adb.login(usr, pwd);
 	//adb.login(usr, pwd);
 
