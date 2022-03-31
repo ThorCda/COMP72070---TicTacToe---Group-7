@@ -29,14 +29,11 @@ int main() {
 	//cout << adb.getImage(usr);
 
 	//GameRoom gb;
-	//gb.updateBoard(6);
-	//gb.updateBoard(3);
-	//gb.updateBoard(9);
-	//if (gb.getGameBoard()->getPlayerWin())
-	//{
-	//	cout << "big win";
-	//}
+	//gb.updateBoard(7);
+	//gb.getGameBoard()->placeComputerMove();
 
+	//int gabr;
+	//cin >> gabr;
 
 	//adb.login(usr, pwd);
 	//adb.login(usr, pwd);

@@ -1,5 +1,6 @@
 #pragma once
 #include <random>
+#include <time.h>
 
 class GameBoard
 {
@@ -52,7 +53,7 @@ public:
 
 	int placeComputerMove()
 	{
-		srand(123);
+		srand(time(nullptr));
 		compMove = rand() % 9 + 1;
 		while (!validateComputerMove(compMove, 1));
 		{
