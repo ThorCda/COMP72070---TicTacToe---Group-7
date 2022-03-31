@@ -19,15 +19,18 @@ int main() {
 	//Packet* pkt = new Packet(p->getSerializedParentTxBuffer());		//Not sure if RxBuffer should be reallocated 
 	//LoginPacket* linPkt = new LoginPacket(pkt->getSerializedTxBuffer());
 
-	char usr[] = "xxKarlxx";
-	char pwd[] = "Conestoga";
+	//char usr[] = "xxKarlxx";
+	//char pwd[] = "Conestoga";
 
 
-	Account_DB_Handler adb;
-	adb.createConnection();
-	adb.insertImage(usr, pwd);
-	cout << adb.getImage(usr);
+	//Account_DB_Handler adb;
+	//adb.createConnection();
+	//adb.insertImage(usr, pwd);
+	//cout << adb.getImage(usr);
 
+
+	GameRoom gb;
+	gb.updateBoard(1);
 
 	//adb.login(usr, pwd);
 	//adb.login(usr, pwd);

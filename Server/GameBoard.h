@@ -73,7 +73,7 @@ public:
 	{
 		if (this->moveCounter < 9)
 		{
-			for (int i = 0; i <= 3; i++)
+			for (int i = 0; i < 3; i++)
 			{
 				if (this->board[i][0] == this->board[i][1] && this->board[i][1] == this->board[i][2])
 				{
@@ -95,8 +95,10 @@ public:
 		}
 		else
 		{
-			return true;
+			return false;
 		}
+
+		return false;
 	}
 
 	bool validateMove(int move, int player)
@@ -118,7 +120,10 @@ public:
 			col = move - 7;
 		}
 
-		if (this->board[row][col] == (char)move)
+		int temp = board[row][col] - '0';
+		int temp2 = move;
+
+		if (temp == temp2)
 		{
 			playMove(row, col, move, player);
 			return true;
