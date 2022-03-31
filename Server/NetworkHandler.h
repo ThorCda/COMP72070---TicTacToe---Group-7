@@ -272,9 +272,7 @@ public:
 
 		case Logoutp: {
 			LogoutPacket* newLogoutPacket = new LogoutPacket(packet->getSerializedTxBuffer());
-			/*AccDBHandler->createConnection();
-			AccDBHandler->updateAccount(acc);
-			AccDBHandler->terminate();*/
+
 			isLoggedIn = false;	//Will terminate the session
 			break;
 		}
@@ -466,6 +464,14 @@ public:
 
 		AccDBHandler->deleteUser(id);
 
+	}
+
+	~NetworkHandler()
+	{
+		delete acc;
+		delete gr;
+		delete gdb;
+		delete AccDBHandler;
 	}
 
 };

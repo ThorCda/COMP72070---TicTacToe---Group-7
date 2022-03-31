@@ -121,35 +121,28 @@ public:
 
 	bool ifEnd()
 	{
-		if (this->moveCounter < 9)
+		for (int i = 0; i < 3; i++)
 		{
-			for (int i = 0; i < 3; i++)
+			if (this->board[i][0] == this->board[i][1] && this->board[i][1] == this->board[i][2])
 			{
-				if (this->board[i][0] == this->board[i][1] && this->board[i][1] == this->board[i][2])
-				{
-					return true;
-				}
-				if (this->board[0][i] == this->board[1][i] && this->board[1][i] == this->board[2][i])
-				{
-					return true;
-				}
-				if (this->board[0][0] == this->board[1][1] && this->board[1][1] == this->board[2][2])
-				{
-					return true;
-				}
-				if (this->board[0][2] == this->board[1][1] && this->board[1][1] == this->board[2][0])
-				{
-					return true;
-				}
+				return true;
+			}
+			if (this->board[0][i] == this->board[1][i] && this->board[1][i] == this->board[2][i])
+			{
+				return true;
+			}
+			if (this->board[0][0] == this->board[1][1] && this->board[1][1] == this->board[2][2])
+			{
+				return true;
+			}
+			if (this->board[0][2] == this->board[1][1] && this->board[1][1] == this->board[2][0])
+			{
+				return true;
 			}
 		}
-		else if(this-> moveCounter <= 10)
+		if(moveCounter == 9)
 		{
 			this->draw = true;
-			return false;
-		}
-		else
-		{
 			return false;
 		}
 

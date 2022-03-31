@@ -56,13 +56,13 @@ void GUIHandler::SetupConnections()
 void GUIHandler::Login(string username, string password)
 {
 	// SEND LOGIN PACKET
-	/*char* usr;
-	sprintf(usr, "%s", username.c_str());
-	char* pswd;
-	sprintf(pswd, "%s", password.c_str());*/
+	char* usr = new char[username.length()+1];
+	strcpy(usr, username.c_str());
+	char* pwd = new char[password.length()+1];
+	strcpy(pwd, password.c_str());
 	/*char usr[] = "xxKarlxx";
 	char pwd[] = "Conestoga";*/
-	emit LOGIN();
+	emit LOGIN(usr, pwd);
 
 	// ON SUCCESS
 	//stackedWidget->SwitchView(GameWidgetView);
@@ -97,7 +97,8 @@ void GUIHandler::CreateAccount(string username, string password, string firstnam
 
 void GUIHandler::Logout()
 {
-	// SEND LOGOUT PACKET
+	stackedWidget->SwitchView(LoginWidgetView);
+	emit LOGOUT();
 }
 
 void GUIHandler::MakeGameMove(ClickableLabel* label)

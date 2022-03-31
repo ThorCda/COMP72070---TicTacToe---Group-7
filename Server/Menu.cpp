@@ -95,4 +95,6 @@ void Menu::runServer() {
 	
 	while (hdlr->listenForPacket()) {}
 
+	hdlr->closeSocket();
+	delete hdlr;
 }

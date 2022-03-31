@@ -164,23 +164,26 @@ void NetworkHandler::routePacket(Packet* packet) {
 	}
 }
 
-
-
-
-
 //******** SLOTS *********//
 
-void NetworkHandler::LOGIN()
+void NetworkHandler::LOGIN(char* usr, char* pwd)
 {
-	char usr[] = "xxKarlxx";
-	char pwd[] = "Conestoga";
+	/*char usr[] = "xxKarlxx";
+	char pwd[] = "Conestoga";*/
 	LoginPacket* p = new LoginPacket(usr, pwd);
 	p->serializeLoginPacket();
 	p->serializeParentPacketTxBuffer();
 	sendPacket(p);
 	listenForPacket();
+}
 
-
+void NetworkHandler::LOGOUT()
+{
+	LogoutPacket* p = new LogoutPacket();
+	p->serializeParentPacketTxBuffer();
+	p->serializeLogoutPacket();
+	sendPacket(p);
+	listenForPacket();
 }
 
 //************* Images **************//

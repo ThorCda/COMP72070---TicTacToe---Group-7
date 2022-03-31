@@ -48,7 +48,8 @@ public slots:
 	void ChangeImage(QPixmap);
 
 signals:
-	void LOGIN();
+	void LOGIN(char*, char*);
+	void LOGOUT();
 	void GAME_MOVE(int);
 
 public:

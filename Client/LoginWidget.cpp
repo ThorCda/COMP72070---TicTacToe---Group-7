@@ -58,7 +58,7 @@ string LoginWidget::getPassword()
 
 void LoginWidget::clearPassword()
 {
-    ui->usernameField->clear();
+    ui->passwordField->clear();
 }
 
 

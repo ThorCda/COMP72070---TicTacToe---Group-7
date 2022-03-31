@@ -37,7 +37,7 @@ public:
 	}
 
 	//Serizlation of packet
-	void serilizeLogoutPacket() {
+	void serializeLogoutPacket() {
 
 		if (this->serializedPacketBuffer != NULL) {
 			delete serializedPacketBuffer;

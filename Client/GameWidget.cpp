@@ -25,7 +25,6 @@ GameWidget::~GameWidget()
 
 void GameWidget::on_logoutButton_clicked()
 {
-    emit SwitchView(LoginWidgetView);
     emit Logout();
 }
 

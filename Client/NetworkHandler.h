@@ -41,7 +41,8 @@ public:
 	void sendImage(char* username);
 
 public slots:
-	void LOGIN();
+	void LOGIN(char*, char*);
+	void LOGOUT();
 	void GAME_MOVE(int);
 
 signals:
