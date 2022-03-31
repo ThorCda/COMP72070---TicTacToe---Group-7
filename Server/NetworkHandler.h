@@ -245,7 +245,7 @@ public:
 
 			AccDBHandler->createConnection();
 			Account* temp = AccDBHandler->login(userName, password);
-			Account* acc = new Account(temp);
+			Account* acc = new Account(*temp);
 			
 			if (acc == nullptr || acc->getUserName() == NULL) 
 			{
@@ -263,6 +263,7 @@ public:
 
 			sendPacket(accPkt);
 			AccDBHandler->terminate();
+			free(temp);
 
 			//Sends a picture packet sendImageFromDB(acc->getUsername());
 
