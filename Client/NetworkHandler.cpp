@@ -4,9 +4,9 @@ using namespace std;
 
 NetworkHandler::NetworkHandler()
 {
-	/*winsockStartup();
+	winsockStartup();
 	initSocket();
-	initConnection();*/
+	initConnection();
 }
 
 int NetworkHandler::winsockStartup()
@@ -183,20 +183,29 @@ void NetworkHandler::LOGOUT()
 	p->serializeParentPacketTxBuffer();
 	p->serializeLogoutPacket();
 	sendPacket(p);
+	/*listenForPacket();*/
+}
+
+void NetworkHandler::CREATE_ACCOUNT(char* username, char* fName, char* lName, char* pwd)
+{
+	CreateAccountPacket* p = new CreateAccountPacket(username, fName, lName, pwd);
+	p->serializeCreateAccountPacketTxBuffer();
+	p->serializeParentPacketTxBuffer();
+	sendPacket(p);
 	listenForPacket();
 }
 
-void NetworkHandler::START_CONNECTION()
-{
-	winsockStartup();
-	initSocket();
-	initConnection();
-}
-
-void NetworkHandler::STOP_CONNECTION()
-{
-	closeSocket();
-}
+//void NetworkHandler::START_CONNECTION()
+//{
+//	winsockStartup();
+//	initSocket();
+//	initConnection();
+//}
+//
+//void NetworkHandler::STOP_CONNECTION()
+//{
+//	closeSocket();
+//}
 
 //************* Images **************//
 

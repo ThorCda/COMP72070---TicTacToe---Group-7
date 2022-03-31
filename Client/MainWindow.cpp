@@ -63,8 +63,8 @@ void MainWindow::SetNetworkHandler(NetworkHandler* hdlr)
 
 void MainWindow::SetupConnections()
 {
-    QObject::connect(this->gui, &GUIHandler::START_CONNECTION, this->hdlr, &NetworkHandler::START_CONNECTION);
-    QObject::connect(this->gui, &GUIHandler::STOP_CONNECTION, this->hdlr, &NetworkHandler::STOP_CONNECTION);
+    /*QObject::connect(this->gui, &GUIHandler::START_CONNECTION, this->hdlr, &NetworkHandler::START_CONNECTION);
+    QObject::connect(this->gui, &GUIHandler::STOP_CONNECTION, this->hdlr, &NetworkHandler::STOP_CONNECTION);*/
 
 
     QObject::connect(this->gui, &GUIHandler::LOGIN, this->hdlr, &NetworkHandler::LOGIN);
@@ -72,6 +72,9 @@ void MainWindow::SetupConnections()
     QObject::connect(this->hdlr, &NetworkHandler::LOGIN_FAILURE, this->gui, &GUIHandler::LOGIN_FAILURE);
 
     QObject::connect(this->gui, &GUIHandler::LOGOUT, this->hdlr, &NetworkHandler::LOGOUT);
+
+    QObject::connect(this->gui, &GUIHandler::CREATE_ACCOUNT, this->hdlr, &NetworkHandler::CREATE_ACCOUNT);
+
 
     QObject::connect(this->gui, &GUIHandler::GAME_MOVE, this->hdlr, &NetworkHandler::GAME_MOVE);
     QObject::connect(this->hdlr, &NetworkHandler::UPDATE_GAME_BOARD, this->gui, &GUIHandler::UPDATE_GAME_BOARD);

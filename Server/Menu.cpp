@@ -91,7 +91,6 @@ void Menu::runServer() {
 	hdlr->bindConnect();
 	hdlr->listenSocket();
 	hdlr->acceptClient();
-	hdlr->listenForPacket();
 	
 	while (hdlr->listenForPacket()) {}
 

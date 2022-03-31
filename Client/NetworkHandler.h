@@ -41,12 +41,13 @@ public:
 	void sendImage(char* username);
 
 public slots:
-	void START_CONNECTION();
-	void STOP_CONNECTION();
+	//void START_CONNECTION();
+	//void STOP_CONNECTION();
 
 	void LOGIN(char*, char*);
 	void LOGOUT();
 	void GAME_MOVE(int);
+	void CREATE_ACCOUNT(char*, char*, char*, char*);
 
 signals:
 	void LOGIN_SUCCESS(Account*);

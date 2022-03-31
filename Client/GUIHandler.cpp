@@ -55,7 +55,7 @@ void GUIHandler::SetupConnections()
 
 void GUIHandler::Login(string username, string password)
 {
-	emit START_CONNECTION();
+	//emit START_CONNECTION();
 
 	// SEND LOGIN PACKET
 	char* usr = new char[username.length()+1];
@@ -88,20 +88,24 @@ void GUIHandler::LOGIN_FAILURE()
 
 void GUIHandler::CreateAccount(string username, string password, string firstname, string lastname)
 {
-	// SEND CREATE ACCOUNT PACKET
+	char* usr = new char[username.length() + 1];
+	strcpy(usr, username.c_str());
+	char* pwd = new char[password.length() + 1];
+	strcpy(pwd, password.c_str());
+	char* fname = new char[username.length() + 1];
+	strcpy(fname, username.c_str());
+	char* lname = new char[password.length() + 1];
+	strcpy(lname, password.c_str());
 
-	// ON SUCCESS
-	// show success popup
+	emit CREATE_ACCOUNT(usr, pwd, fname, lname);
 
-	// ON FAILURE
-	// show :(
 }
 
 void GUIHandler::Logout()
 {
 	stackedWidget->SwitchView(LoginWidgetView);
 	emit LOGOUT();
-	emit STOP_CONNECTION();
+	//emit STOP_CONNECTION();
 }
 
 void GUIHandler::MakeGameMove(ClickableLabel* label)

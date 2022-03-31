@@ -140,17 +140,17 @@ public:
 
 		bool isRunning = routePacket(pkt);
 
-		return isRunning;
+		return true;
 	}
 
 	void closeSocket()
 	{
 
 		//TODO sent packet 
-		ErrorPacket* errPkt = new ErrorPacket(ServerStop_Err);
+		/*ErrorPacket* errPkt = new ErrorPacket(ServerStop_Err);
 		errPkt->serializeErrorPacketTxBuffer();
 		errPkt->serializeParentPacketTxBuffer();
-		sendPacket(errPkt);
+		sendPacket(errPkt);*/
 
 		Logs::write(this->getState(), disconnected, NULL);
 
@@ -194,9 +194,11 @@ public:
 
 			CreateAccountPacket* pkt = new CreateAccountPacket(packet->getSerializedTxBuffer());
 			// move account definition to acc
-			acc = new Account(pkt->getFName(), pkt->getLName(), pkt->getUsername());
+			Account* temp = new Account(pkt->getFName(), pkt->getLName(), pkt->getUsername());
 			
-			acc = this->AccDBHandler->createAccount(acc, pkt->getPassword());
+			temp = this->AccDBHandler->createAccount(temp, pkt->getPassword());
+
+			acc = new Account(*temp);
 
 			if (acc == nullptr) {
 				//send error packet
@@ -272,7 +274,6 @@ public:
 
 		case Logoutp: {
 			LogoutPacket* newLogoutPacket = new LogoutPacket(packet->getSerializedTxBuffer());
-
 			isLoggedIn = false;	//Will terminate the session
 			break;
 		}
