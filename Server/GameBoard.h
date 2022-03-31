@@ -143,9 +143,13 @@ public:
 				}
 			}
 		}
-		else
+		else if(this-> moveCounter <= 10)
 		{
 			this->draw = true;
+			return false;
+		}
+		else
+		{
 			return false;
 		}
 
