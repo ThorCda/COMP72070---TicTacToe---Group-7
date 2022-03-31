@@ -278,17 +278,34 @@ public:
 			{
 				if (this->gr->getGameBoard()->getComputerWin())
 				{
-					// send computer win packey
+					int compMove = this->gr->getGameBoard()->placeComputerMove();
+					MovePacket* compMovePacket = new MovePacket(compMove, false);
+					compMovePacket->serializeMovePacketTxBuffer();
+					compMovePacket->serializeParentPacketTxBuffer();
+					sendPacket(compMovePacket);
 				}
 				if (this->gr->getGameBoard()->getPlayerWin())
 				{
-					// send player win packey
+					GameStatusPacket* gameStatusPacket = new GameStatusPacket(1);
+					gameStatusPacket->serializeGameStatusPacketBuffer();
+					gameStatusPacket->getSerializedParentTxBuffer();
+					sendPacket(gameStatusPacket);
 				}
-				int compMove = this->gr->getGameBoard()->placeComputerMove();
-				MovePacket* compMovePacket = new MovePacket(compMove);
-				compMovePacket->serializeMovePacketTxBuffer();
-				compMovePacket->serializeParentPacketTxBuffer();
-				sendPacket(compMovePacket);
+				else if (!this->gr->getGameBoard()->getPlayerWin() && !this->gr->getGameBoard()->getComputerWin() && gr->getGameBoard()->ifEnd())
+				{
+					GameStatusPacket* gameStatusPacket = new GameStatusPacket(0);
+					gameStatusPacket->serializeGameStatusPacketBuffer();
+					gameStatusPacket->getSerializedParentTxBuffer();
+					sendPacket(gameStatusPacket);
+				}
+				else
+				{
+					int compMove = this->gr->getGameBoard()->placeComputerMove();
+					MovePacket* compMovePacket = new MovePacket(compMove, true);
+					compMovePacket->serializeMovePacketTxBuffer();
+					compMovePacket->serializeParentPacketTxBuffer();
+					sendPacket(compMovePacket);
+				}
 			}
 			else
 			{

@@ -40,6 +40,7 @@ public slots:
 	void LOGIN_SUCCESS(Account*);
 	void LOGIN_FAILURE();
 	void UPDATE_GAME_BOARD(int);
+	void GAME_STATUS(int);
 
 	void CreateAccount(string, string, string, string);
 	void Logout();

@@ -107,11 +107,12 @@ void NetworkHandler::routePacket(Packet* packet) {
 
 		break;
 	}
-	//case GameStatusp: {
-	//	GameStatusPacket* newGameStatusPacket = new GameStatusPacket(packet->getSerializedTxBuffer());
-	//	// 
-	//	break;
-	//}
+	case GameStatusp: {
+		//GameStatusPacket* newGameStatusPacket = new GameStatusPacket(packet->getSerializedTxBuffer());
+		GameStatusPacket* gameStatusPacket = new GameStatusPacket(packet->getSerializedTxBuffer());
+		emit GAME_STATUS(gameStatusPacket->getGameStatusPacketGameCode());
+		break;
+	}
 	//case Loginp: {
 
 	//	LoginPacket* linPkt = new LoginPacket(packet->getSerializedTxBuffer());
@@ -147,6 +148,7 @@ void NetworkHandler::routePacket(Packet* packet) {
 		emit UPDATE_GAME_BOARD(newMovePacket->getMove());
 		break;
 	}
+	
 	//case PacketPacket: {
 	//	//Parent packet creator???
 	//	break;
@@ -232,7 +234,7 @@ void  NetworkHandler::sendImage(char* username)
 
 void NetworkHandler::GAME_MOVE(int gridNum)
 {
-	MovePacket* p = new MovePacket(gridNum);
+	MovePacket* p = new MovePacket(gridNum, false);
 	p->serializeMovePacketTxBuffer();
 	p->serializeParentPacketTxBuffer();
 	sendPacket(p);

@@ -9,10 +9,11 @@ class MovePacket : public Packet {
 private:
 
 	int move;
+	bool gameStatus;
 
 public:
 
-	MovePacket(int move) {
+	MovePacket(int move, bool gameStatus) {
 
 		//Free memory that may have been allocated by OS.
 		if (this->serializedPacketBuffer != NULL) {
@@ -26,6 +27,7 @@ public:
 
 		//Assign values.
 		this->move = move;
+		this->gameStatus = gameStatus;
 
 	}
 
@@ -40,6 +42,7 @@ public:
 
 		//Parse buffer for packet info.
 		memcpy(&move, rxBuffer, sizeof(this->move));
+		memcpy(&gameStatus, rxBuffer + sizeof(this->move), sizeof(this->gameStatus));
 
 		//Ensure safe state for future re-serialization.
 		this->serializedPacketBuffer = NULL;
@@ -65,6 +68,16 @@ public:
 
 	}
 
+	void setGameStatus(bool gameStatus)
+	{
+		this->gameStatus = gameStatus;
+	}
+
+	bool getGameStatus()
+	{
+		return this->gameStatus;
+	}
+
 	const char* getSerializedMovePacketTxBuffer() {
 
 		return this->serializedPacketBuffer;
@@ -73,10 +86,11 @@ public:
 
 	void serializeMovePacketTxBuffer() {
 
-		int totalSize = sizeof(this->move);
+		int totalSize = sizeof(this->move) + sizeof(this->gameStatus);
 		this->serializedPacketBuffer = new char[totalSize];
 		this->setHeaderBodyLength(totalSize);
 		memcpy(this->serializedPacketBuffer, &this->move, sizeof(this->move));
+		memcpy(this->serializedPacketBuffer, &this->gameStatus, sizeof(this->gameStatus));
 	}
 
 };

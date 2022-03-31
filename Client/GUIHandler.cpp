@@ -126,6 +126,18 @@ void GUIHandler::UPDATE_GAME_BOARD(int computerMove)
 	}
 }
 
+void GUIHandler::GAME_STATUS(int gameCode)
+{
+	if (gameCode == 1)
+	{
+		// player won
+	}
+	else if (gameCode == 0)
+	{
+		// draw
+	}
+}
+
 // For profile pictures
 void GUIHandler::ChangeImage(QPixmap image)
 {

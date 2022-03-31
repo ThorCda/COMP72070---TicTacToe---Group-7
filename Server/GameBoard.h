@@ -96,7 +96,7 @@ public:
 		}
 		else
 		{
-			return false;
+			return true;
 		}
 
 		return false;
