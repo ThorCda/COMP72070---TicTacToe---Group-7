@@ -129,22 +129,27 @@ void GUIHandler::UPDATE_GAME_BOARD(int computerMove)
 void GUIHandler::GAME_STATUS(int gameCode)
 {
 	Ui::GameWidget* gameWidgetUI = gameWidget->GetGameWidgetUI();
+	QPixmap circle("assets/circle_sprite.png");
 
 	if (gameCode == 0)
 	{
 		gameWidgetUI->turnLabel->setText(QString::fromStdString("Draw Game"));
+		currentMove->setPixmap(circle);
+		account->incrementDraws();
 	}
 	else if (gameCode == 1)
 	{
 		gameWidgetUI->turnLabel->setText(QString::fromStdString("Player Won"));
-		QPixmap circle("assets/circle_sprite.png");
+		
 		currentMove->setPixmap(circle);
+		account->incrementWins();
 	}
 	else if (gameCode == 2)
 	{
 		gameWidgetUI->turnLabel->setText(QString::fromStdString("You Lost"));
+		account->incrementLosses();
 	}
-
+	gameWidget->UpdateStats(account);
 	gameWidget->disableGameBoard();
 }
 

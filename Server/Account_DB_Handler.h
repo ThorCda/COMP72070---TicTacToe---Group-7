@@ -39,7 +39,7 @@ public:
 	{
 		string query = "call UpdateStats (" + to_string(acc.getAccountID()) + "," + to_string(acc.getWins()) + "," + to_string(acc.getLoses()) + "," + to_string(acc.getDraws()) + ")";
 		const char* q = query.c_str();
-
+		cout << query;
 		qstate = mysql_query(conn, q);
 		if (!qstate)
 		{

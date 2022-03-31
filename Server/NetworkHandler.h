@@ -245,7 +245,7 @@ public:
 
 			AccDBHandler->createConnection();
 			Account* temp = AccDBHandler->login(userName, password);
-			Account* acc = new Account(*temp);
+			this->acc = new Account(*temp);
 			
 			if (acc == nullptr || acc->getUserName() == NULL) 
 			{
@@ -272,7 +272,9 @@ public:
 
 		case Logoutp: {
 			LogoutPacket* newLogoutPacket = new LogoutPacket(packet->getSerializedTxBuffer());
-			
+			/*AccDBHandler->createConnection();
+			AccDBHandler->updateAccount(acc);
+			AccDBHandler->terminate();*/
 			isLoggedIn = false;	//Will terminate the session
 			break;
 		}
@@ -299,8 +301,10 @@ public:
 					gdb->terminate();
 
 					int wins = acc->getWins();
-					acc->setWins(wins++);
-					//
+					this->acc->setWins(++wins);
+					AccDBHandler->createConnection();
+					AccDBHandler->updateStats(acc);
+					AccDBHandler->terminate();
 
 					this->gr->NewBoard();
 				}
@@ -323,8 +327,10 @@ public:
 						gdb->terminate();
 
 						int loss = acc->getLoses();
-						acc->setLoses(loss++);
-						//
+						acc->setLoses(++loss);
+						AccDBHandler->createConnection();
+						AccDBHandler->updateStats(acc);
+						AccDBHandler->terminate();
 
 						this->gr->NewBoard();
 					}
@@ -342,8 +348,10 @@ public:
 						gdb->terminate();
 
 						int draw = acc->getDraws();
-						acc->setDraws(draw++);
-						// 
+						acc->setDraws(++draw);
+						AccDBHandler->createConnection();
+						AccDBHandler->updateStats(acc);
+						AccDBHandler->terminate();
 
 						this->gr->NewBoard();
 					}

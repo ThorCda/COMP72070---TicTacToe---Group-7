@@ -173,6 +173,10 @@ public:
 
 	bool getIsOnline() { return isOnline; }
 	void setIsOnline(bool isOnline) { this->isOnline = isOnline; }
+
+	void incrementWins() { wins++; };
+	void incrementLosses() { loses++; };
+	void incrementDraws() { draws++; };
 	
 };
 
