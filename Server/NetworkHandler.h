@@ -194,9 +194,9 @@ public:
 
 			CreateAccountPacket* pkt = new CreateAccountPacket(packet->getSerializedTxBuffer());
 			// move account definition to acc
-			Account* temp = new Account(pkt->getFName(), pkt->getLName(), pkt->getUsername());
+			//Account* temp = new Account(pkt->getFName(), pkt->getLName(), pkt->getUsername());
 			
-			temp = this->AccDBHandler->createAccount(temp, pkt->getPassword());
+			Account* temp = this->AccDBHandler->createAccount(, pkt->getPassword());
 
 			acc = new Account(*temp);
 
