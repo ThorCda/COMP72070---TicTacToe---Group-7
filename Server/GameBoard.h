@@ -10,7 +10,7 @@ class GameBoard
 
 	enum Status // temp enum placement
 	{
-
+		playerwin, computerwin, drawState
 	};
 
 	Status currentStatus;
@@ -38,6 +38,18 @@ public:
 		return this->computerWin;
 	}
 
+	void setPlayerWinStatus()
+	{
+		this->currentStatus = playerwin;
+	}
+	void setComputerWinStatus()
+	{
+		this->currentStatus = computerwin;
+	}
+	void setDrawStatus()
+	{
+		this->currentStatus = drawState;
+	}
 	bool placePlayerMove(int move)
 	{
 		this->moveCounter++;

@@ -244,7 +244,8 @@ public:
 			string password(linPkt->getPassword());
 
 			AccDBHandler->createConnection();
-			Account* acc = AccDBHandler->login(userName, password);
+			Account* temp = AccDBHandler->login(userName, password);
+			Account* acc = new Account(temp);
 			
 			if (acc == nullptr || acc->getUserName() == NULL) 
 			{
@@ -292,6 +293,7 @@ public:
 
 					// new stuff, could break, maybe
 					gdb->createConnection();
+					this->gr->getGameBoard()->setPlayerWinStatus();
 					gdb->createGame(this->gr);
 					gdb->terminate();
 
@@ -315,6 +317,7 @@ public:
 
 						// new stuff, could break, maybe
 						gdb->createConnection();
+						this->gr->getGameBoard()->setComputerWinStatus();
 						gdb->createGame(this->gr);
 						gdb->terminate();
 
@@ -333,6 +336,7 @@ public:
 
 						// new stuff, could break, maybe
 						gdb->createConnection(); 
+						this->gr->getGameBoard()->setDrawStatus();
 						gdb->createGame(this->gr);
 						gdb->terminate();
 
