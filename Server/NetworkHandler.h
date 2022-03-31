@@ -244,7 +244,8 @@ public:
 			string password(linPkt->getPassword());
 
 			AccDBHandler->createConnection();
-			Account* acc = AccDBHandler->login(userName, password);
+			Account* temp = AccDBHandler->login(userName, password);
+			Account* acc = new Account(temp);
 			
 			if (acc == nullptr || acc->getUserName() == NULL) 
 			{
