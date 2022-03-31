@@ -292,6 +292,7 @@ public:
 
 					// new stuff, could break, maybe
 					gdb->createConnection();
+					this->gr->getGameBoard()->setPlayerWinStatus();
 					gdb->createGame(this->gr);
 					gdb->terminate();
 
@@ -315,6 +316,7 @@ public:
 
 						// new stuff, could break, maybe
 						gdb->createConnection();
+						this->gr->getGameBoard()->setComputerWinStatus();
 						gdb->createGame(this->gr);
 						gdb->terminate();
 
@@ -333,6 +335,7 @@ public:
 
 						// new stuff, could break, maybe
 						gdb->createConnection(); 
+						this->gr->getGameBoard()->setDrawStatus();
 						gdb->createGame(this->gr);
 						gdb->terminate();
 
