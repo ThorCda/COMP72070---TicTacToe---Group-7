@@ -28,9 +28,9 @@ int main() {
 	//adb.insertImage(usr, pwd);
 	//cout << adb.getImage(usr);
 
-	/*GameRoom gb;
-	gb.updateBoard(1);
-	gb.getGameBoard()->placeComputerMove();*/
+	//GameRoom gb;
+	//gb.updateBoard(1);
+	//gb.getGameBoard()->placeComputerMove();
 
 
 	//adb.login(usr, pwd);

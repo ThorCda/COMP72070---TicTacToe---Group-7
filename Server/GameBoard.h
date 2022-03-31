@@ -56,7 +56,6 @@ public:
 		move = rand() % 9 + 1;
 		while (!validateComputerMove(move, 1));
 		{
-			move = rand() % 9 + 1;
 			this->moveCounter++;
 			if (validateMove(move, 1))
 			{
@@ -66,6 +65,7 @@ public:
 				}
 				return move;
 			}
+			move = rand() % 9 + 1;
 		}
 		return move;
 	}
