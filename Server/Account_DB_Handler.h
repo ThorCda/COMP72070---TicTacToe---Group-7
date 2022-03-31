@@ -10,12 +10,12 @@ using namespace std;
 class Account_DB_Handler : public Database_Handler
 {
 public:
-	Account* createAccount(Account acc, char* password)
+	Account* createAccount(char* cusername, char* cfirstname, char* clastname, char* password)
 	{
-		string username(acc.getUserName());
-		string firstname(acc.getFirstName());
-		string lastname(acc.getLastName());
-		string avatar(acc.getAvatarloc());
+		string username(cusername);
+		string firstname(cfirstname);
+		string lastname(clastname);
+		string avatar = "NotSet";
 		string pw(password);
 
 		string query = "call CreateAccount (\"" + firstname + "\",\"" + lastname + "\",\"" + avatar + "\",\"" + username + "\",\"" + pw + "\"" + ")";
