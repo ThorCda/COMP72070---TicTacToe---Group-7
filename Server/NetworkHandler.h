@@ -117,7 +117,7 @@ public:
 			WSACleanup();
 			return 0;
 		}
-		cout << "Winsock: Connection Established" << endl;
+		cout << "Winsock: Connection Established!" << endl;
 		setState(CONNECTED);
 		Logs::write(this->getState(), connected, NULL);
 	}
@@ -125,11 +125,9 @@ public:
 	bool listenForPacket() {
 
 		setState(LISTENING);
-		cout << "Winsock: Lisening for packet..." << endl;
+		cout << "Winsock: Listening for packet..." << endl;
 
 		char RxBuffer[1028] = {};	//Max length of the biggest packet
-
-
 
 		recv(ClientSocket, RxBuffer, sizeof(RxBuffer), 0);
 		
@@ -144,6 +142,9 @@ public:
 
 	void closeSocket()
 	{
+
+		//TODO sent packet 
+		ErrorPacket* errPkt = new ErrorPacket(ServerStop_Err);
 
 		Logs::write(this->getState(), disconnected, NULL);
 
@@ -414,6 +415,12 @@ public:
 		Logs::write(this->getState(), Photo, NULL);
 
 		fclose(picture);
+
+	}
+
+	void RemovePlayerFromDB(int id) {
+
+		AccDBHandler->deleteUser(id);
 
 	}
 

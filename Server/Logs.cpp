@@ -109,6 +109,7 @@ const  char* Logs::conn_file = "_conn_log.txt";
             file = Logs::game_file;
             break;
 
+
         default:
             return;
             break;
@@ -154,7 +155,8 @@ const  char* Logs::conn_file = "_conn_log.txt";
             return "Error with the move";
         case 5:
             return "Error with the avatar image";
-
+        case 6:
+            return "Server Stopped";
 
         default:return "Function not defined...";
             break;

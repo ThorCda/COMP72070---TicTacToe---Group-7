@@ -14,6 +14,7 @@ public:
 	void start();
 	void options(int option);
 	void print();
+	void removePlayer();
 	void terminate();
 	void runServer();
 	

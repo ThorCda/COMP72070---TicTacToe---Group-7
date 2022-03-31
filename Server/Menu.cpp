@@ -41,6 +41,9 @@ void Menu::options(int option) {
 		Logs::read(game_log);
 		break;
 	case 5:
+		removePlayer();
+		break;
+	case 6:
 		Menu::terminate();
 		isRunning = false;
 	default:
@@ -55,7 +58,22 @@ void Menu::print() {
 	std::cout << "\t2) Print error logs\n";
 	std::cout << "\t3) Print connection logs\n";
 	std::cout << "\t4) Print game logs\n";
-	std::cout << "\t5) Terminate and exit\n";
+	std::cout << "\t5) Remove Player from the world\n";
+	std::cout << "\t6) Terminate and exit\n";
+
+}
+
+void Menu::removePlayer() {
+
+	std::cout << "Enter in ID to remove: ";
+	string id_str;
+	int id;
+
+	cin >> id_str;
+	
+	id = stoi(id_str);
+
+	hdlr->RemovePlayerFromDB(id);
 
 }
 
