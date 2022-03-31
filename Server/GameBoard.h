@@ -43,9 +43,9 @@ public:
 		this->moveCounter++;
 		if (validateMove(move, 0))
 		{
-			if (ifEnd())
+			if (!this->draw)
 			{
-				if (!this - draw)
+				if (ifEnd())
 				{
 					this->playerWin = true;
 				}
@@ -69,9 +69,9 @@ public:
 			this->moveCounter++;
 			if (validateMove(compMove, 1))
 			{
-				if (ifEnd())
+				if (!this->draw)
 				{
-					if (!this-draw)
+					if (ifEnd())
 					{
 						this->computerWin = true;
 					}

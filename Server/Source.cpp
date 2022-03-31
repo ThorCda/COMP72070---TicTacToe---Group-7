@@ -28,11 +28,11 @@ int main() {
 	//adb.insertImage(usr, pwd);
 	//cout << adb.getImage(usr);
 
-	//GameRoom gb;
-	//gb.updateBoard(7);
-	//gb.updateBoard(4);
-	//gb.updateBoard(1);
-	//gb.getGameBoard()->placeComputerMove();
+	GameRoom gb;
+	gb.updateBoard(7);
+	gb.updateBoard(4);
+	gb.updateBoard(1);
+	gb.getGameBoard()->placeComputerMove();
 
 	//int gabr;
 	//cin >> gabr;
