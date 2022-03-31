@@ -1,4 +1,4 @@
-
+#define _CRT_SECURE_NO_WARNINGS
 #pragma once
 
 #include <windows.networking.sockets.h>
@@ -129,7 +129,6 @@ public:
 
 		char RxBuffer[1028] = {};	//Max length of the biggest packet
 
-		cout << "here";
 
 
 		recv(ClientSocket, RxBuffer, sizeof(RxBuffer), 0);
@@ -239,9 +238,9 @@ public:
 
 			AccDBHandler->createConnection();
 			Account* acc = AccDBHandler->login(userName, password);
-			AccDBHandler->terminate();
 			
-			if (acc == nullptr || acc->getUserName()) {
+			if (acc == nullptr || acc->getUserName() == NULL) 
+			{
 				ErrorPacket* err = new ErrorPacket(Login_Err);
 				err->serializeErrorPacketTxBuffer();
 				err->getSerializedParentTxBuffer();

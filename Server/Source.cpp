@@ -29,9 +29,6 @@ int main() {
 	//cout << adb.getImage(usr);
 
 
-	GameRoom gb;
-	gb.updateBoard(1);
-
 	//adb.login(usr, pwd);
 	//adb.login(usr, pwd);
 
