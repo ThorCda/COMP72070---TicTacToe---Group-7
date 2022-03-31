@@ -14,7 +14,7 @@ class GameBoard
 
 	Status currentStatus;
 	int moveCounter;
-
+	int compMove = 0;
 	bool playerWin = false;
 	bool computerWin = false;
 
@@ -52,22 +52,22 @@ public:
 
 	int placeComputerMove()
 	{
-		int move = 0;
-		move = rand() % 9 + 1;
-		while (!validateComputerMove(move, 1));
+		srand(123);
+		compMove = rand() % 9 + 1;
+		while (!validateComputerMove(compMove, 1));
 		{
 			this->moveCounter++;
-			if (validateMove(move, 1))
+			if (validateMove(compMove, 1))
 			{
 				if (ifEnd())
 				{
 					this->computerWin = true;
 				}
-				return move;
+				return compMove;
 			}
-			move = rand() % 9 + 1;
+			compMove = rand() % 9 + 1;
 		}
-		return move;
+		return compMove;
 	}
 
 	bool ifEnd()
@@ -160,7 +160,10 @@ public:
 			return true;
 		}
 		else
+		{
+			compMove = rand() % 9 + 1;
 			return false;
+		}
 	}
 
 	void playMove(int row, int col, int move, int player)

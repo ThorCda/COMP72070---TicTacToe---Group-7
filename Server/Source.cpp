@@ -29,7 +29,7 @@ int main() {
 	//cout << adb.getImage(usr);
 
 	//GameRoom gb;
-	//gb.updateBoard(1);
+	//gb.updateBoard(6);
 	//gb.getGameBoard()->placeComputerMove();
 
 
