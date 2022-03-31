@@ -115,13 +115,13 @@ void GUIHandler::UPDATE_GAME_BOARD(int computerMove)
 	{
 		if (gameWidget->gameLabels[i]->GetGridNum() == computerMove)
 		{
-			QPixmap circle("assets/circle_sprite.png");
-			gameWidget->gameLabels[i]->setPixmap(circle);
+			QPixmap x("assets/cross_sprite.png");
+			gameWidget->gameLabels[i]->setPixmap(x);
 		}
 		else if (gameWidget->gameLabels[i]->GetGridNum() == currentMove->GetGridNum())
 		{
-			QPixmap x("assets/cross_sprite.png");
-			gameWidget->gameLabels[i]->setPixmap(x);
+			QPixmap circle("assets/circle_sprite.png");
+			gameWidget->gameLabels[i]->setPixmap(circle);
 		}
 	}
 }
