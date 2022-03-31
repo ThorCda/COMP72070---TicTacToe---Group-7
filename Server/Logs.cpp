@@ -60,7 +60,7 @@ const  char* Logs::conn_file = "_conn_log.txt";
 
         outf << ctime(&now) << "\tConnection Status: " << connection_status << " Action: " << type << "\n\tBuffer: ";
         if (buffer != NULL) {
-            outf.write(buffer, strlen(buffer));
+            outf.write(buffer, sizeof(buffer));
             
         }
         

@@ -3,6 +3,7 @@
 #include <Windows.h>
 
 #include "../Server/ChildPackets.h"
+#include "../Server/Packet.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -171,7 +172,7 @@ namespace ServerTests_Packet
 
 		TEST_METHOD(Move_Packet)		//PKT-UNT-005 through 010
 		{
-			MovePacket* x = new MovePacket(3);
+			MovePacket* x = new MovePacket(1, 1);
 
 			x->serializeMovePacketTxBuffer();
 
