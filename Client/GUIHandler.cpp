@@ -55,6 +55,8 @@ void GUIHandler::SetupConnections()
 
 void GUIHandler::Login(string username, string password)
 {
+	emit START_CONNECTION();
+
 	// SEND LOGIN PACKET
 	char* usr = new char[username.length()+1];
 	strcpy(usr, username.c_str());
@@ -99,6 +101,7 @@ void GUIHandler::Logout()
 {
 	stackedWidget->SwitchView(LoginWidgetView);
 	emit LOGOUT();
+	emit STOP_CONNECTION();
 }
 
 void GUIHandler::MakeGameMove(ClickableLabel* label)

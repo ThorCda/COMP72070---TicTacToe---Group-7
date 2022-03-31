@@ -48,6 +48,8 @@ public slots:
 	void ChangeImage(QPixmap);
 
 signals:
+	void START_CONNECTION();
+	void STOP_CONNECTION();
 	void LOGIN(char*, char*);
 	void LOGOUT();
 	void GAME_MOVE(int);

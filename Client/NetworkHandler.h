@@ -41,6 +41,9 @@ public:
 	void sendImage(char* username);
 
 public slots:
+	void START_CONNECTION();
+	void STOP_CONNECTION();
+
 	void LOGIN(char*, char*);
 	void LOGOUT();
 	void GAME_MOVE(int);

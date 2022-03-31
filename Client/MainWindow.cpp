@@ -63,6 +63,10 @@ void MainWindow::SetNetworkHandler(NetworkHandler* hdlr)
 
 void MainWindow::SetupConnections()
 {
+    QObject::connect(this->gui, &GUIHandler::START_CONNECTION, this->hdlr, &NetworkHandler::START_CONNECTION);
+    QObject::connect(this->gui, &GUIHandler::STOP_CONNECTION, this->hdlr, &NetworkHandler::STOP_CONNECTION);
+
+
     QObject::connect(this->gui, &GUIHandler::LOGIN, this->hdlr, &NetworkHandler::LOGIN);
     QObject::connect(this->hdlr, &NetworkHandler::LOGIN_SUCCESS, this->gui, &GUIHandler::LOGIN_SUCCESS);
     QObject::connect(this->hdlr, &NetworkHandler::LOGIN_FAILURE, this->gui, &GUIHandler::LOGIN_FAILURE);

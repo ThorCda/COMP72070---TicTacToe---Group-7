@@ -4,9 +4,9 @@ using namespace std;
 
 NetworkHandler::NetworkHandler()
 {
-	winsockStartup();
+	/*winsockStartup();
 	initSocket();
-	initConnection();
+	initConnection();*/
 }
 
 int NetworkHandler::winsockStartup()
@@ -184,6 +184,18 @@ void NetworkHandler::LOGOUT()
 	p->serializeLogoutPacket();
 	sendPacket(p);
 	listenForPacket();
+}
+
+void NetworkHandler::START_CONNECTION()
+{
+	winsockStartup();
+	initSocket();
+	initConnection();
+}
+
+void NetworkHandler::STOP_CONNECTION()
+{
+	closeSocket();
 }
 
 //************* Images **************//
