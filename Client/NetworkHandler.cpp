@@ -69,7 +69,8 @@ void NetworkHandler::routePacket(Packet* packet) {
 
 	case Accountp: {
 		AccountPacket* newAccountPacket = new AccountPacket(packet->getSerializedTxBuffer());
-		emit LOGIN_SUCCESS();
+		Account* acc = new Account(newAccountPacket->getAccount());
+		emit LOGIN_SUCCESS(acc);
 		break;
 	}
 	//case CreateAccountp: {
@@ -141,11 +142,11 @@ void NetworkHandler::routePacket(Packet* packet) {
 	//	isLoggedIn = false;	//Will terminate the session
 	//	break;
 	//}
-	//case Movep: {
-	//	MovePacket* newMovePacket = new MovePacket(packet->getSerializedTxBuffer());
-	//	// PlayMove(newMovePacket)
-	//	break;
-	//}
+	case Movep: {
+		MovePacket* newMovePacket = new MovePacket(packet->getSerializedTxBuffer());
+		emit UPDATE_GAME_BOARD(newMovePacket->getMove());
+		break;
+	}
 	//case PacketPacket: {
 	//	//Parent packet creator???
 	//	break;
@@ -155,6 +156,8 @@ void NetworkHandler::routePacket(Packet* packet) {
 	}
 	}
 }
+
+
 
 
 
@@ -171,4 +174,67 @@ void NetworkHandler::LOGIN()
 	listenForPacket();
 
 
+}
+
+//************* Images **************//
+
+	//send and recv should also be ported to client and server
+void NetworkHandler::recvImage(int size) {
+
+	char* RxBuffer = new char[size];
+
+	recv(ClientSocket, RxBuffer, size, 0);
+
+	FILE* image;
+	 
+	fopen_s(&image, "Avatar.jpeg", "wb"); //Not sure where to get the pathname from
+
+	fwrite(RxBuffer, sizeof(char), sizeof(RxBuffer), image);
+
+	fclose(image);
+}
+
+
+void  NetworkHandler::sendImage(char* username) 
+{
+
+	FILE* picture;
+
+	fopen_s(&picture, username, "rb");
+
+	if (picture == NULL) {
+		ErrorPacket* err = new ErrorPacket(Image_Err);
+		err->serializeErrorPacketTxBuffer();
+		err->getSerializedParentTxBuffer();
+		sendPacket(err);
+		return;
+	}
+
+	fseek(picture, 0, SEEK_END);
+
+	int size = ftell(picture);
+
+	ImagePacket* imgPkt = new ImagePacket(size, strlen(username), username);
+	imgPkt->serializeImagePacketTxBuffer();
+	imgPkt->serializeParentPacketTxBuffer();
+	sendPacket(imgPkt);
+
+	char* TxBuffer = new char[size];
+
+	fseek(picture, 0, SEEK_SET);
+
+	fread(TxBuffer, sizeof(char), size, picture);
+
+	send(ClientSocket, TxBuffer, sizeof(TxBuffer), 0);
+
+	fclose(picture);
+}
+
+void NetworkHandler::GAME_MOVE(int gridNum)
+{
+	MovePacket* p = new MovePacket(gridNum);
+	p->serializeMovePacketTxBuffer();
+	p->serializeParentPacketTxBuffer();
+	sendPacket(p);
+	listenForPacket();
 }

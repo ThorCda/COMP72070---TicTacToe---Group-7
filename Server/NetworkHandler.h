@@ -13,6 +13,22 @@
 using namespace std;
 
 
+//hdlr->listenSocket();
+//hdlr->acceptClient();
+//hdlr->listenForPacket();
+//
+//while (hdlr->listenForPacket()) {}
+
+enum ServerState {
+
+	UNINITIALIZED,
+	INITIALIZING,
+	CONNECTING,
+	CONNECTED,
+	LISTENING,
+	EXECUTING
+
+};
 
 class NetworkHandler
 {
@@ -21,21 +37,37 @@ class NetworkHandler
 	sockaddr_in SvrAddr;
 	GameRoom* gr = new GameRoom();
 	Account_DB_Handler* AccDBHandler = new Account_DB_Handler();
-
+	ServerState currentState = UNINITIALIZED;
+	
 public:
+
+	int getState() {
+
+		return this->currentState;
+
+	}
+
+	void setState(ServerState state) {
+
+		this->currentState = state;
+
+	}
 
 	int winsockStartup()
 	{
+		setState(INITIALIZING);
 		//starts Winsock DLLs
 		WSADATA wsaData;
 		if ((WSAStartup(MAKEWORD(2, 2), &wsaData)) != 0) {
 			return 0;
 		}
-		cout << "Winsock: Initalized..." << endl;
+		cout << "Winsock: Initalized..." << endl;		
+
 	}
 
 	int initSocket()
 	{
+		setState(INITIALIZING);
 		//initializes socket. SOCK_STREAM: TCP
 		this->ListenSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 		if (this->ListenSocket == INVALID_SOCKET) {
@@ -43,9 +75,12 @@ public:
 			return 0;
 		}
 		cout << "Winsock: Socket created..." << endl;
+		
 	}
 
 	int bindConnect() {
+		
+		setState(INITIALIZING);
 		sockaddr_in SvrAddr;
 		SvrAddr.sin_family = AF_INET;
 		SvrAddr.sin_addr.s_addr = INADDR_ANY;
@@ -57,9 +92,12 @@ public:
 			return 0;
 		}
 		cout << "Winsock: Bound socket..." << endl;
+		
+
 	}
 
 	int listenSocket() {
+		
 		if (listen(ListenSocket, 1) == SOCKET_ERROR) {
 			closesocket(ListenSocket);
 			WSACleanup();
@@ -69,22 +107,24 @@ public:
 
 	int acceptClient() {
 
+		
 		this->ClientSocket = SOCKET_ERROR;
 
 		cout << "Winsock: Waiting for connection..." << endl;
-
+		setState(CONNECTING);
 		if ((this->ClientSocket = accept(this->ListenSocket, NULL, NULL)) == SOCKET_ERROR) {
 			closesocket(this->ListenSocket);
 			WSACleanup();
 			return 0;
 		}
 		cout << "Winsock: Connection Established" << endl;
-
-		Logs::write(true, connected, NULL);
+		setState(CONNECTED);
+		Logs::write(this->getState(), connected, NULL);
 	}
 
 	bool listenForPacket() {
 
+		setState(LISTENING);
 		cout << "Winsock: Lisening for packet..." << endl;
 
 		char RxBuffer[1028] = {};	//Max length of the biggest packet
@@ -94,7 +134,7 @@ public:
 
 		recv(ClientSocket, RxBuffer, sizeof(RxBuffer), 0);
 		
-		Logs::write(true, buf_receive, RxBuffer);
+		Logs::write(this->getState(), buf_receive, RxBuffer);
 
 		Packet* pkt = new Packet(RxBuffer);		//Not sure if RxBuffer should be reallocated 
 
@@ -106,27 +146,31 @@ public:
 	void closeSocket()
 	{
 
-		Logs::write(false, disconnected, NULL);
+		Logs::write(this->getState(), disconnected, NULL);
 
 		closesocket(this->ClientSocket);	//closes incoming socket
 
 		closesocket(this->ListenSocket);	    //closes server socket	
 
 		WSACleanup();					//frees Winsock resources
+		setState(UNINITIALIZED);
 
 	}
 
 
 	void sendPacket(Packet* p)
 	{
+		setState(EXECUTING);
 		cout << "Winsock: Sending packet..." << endl;
+		
 		send(ClientSocket, p->getSerializedParentTxBuffer(), sizeof(Header) + p->getHeaderBodyLength(), 0);
 
-		Logs::write(true, buf_send, p->getSerializedParentTxBuffer());
+		Logs::write(this->getState(), buf_send, p->getSerializedParentTxBuffer());
 	}
 
 	bool routePacket(Packet* packet) {
 
+		setState(EXECUTING);
 		bool isLoggedIn = true;
 
 
@@ -193,9 +237,11 @@ public:
 			string userName(linPkt->getUsername());
 			string password(linPkt->getPassword());
 
+			AccDBHandler->createConnection();
 			Account* acc = AccDBHandler->login(userName, password);
+			AccDBHandler->terminate();
 			
-			if (acc == nullptr) {
+			if (acc == nullptr || acc->getUserName()) {
 				ErrorPacket* err = new ErrorPacket(Login_Err);
 				err->serializeErrorPacketTxBuffer();
 				err->getSerializedParentTxBuffer();
@@ -209,6 +255,9 @@ public:
 			accPkt->serializeParentPacketTxBuffer();
 
 			sendPacket(accPkt);
+			AccDBHandler->terminate();
+
+			//Sends a picture packet sendImageFromDB(acc->getUsername());
 
 			break;
 		}
@@ -244,6 +293,12 @@ public:
 			}
 			break;
 		}
+		case Imagep: {
+
+			ImagePacket* imgPkt = new ImagePacket(packet->getSerializedTxBuffer());
+			recvImage(imgPkt->getImageSize(), imgPkt->getUsername());
+
+		}
 
 		case PacketPacket: {
 			//Parent packet creator???
@@ -261,36 +316,46 @@ public:
 
 	}
 
-	//send and recv should also be ported to client
-	void recvPicture() {
+	//send and recv should also be ported to client and server
+	void recvImage(int size, char* username) {
 
-		//Needs a string for the name or to set it to an account?
+		setState(EXECUTING);
+		char* pathname = username;
 
-		char RxBuffer[sizeof(int)];		//Sending just an integer protocol; not sure if it we should make an integer packet for this
-		recv(ClientSocket, RxBuffer, sizeof(int), 0);
+		strcat(pathname, ".jpeg");
 
-		int size;
-		memcpy(&size, RxBuffer, sizeof(int));
+		char* RxBuffer = new char[size];
 
-		char* picture = new char[size];
-
-		recv(ClientSocket, picture, size, 0);
+		recv(ClientSocket, RxBuffer, size, 0);
 
 		FILE* image;
 
-		fopen_s(&image, "user.png", "wb");
+		fopen_s(&image, username, "wb");
 
-		fwrite(picture, sizeof(char), sizeof(picture), image);
+		fwrite(RxBuffer, sizeof(char), sizeof(RxBuffer), image);
+
+		
+
+		AccDBHandler->insertImage(username, pathname);
 
 		fclose(image);
-
-
 	}
 
-	void sendPicture() {
+
+	void sendImageFromDB(char* username) {
+		setState(EXECUTING);
 		FILE* picture;
-		fopen_s(&picture, "Dog.png", "rb");
+
+		char* pathname = AccDBHandler->getImage(username);
+
+		fopen_s(&picture, pathname, "rb");
+
 		if (picture == NULL) {
+			ErrorPacket* err = new ErrorPacket(Image_Err);
+			err->serializeErrorPacketTxBuffer();
+			err->getSerializedParentTxBuffer();
+			sendPacket(err);
+			Logs::write(this->getState(), Image_Err);
 			return;
 		}
 
@@ -298,30 +363,22 @@ public:
 
 		int size = ftell(picture);
 
-		char* TxBuffer = new char[sizeof(int)];
+		ImagePacket* imgPkt = new ImagePacket(size, strlen(username), username);
+		imgPkt->serializeImagePacketTxBuffer();
+		imgPkt->serializeParentPacketTxBuffer();
+		sendPacket(imgPkt);
 
-		memcpy(TxBuffer, &size, sizeof(size));
-
-		send(ClientSocket, TxBuffer, sizeof(size), 0);
-
-
-		TxBuffer = new char[size];
-
+		char* TxBuffer = new char[size];
 
 		fseek(picture, 0, SEEK_SET);
 
+		fread(TxBuffer, sizeof(char), size, picture);
 		
-		send(ClientSocket, TxBuffer, sizeof(TxBuffer), 0); 
+		send(ClientSocket, TxBuffer, sizeof(TxBuffer), 0);
+		Logs::write(this->getState(), Photo, NULL);
 
 		fclose(picture);
 
-			
-
-		
 	}
-
-
-
-
 
 };

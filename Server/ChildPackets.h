@@ -7,3 +7,4 @@
 #include "LoginPacket.h"
 #include "LogoutPacket.h"
 #include "MovePacket.h"
+#include "ImagePacket.h"

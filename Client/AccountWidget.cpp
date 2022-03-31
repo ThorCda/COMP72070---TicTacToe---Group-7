@@ -6,6 +6,8 @@
 #include <QtWidgets/QGridLayout>
 #include <QFileDialog>
 
+using namespace std;
+
 AccountWidget::AccountWidget(QWidget *parent):
 	QWidget(parent),
 	ui(new Ui::AccountWidget)
@@ -37,4 +39,11 @@ void AccountWidget::on_changeImgButton_clicked()
 void AccountWidget::on_backButton_2_clicked()
 {
 	emit SwitchView(GameWidgetView);
+}
+
+void AccountWidget::UpdateUI(Account* account)
+{
+	ui->firstnameField_2->setText(QString::fromStdString(account->getFirstName()));
+	ui->lastnameField_2->setText(QString::fromStdString(account->getLastName()));
+	ui->usernameField_2->setText(QString::fromStdString(account->getUserName()));
 }

@@ -27,6 +27,8 @@ private:
 	StackedWidget* stackedWidget;
 	Account* account;
 
+	ClickableLabel* currentMove;
+
 	void SetupConnections();
 
 public slots:
@@ -35,8 +37,10 @@ public slots:
 
 	// Network plugins
 	void Login(string, string);
-	void LOGIN_SUCCESS();
+	void LOGIN_SUCCESS(Account*);
 	void LOGIN_FAILURE();
+	void UPDATE_GAME_BOARD(int);
+
 	void CreateAccount(string, string, string, string);
 	void Logout();
 	void MakeGameMove(ClickableLabel*);
@@ -44,10 +48,12 @@ public slots:
 
 signals:
 	void LOGIN();
+	void GAME_MOVE(int);
 
 public:
 	GUIHandler();
 	StackedWidget* GetStackedWidget();
 	GameWidget* GetGameWidget();
+
 };
 

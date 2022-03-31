@@ -17,6 +17,7 @@ enum packetType {
 	Loginp,
 	Logoutp,
 	Movep,
+	Imagep,
 	PacketPacket
 };
 

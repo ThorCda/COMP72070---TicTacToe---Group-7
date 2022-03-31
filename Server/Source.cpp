@@ -35,6 +35,7 @@ int main() {
 	//adb.login(usr, pwd);
 	//adb.login(usr, pwd);
 
+
 	Menu* menu = new Menu();
 	menu->start();
 

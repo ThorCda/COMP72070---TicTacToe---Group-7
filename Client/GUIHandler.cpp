@@ -10,7 +10,7 @@ GUIHandler::GUIHandler()
 	accountWidget = new AccountWidget;
 	stackedWidget = new StackedWidget(this->loginWidget, this->createAccountWidget, this->gameWidget, this->accountWidget);
 
-	account = NULL;
+	account = new Account();
 
 	SetupConnections();
 
@@ -71,9 +71,12 @@ void GUIHandler::Login(string username, string password)
 	// do something
 }
 
-void GUIHandler::LOGIN_SUCCESS()
+void GUIHandler::LOGIN_SUCCESS(Account* acc)
 {
+	account = acc;
 	stackedWidget->SwitchView(GameWidgetView);
+	accountWidget->UpdateUI(account);
+	gameWidget->UpdateStats(account);
 }
 
 void GUIHandler::LOGIN_FAILURE()
@@ -99,12 +102,28 @@ void GUIHandler::Logout()
 
 void GUIHandler::MakeGameMove(ClickableLabel* label)
 {
-	// SEND GAME PACKET
+	if (label->pixmap().isNull())
+	{
+		currentMove = label;
+		emit GAME_MOVE(label->GetGridNum());
+	}
+}
 
-	// ON SUCCESS
-	QPixmap circle("assets/circle_sprite.png");
-	label->setPixmap(circle);
-
+void GUIHandler::UPDATE_GAME_BOARD(int computerMove)
+{
+	for (int i = 1; i < 10; i++)
+	{
+		if (gameWidget->gameLabels[i]->GetGridNum() == computerMove)
+		{
+			QPixmap circle("assets/circle_sprite.png");
+			gameWidget->gameLabels[i]->setPixmap(circle);
+		}
+		else if (gameWidget->gameLabels[i]->GetGridNum() == currentMove->GetGridNum())
+		{
+			QPixmap x("assets/cross_sprite.png");
+			gameWidget->gameLabels[i]->setPixmap(x);
+		}
+	}
 }
 
 // For profile pictures
@@ -130,14 +149,9 @@ void GUIHandler::NewGame()
 {
 	Ui::GameWidget* gameWidgetUI = gameWidget->GetGameWidgetUI();
 	QPixmap blank;
-	gameWidgetUI->topLeft->setPixmap(blank);
-	gameWidgetUI->topMiddle->setPixmap(blank);
-	gameWidgetUI->topRight->setPixmap(blank);
-	gameWidgetUI->middleLeft->setPixmap(blank);
-	gameWidgetUI->middle->setPixmap(blank);
-	gameWidgetUI->middleRight->setPixmap(blank);
-	gameWidgetUI->bottomLeft->setPixmap(blank);
-	gameWidgetUI->bottomMiddle->setPixmap(blank);
-	gameWidgetUI->bottomRight->setPixmap(blank);
+	for (int i = 1; i < 10; i++)
+	{
+		gameWidget->gameLabels[i]->setPixmap(blank);
+	}
 }
 

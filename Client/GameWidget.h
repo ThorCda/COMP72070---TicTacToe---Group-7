@@ -8,6 +8,7 @@
 #include "ClickableLabel.h"
 #include "WidgetNames.h"
 #include "CSS.h"
+#include "../Server/Account.h"
 
 namespace Ui {
     class GameWidget;
@@ -18,9 +19,13 @@ class GameWidget : public QWidget
     Q_OBJECT
 
 public:
+    ClickableLabel* gameLabels[10];
+
     GameWidget(QWidget* parent = nullptr);
+    void InitGameBoard();
     ~GameWidget();
     Ui::GameWidget* GetGameWidgetUI();
+    void UpdateStats(Account*);
 
 signals:
     void SwitchView(WIDGET_VIEW_NAME);

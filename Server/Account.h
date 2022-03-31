@@ -32,7 +32,29 @@ public:
 		this->loses = -1;
 		this->draws = -1;
 		this->isOnline = false;
+	}
 
+	// Deep Copy Constructor
+	Account(Account& original)
+	{
+		accountID = original.getAccountID();
+
+		first_name = new char[strlen(original.getFirstName())];
+		strcpy(first_name, original.getFirstName());
+
+		last_name = new char[strlen(original.getLastName())];
+		strcpy(last_name, original.getFirstName());
+
+		UserName = new char[strlen(original.getUserName())];
+		strcpy(UserName, original.getUserName());
+
+		avatar_loc = new char[strlen(original.getAvatarloc())];
+		strcpy(UserName, original.getAvatarloc());
+
+		wins = original.getWins();
+		loses = original.getLoses();
+		draws = original.getDraws();
+		isOnline = true;
 	}
 
 	//Paramierized constructor for 
@@ -151,3 +173,4 @@ public:
 	void setIsOnline(bool isOnline) { this->isOnline = isOnline; }
 	
 };
+

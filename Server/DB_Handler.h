@@ -8,7 +8,7 @@ using namespace std;
 class Database_Handler
 {
 protected:
-	MYSQL* conn = mysql_init(0);
+	MYSQL* conn;
 	MYSQL_ROW row;
 	MYSQL_RES* result;
 	int qstate;
@@ -25,6 +25,7 @@ public:
 
 	void createConnection()
 	{
+		conn = mysql_init(0);
 		conn = mysql_real_connect(this->conn, "tictactoedbv3.cjzonevwncmb.us-east-2.rds.amazonaws.com", "admin", "Conestoga", "tictactoeDB", 3306, NULL, 0);
 		if (conn)
 		{

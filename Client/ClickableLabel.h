@@ -11,6 +11,7 @@ public:
     explicit ClickableLabel(QWidget* parent = Q_NULLPTR, Qt::WindowFlags f = Qt::WindowFlags());
     ~ClickableLabel();
     int GetGridNum();
+    void SetGridNum(int);
 
 signals:
     void clicked(ClickableLabel*);
