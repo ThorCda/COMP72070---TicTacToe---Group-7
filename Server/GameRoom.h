@@ -18,18 +18,7 @@ public:
 
 	bool updateBoard(int move) // take a packet
 	{
-		if(!this->gameBoard->ifEnd())
-		{
-			if (this->gameBoard->validateMove(move, 0)) // player makes move
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-
-		}
+		return this->gameBoard->placePlayerMove(move);
 	}
 
 	void NewBoard()

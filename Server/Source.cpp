@@ -30,7 +30,12 @@ int main() {
 
 	//GameRoom gb;
 	//gb.updateBoard(6);
-	//gb.getGameBoard()->placeComputerMove();
+	//gb.updateBoard(3);
+	//gb.updateBoard(9);
+	//if (gb.getGameBoard()->getPlayerWin())
+	//{
+	//	cout << "big win";
+	//}
 
 
 	//adb.login(usr, pwd);
