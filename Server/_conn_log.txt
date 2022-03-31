@@ -1,3 +1,0 @@
-Wed Mar 30 22:48:55 2022
-	Connection Status: 1 Action: Function not defined...
-	Buffer: 

@@ -18,7 +18,8 @@ const  char* Logs::conn_file = "_conn_log.txt";
         std::string error = Logs::lookUpError(error_code);
        
 
-        std::ofstream outf{ Logs::error_file };
+        std::ofstream outf(Logs::error_file, std::ios::app);
+
 
         if (!outf)
         {
@@ -43,7 +44,8 @@ const  char* Logs::conn_file = "_conn_log.txt";
     void Logs::write(bool connection_status, ACTION_TYPE action_type, char* buffer)
     {
 
-        std::ofstream outf{ Logs::conn_file };
+        std::ofstream outf(Logs::conn_file, std::ios::app);
+
 
         if (!outf)
         {
@@ -59,7 +61,10 @@ const  char* Logs::conn_file = "_conn_log.txt";
         outf << ctime(&now) << "\tConnection Status: " << connection_status << " Action: " << type << "\n\tBuffer: ";
         if (buffer != NULL) {
             outf.write(buffer, strlen(buffer));
+            
         }
+        
+        outf << '\n';
 
         outf.close();
     }
@@ -72,7 +77,7 @@ const  char* Logs::conn_file = "_conn_log.txt";
     /// <param name="username">:Username: Username of the player</param>
     /// <param name="status">Status: Match status (enum)</param>
     void Logs::write(int gameID, int move, char* username, MATCH_STATUS status) {
-        std::ofstream outf{ Logs::game_file };
+        std::ofstream outf(Logs::game_file, std::ios::app);
 
         if (!outf)
         {
@@ -133,25 +138,52 @@ const  char* Logs::conn_file = "_conn_log.txt";
     /// </summary>
     /// <param name="error_code"Error Code: Integer of the error code.></param>
     /// <returns>A string of the description of error code.</returns>
-    std::string Logs::lookUpError(int error_code) {
+    std::string Logs::lookUpError(ERROR_CODE error_code) {
         switch (error_code)
         {
-        default:
+        case 0:
+            return "Error in logging in";
+        case 1:
+            return "Error in creating the account";
+        case 2:
+            return "Quit Error";
+        case 3:
+            return "Connecting error";
+        case 4:
+
+            return "Error with the move";
+        case 5:
+            return "Error with the avatar image";
+
+
+        default:return "Function not defined...";
             break;
         }
 
-        return "Function not defined...";
+        
     }
 
     std::string Logs::lookUpActionType(ACTION_TYPE action_type) {
         switch (action_type)
         {
-        default:
+        case 0:
+            return "Action not defined";
+        case 1:
+            return "Sending the buffer";
+        case 2:
+            return "Receving the buffer";
+        case 3:
+            return "Connected socket";
+        case 4:
+
+            return "Disconnected socket";
+        case 5:
+            return "Sending the photo";
+        default: return "Function not defined...";
             break;
         }
 
-        return "Function not defined...";
+       
 
     }
-    
 

@@ -31,7 +31,7 @@ enum ERROR_CODE
       static const char* conn_file;
 
  private:
-     static std::string lookUpError(int error_code);
+     static std::string lookUpError(ERROR_CODE error_code);
      static std::string lookUpActionType(ACTION_TYPE action_type);
 
 public:
