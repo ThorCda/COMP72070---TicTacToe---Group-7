@@ -145,6 +145,9 @@ public:
 
 		//TODO sent packet 
 		ErrorPacket* errPkt = new ErrorPacket(ServerStop_Err);
+		errPkt->serializeErrorPacketTxBuffer();
+		errPkt->serializeParentPacketTxBuffer();
+		sendPacket(errPkt);
 
 		Logs::write(this->getState(), disconnected, NULL);
 
