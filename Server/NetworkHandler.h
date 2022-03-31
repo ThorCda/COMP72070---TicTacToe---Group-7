@@ -243,7 +243,7 @@ public:
 			{
 				ErrorPacket* err = new ErrorPacket(Login_Err);
 				err->serializeErrorPacketTxBuffer();
-				err->getSerializedParentTxBuffer();
+				err->serializeParentPacketTxBuffer();
 				sendPacket(err);
 				return false;
 			}
