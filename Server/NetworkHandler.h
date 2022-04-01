@@ -400,7 +400,8 @@ public:
 	void recvImage(int size) {
 
 		setState(EXECUTING);
-		char* pathname = acc->getUserName();
+		char* pathname = new char[strlen(acc->getUserName())];
+		strcpy(pathname, acc->getUserName());
 
 		strcat(pathname, ".jpg");
 
@@ -412,11 +413,14 @@ public:
 
 		fopen_s(&image, pathname, "wb");
 
-		fwrite(RxBuffer, sizeof(char), sizeof(RxBuffer), image);
+		fwrite(RxBuffer, sizeof(char), size, image);
 
+		AccDBHandler->createConnection();
 		AccDBHandler->insertImage(acc->getUserName(), pathname);
+		AccDBHandler->terminate();
 
 		fclose(image);
+		delete pathname;
 	}
 
 

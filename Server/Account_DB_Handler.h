@@ -97,6 +97,7 @@ public:
 		string query = "call InsertImage(\"" + un + "\",\"" + path + "\"" + ")";
 		const char* q = query.c_str();
 
+		cout << query;
 		qstate = mysql_query(conn, q);
 		if (!qstate)
 		{

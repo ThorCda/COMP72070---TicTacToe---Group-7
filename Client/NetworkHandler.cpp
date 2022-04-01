@@ -228,7 +228,7 @@ void NetworkHandler::SEND_IMAGE(string image)
 
 	fread(TxBuffer, sizeof(char), size, picture);
 
-	send(ClientSocket, TxBuffer, sizeof(TxBuffer), 0);
+	send(ClientSocket, TxBuffer, size, 0);
 
 	fclose(picture);
 }
