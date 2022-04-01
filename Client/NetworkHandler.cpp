@@ -195,6 +195,44 @@ void NetworkHandler::CREATE_ACCOUNT(char* username, char* fName, char* lName, ch
 	listenForPacket();
 }
 
+void NetworkHandler::SEND_IMAGE(string image)
+{
+	
+	FILE* picture;
+
+	char* img = new char[image.length() + 1];
+	strcpy(img, image.c_str());
+
+	fopen_s(&picture, img, "rb");
+
+	if (picture == NULL) {
+		ErrorPacket* err = new ErrorPacket(Image_Err);
+		err->serializeErrorPacketTxBuffer();
+		err->getSerializedParentTxBuffer();
+		sendPacket(err);
+		return;
+	}
+
+	fseek(picture, 0, SEEK_END);
+
+	int size = ftell(picture);
+
+	ImagePacket* imgPkt = new ImagePacket(size);
+	imgPkt->serializeImagePacketTxBuffer();
+	imgPkt->serializeParentPacketTxBuffer();
+	sendPacket(imgPkt);
+
+	char* TxBuffer = new char[size];
+
+	fseek(picture, 0, SEEK_SET);
+
+	fread(TxBuffer, sizeof(char), size, picture);
+
+	send(ClientSocket, TxBuffer, sizeof(TxBuffer), 0);
+
+	fclose(picture);
+}
+
 //void NetworkHandler::START_CONNECTION()
 //{
 //	winsockStartup();
@@ -245,7 +283,7 @@ void  NetworkHandler::sendImage(char* username)
 
 	int size = ftell(picture);
 
-	ImagePacket* imgPkt = new ImagePacket(size, strlen(username), username);
+	ImagePacket* imgPkt = new ImagePacket(size);
 	imgPkt->serializeImagePacketTxBuffer();
 	imgPkt->serializeParentPacketTxBuffer();
 	sendPacket(imgPkt);

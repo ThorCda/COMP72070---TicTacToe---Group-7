@@ -64,6 +64,10 @@ int main() {
 	p->serializeMovePacketTxBuffer();
 	p->serializeParentPacketTxBuffer();*/
 
+	/*ImagePacket* imgPkt = new ImagePacket(50);
+	imgPkt->serializeImagePacketTxBuffer();
+	imgPkt->serializeParentPacketTxBuffer();*/
+
 	Menu* menu = new Menu();
 	menu->start();
 

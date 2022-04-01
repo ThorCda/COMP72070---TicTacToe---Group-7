@@ -45,13 +45,13 @@ public:
 		strcpy(first_name, original.getFirstName());
 
 		last_name = new char[strlen(original.getLastName())];
-		strcpy(last_name, original.getFirstName());
+		strcpy(last_name, original.getLastName());
 
 		UserName = new char[strlen(original.getUserName())];
 		strcpy(UserName, original.getUserName());
 
 		avatar_loc = new char[strlen(original.getAvatarloc())];
-		strcpy(UserName, original.getAvatarloc());
+		strcpy(avatar_loc, original.getAvatarloc());
 
 		wins = original.getWins();
 		loses = original.getLoses();

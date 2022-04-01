@@ -80,4 +80,7 @@ void MainWindow::SetupConnections()
     QObject::connect(this->hdlr, &NetworkHandler::UPDATE_GAME_BOARD, this->gui, &GUIHandler::UPDATE_GAME_BOARD);
     QObject::connect(this->hdlr, &NetworkHandler::GAME_STATUS, this->gui, &GUIHandler::GAME_STATUS);
 
+    QObject::connect(this->gui, &GUIHandler::SEND_IMAGE, this->hdlr, &NetworkHandler::SEND_IMAGE);
+
+
 }

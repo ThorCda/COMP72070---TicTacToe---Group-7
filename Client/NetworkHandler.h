@@ -48,6 +48,7 @@ public slots:
 	void LOGOUT();
 	void GAME_MOVE(int);
 	void CREATE_ACCOUNT(char*, char*, char*, char*);
+	void SEND_IMAGE(string);
 
 signals:
 	void LOGIN_SUCCESS(Account*);

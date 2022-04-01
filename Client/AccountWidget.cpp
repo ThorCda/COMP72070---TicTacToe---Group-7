@@ -19,6 +19,7 @@ AccountWidget::AccountWidget(QWidget *parent):
 
 	ui->backButton_2->setFocusPolicy(Qt::NoFocus);
 	ui->changeImgButton->setFocusPolicy(Qt::NoFocus);
+
 }
 
 AccountWidget::~AccountWidget()
@@ -28,12 +29,14 @@ AccountWidget::~AccountWidget()
 
 void AccountWidget::on_changeImgButton_clicked()
 {
-	auto fileName = QFileDialog::getOpenFileName(this,
-		tr("Open Image"), ".", tr("Image Files (*.png *.jpg *.bmp)"));
+	QString filename = QFileDialog::getOpenFileName(this,
+		tr("Open Image"), ".", tr("Image Files (*.jpg)"));
 
-	ui->playerImg->setPixmap(fileName);
+	ui->playerImg->setPixmap(filename);
 
-	emit ChangeImage(ui->playerImg->pixmap());
+	string file = filename.toStdString();
+
+	emit ChangeImage(file);
 }
 
 void AccountWidget::on_backButton_2_clicked()

@@ -195,10 +195,11 @@ public:
 			CreateAccountPacket* pkt = new CreateAccountPacket(packet->getSerializedTxBuffer());
 			// move account definition to acc
 			//Account* temp = new Account(pkt->getFName(), pkt->getLName(), pkt->getUsername());
-			
-			Account* temp = this->AccDBHandler->createAccount(, pkt->getPassword());
+			AccDBHandler->createConnection();
+			Account* temp = this->AccDBHandler->createAccount(pkt->getUsername(), pkt->getFName(), pkt->getLName(), pkt->getPassword());
 
 			acc = new Account(*temp);
+			delete temp;
 
 			if (acc == nullptr) {
 				//send error packet
@@ -213,7 +214,7 @@ public:
 			accpkt->serializeAccountPacketTxBuffer();
 			accpkt->serializeParentPacketTxBuffer();
 			sendPacket(accpkt);
-
+			AccDBHandler->terminate();
 			break;
 		}
 
@@ -374,10 +375,9 @@ public:
 			break;
 		}
 		case Imagep: {
-
 			ImagePacket* imgPkt = new ImagePacket(packet->getSerializedTxBuffer());
-			recvImage(imgPkt->getImageSize(), imgPkt->getUsername());
-
+			recvImage(imgPkt->getImageSize());
+			break;
 		}
 
 		case PacketPacket: {
@@ -397,12 +397,12 @@ public:
 	}
 
 	//send and recv should also be ported to client and server
-	void recvImage(int size, char* username) {
+	void recvImage(int size) {
 
 		setState(EXECUTING);
-		char* pathname = username;
+		char* pathname = acc->getUserName();
 
-		strcat(pathname, ".jpeg");
+		strcat(pathname, ".jpg");
 
 		char* RxBuffer = new char[size];
 
@@ -410,23 +410,21 @@ public:
 
 		FILE* image;
 
-		fopen_s(&image, username, "wb");
+		fopen_s(&image, pathname, "wb");
 
 		fwrite(RxBuffer, sizeof(char), sizeof(RxBuffer), image);
 
-		
-
-		AccDBHandler->insertImage(username, pathname);
+		AccDBHandler->insertImage(acc->getUserName(), pathname);
 
 		fclose(image);
 	}
 
 
-	void sendImageFromDB(char* username) {
+	/*void sendImageFromDB() {
 		setState(EXECUTING);
 		FILE* picture;
 
-		char* pathname = AccDBHandler->getImage(username);
+		char* pathname = AccDBHandler->getImage(acc->getUserName());
 
 		fopen_s(&picture, pathname, "rb");
 
@@ -443,7 +441,7 @@ public:
 
 		int size = ftell(picture);
 
-		ImagePacket* imgPkt = new ImagePacket(size, strlen(username), username);
+		ImagePacket* imgPkt = new ImagePacket(size);
 		imgPkt->serializeImagePacketTxBuffer();
 		imgPkt->serializeParentPacketTxBuffer();
 		sendPacket(imgPkt);
@@ -459,7 +457,7 @@ public:
 
 		fclose(picture);
 
-	}
+	}*/
 
 	void RemovePlayerFromDB(int id) {
 

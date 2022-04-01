@@ -26,7 +26,7 @@ signals:
 	void SwitchView(WidgetViewName);
 	void changeStackedWidgetIndex(int);
 	void widgetChanged(int, int);
-	void ChangeImage(QPixmap);
+	void ChangeImage(string);
 
 private:
 	Ui::AccountWidget* ui;

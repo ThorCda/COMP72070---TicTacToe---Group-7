@@ -162,9 +162,9 @@ void GUIHandler::GAME_STATUS(int gameCode)
 }
 
 // For profile pictures
-void GUIHandler::ChangeImage(QPixmap image)
+void GUIHandler::ChangeImage(string image)
 {
-	// SEND IMAGE PACKET
+	emit SEND_IMAGE(image);
 }
 
 // Switch between windows (i.e 'widgets')
