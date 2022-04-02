@@ -7,9 +7,20 @@
 
 using namespace std;
 
-class Account_DB_Handler : public Database_Handler
+class Account_DB_Handler
 {
+	Database_Handler* db;
+	MYSQL_ROW row;
+	MYSQL_RES* result;
+	int qstate;
+
 public:
+
+	Account_DB_Handler(Database_Handler* db)
+	{
+		this->db = db;
+	}
+
 	Account* createAccount(char* cusername, char* cfirstname, char* clastname, char* password)
 	{
 		string username(cusername);
@@ -22,7 +33,7 @@ public:
 		cout << query;
 		const char* q = query.c_str();
 
-		qstate = mysql_query(conn, q);
+		qstate = mysql_query(db->conn, q);
 		if (!qstate)
 		{
 			cout << "\Account Created\n";
@@ -40,7 +51,8 @@ public:
 		string query = "call UpdateStats (" + to_string(acc.getAccountID()) + "," + to_string(acc.getWins()) + "," + to_string(acc.getLoses()) + "," + to_string(acc.getDraws()) + ")";
 		const char* q = query.c_str();
 		cout << query;
-		qstate = mysql_query(conn, q);
+		qstate = mysql_real_query(db->conn, q, strlen(q));
+		//qstate = mysql_query(db->conn, q);
 		if (!qstate)
 		{
 			cout << "\nStats Updated\n";
@@ -61,7 +73,7 @@ public:
 		string query = "call UpdateAccount (" + to_string(acc.getAccountID()) + ",\"" + firstname + "\",\"" + lastname + "\",\"" + avatar + "\",\"" + username + "\"" + ")";
 		const char* q = query.c_str();
 
-		qstate = mysql_query(conn, q);
+		qstate = mysql_real_query(db->conn, q, strlen(q));
 		if (!qstate)
 		{
 			cout << "\nAccount Updated\n";
@@ -78,7 +90,7 @@ public:
 		string query = "call DeleteAccount(" + to_string(id) + ")";
 		const char* q = query.c_str();
 
-		qstate = mysql_query(conn, q);
+		qstate = mysql_query(db->conn, q);
 		if (!qstate)
 		{
 			cout << "\nAccount Deleted\n";
@@ -98,7 +110,7 @@ public:
 		const char* q = query.c_str();
 
 		cout << query;
-		qstate = mysql_query(conn, q);
+		qstate = mysql_query(db->conn, q);
 		if (!qstate)
 		{
 			cout << "\nAvatar path updated\n";
@@ -116,8 +128,8 @@ public:
 		string query = "call FindImage (\"" + un +"\")";
 
 		const char* q2 = query.c_str();
-		qstate = mysql_query(conn, q2);
-		result = mysql_store_result(conn);
+		qstate = mysql_query(db->conn, q2);
+		result = mysql_store_result(db->conn);
 		row = mysql_fetch_row(result);
 
 		if (mysql_num_rows(result) == 1)
@@ -137,8 +149,8 @@ public:
 		string query = "call Find_User (\"" + username + "\",\"" + password + "\")";
 
 		const char* q2 = query.c_str();
-		qstate = mysql_query(conn, q2);
-		result = mysql_store_result(conn);
+		qstate = mysql_real_query(db->conn, q2, strlen(q2));
+		result = mysql_store_result(db->conn);
 		row = mysql_fetch_row(result);
 
 		if (mysql_num_rows(result) == 1)

@@ -146,6 +146,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Account_DB_Handler.cpp" />
     <ClCompile Include="Logs.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Packet.cpp" />

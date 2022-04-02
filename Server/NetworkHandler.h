@@ -7,6 +7,7 @@
 #include "Packet.h"
 #include "Account_DB_Handler.h"
 #include "Game_DB_Handler.h"
+#include "DB_Handler.h"
 #include "Logs.h"
 #include "GameRoom.h"
 #include <exception>
@@ -37,12 +38,21 @@ class NetworkHandler
 	SOCKET ClientSocket;
 	sockaddr_in SvrAddr;
 	Account* acc;
-	GameRoom* gr = new GameRoom();
-	Game_DB_Handler* gdb = new Game_DB_Handler();
-	Account_DB_Handler* AccDBHandler = new Account_DB_Handler();
+	GameRoom* gr;
+	Database_Handler* db;
+	Game_DB_Handler* gdb;
+	Account_DB_Handler* AccDBHandler;
 	ServerState currentState = UNINITIALIZED;
 	
 public:
+
+	NetworkHandler()
+	{
+		gr = new GameRoom();
+		db = new Database_Handler();
+		gdb = new Game_DB_Handler(db);
+		AccDBHandler = new Account_DB_Handler(db);
+	}
 
 	int getState() {
 
@@ -193,11 +203,7 @@ public:
 			
 
 			CreateAccountPacket* pkt = new CreateAccountPacket(packet->getSerializedTxBuffer());
-			// move account definition to acc
-			//Account* temp = new Account(pkt->getFName(), pkt->getLName(), pkt->getUsername());
-			AccDBHandler->createConnection();
 			Account* temp = this->AccDBHandler->createAccount(pkt->getUsername(), pkt->getFName(), pkt->getLName(), pkt->getPassword());
-
 			acc = new Account(*temp);
 			delete temp;
 
@@ -214,7 +220,6 @@ public:
 			accpkt->serializeAccountPacketTxBuffer();
 			accpkt->serializeParentPacketTxBuffer();
 			sendPacket(accpkt);
-			AccDBHandler->terminate();
 			break;
 		}
 
@@ -229,11 +234,7 @@ public:
 		}
 
 		case GameStatusp: {
-			GameStatusPacket* newGameStatusPacket = new GameStatusPacket(packet->getSerializedTxBuffer());
-
-			if (newGameStatusPacket->getGameStatusPacketGameCode() == picture) {
-				//recvPicture();
-			}
+			
 
 			// 
 			break;
@@ -246,7 +247,6 @@ public:
 			string userName(linPkt->getUsername());
 			string password(linPkt->getPassword());
 
-			AccDBHandler->createConnection();
 			Account* temp = AccDBHandler->login(userName, password);
 			this->acc = new Account(*temp);
 			
@@ -265,7 +265,6 @@ public:
 			accPkt->serializeParentPacketTxBuffer();
 
 			sendPacket(accPkt);
-			AccDBHandler->terminate();
 			free(temp);
 
 			//Sends a picture packet sendImageFromDB(acc->getUsername());
@@ -295,16 +294,12 @@ public:
 					sendPacket(gameStatusPacket);
 
 					// new stuff, could break, maybe
-					gdb->createConnection();
 					this->gr->getGameBoard()->setPlayerWinStatus();
 					gdb->createGame(this->gr, this->acc);
-					gdb->terminate();
 
 					int wins = acc->getWins();
 					this->acc->setWins(++wins);
-					AccDBHandler->createConnection();
 					AccDBHandler->updateStats(acc);
-					AccDBHandler->terminate();
 
 					this->gr->NewBoard();
 				}
@@ -321,16 +316,12 @@ public:
 						sendPacket(compMovePacket);
 
 						// new stuff, could break, maybe
-						gdb->createConnection();
 						this->gr->getGameBoard()->setComputerWinStatus();
 						gdb->createGame(this->gr, this->acc);
-						gdb->terminate();
 
 						int loss = acc->getLoses();
 						acc->setLoses(++loss);
-						AccDBHandler->createConnection();
 						AccDBHandler->updateStats(acc);
-						AccDBHandler->terminate();
 
 						this->gr->NewBoard();
 					}
@@ -342,16 +333,12 @@ public:
 						sendPacket(gameStatusPacket);
 
 						// new stuff, could break, maybe
-						gdb->createConnection(); 
 						this->gr->getGameBoard()->setDrawStatus();
 						gdb->createGame(this->gr, this->acc);
-						gdb->terminate();
 
 						int draw = acc->getDraws();
 						acc->setDraws(++draw);
-						AccDBHandler->createConnection();
 						AccDBHandler->updateStats(acc);
-						AccDBHandler->terminate();
 
 						this->gr->NewBoard();
 					}
@@ -415,9 +402,7 @@ public:
 
 		fwrite(RxBuffer, sizeof(char), size, image);
 
-		AccDBHandler->createConnection();
-		AccDBHandler->insertImage(acc->getUserName(), pathname);
-		AccDBHandler->terminate();
+		//AccDBHandler->insertImage(acc->getUserName(), pathname);
 
 		fclose(image);
 		delete pathname;
