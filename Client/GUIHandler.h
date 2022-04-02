@@ -41,11 +41,14 @@ public slots:
 	void LOGIN_FAILURE();
 	void UPDATE_GAME_BOARD(int);
 	void GAME_STATUS(int);
+	void IMAGE_RECIEVED();
+
 
 	void CreateAccount(string, string, string, string);
 	void Logout();
 	void MakeGameMove(ClickableLabel*);
 	void ChangeImage(string);
+	void RequestImage();
 
 signals:
 	//void START_CONNECTION();
@@ -55,6 +58,7 @@ signals:
 	void GAME_MOVE(int);
 	void CREATE_ACCOUNT(char*, char*, char*, char*);
 	void SEND_IMAGE(string);
+	void REQUEST_IMAGE();
 
 public:
 	GUIHandler();

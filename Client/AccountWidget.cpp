@@ -50,3 +50,9 @@ void AccountWidget::UpdateUI(Account* account)
 	ui->lastnameField_2->setText(QString::fromStdString(account->getLastName()));
 	ui->usernameField_2->setText(QString::fromStdString(account->getUserName()));
 }
+
+void AccountWidget::UpdateImage()
+{
+	QPixmap x("Avatar.jpg");
+	ui->playerImg->setPixmap(x);
+}

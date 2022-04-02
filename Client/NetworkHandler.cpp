@@ -73,6 +73,12 @@ void NetworkHandler::routePacket(Packet* packet) {
 		emit LOGIN_SUCCESS(acc);
 		break;
 	}
+	case Imagep: {
+		ImagePacket* newImagePacket = new ImagePacket(packet->getSerializedTxBuffer());
+		recvImage(newImagePacket->getImageSize());
+		emit IMAGE_RECIEVED();
+		break;
+	}
 	//case CreateAccountp: {
 
 
@@ -99,7 +105,7 @@ void NetworkHandler::routePacket(Packet* packet) {
 	//}
 	case Errorp: {
 		ErrorPacket* newErrorPacket = new ErrorPacket(packet->getSerializedTxBuffer());
-		emit LOGIN_FAILURE();
+		//emit LOGIN_FAILURE();
 		// logError
 
 		//If the error packet is a early quit or smt that it cannot recover from then 
@@ -197,7 +203,6 @@ void NetworkHandler::CREATE_ACCOUNT(char* username, char* fName, char* lName, ch
 
 void NetworkHandler::SEND_IMAGE(string image)
 {
-	
 	FILE* picture;
 
 	char* img = new char[image.length() + 1];
@@ -233,34 +238,36 @@ void NetworkHandler::SEND_IMAGE(string image)
 	fclose(picture);
 }
 
-//void NetworkHandler::START_CONNECTION()
-//{
-//	winsockStartup();
-//	initSocket();
-//	initConnection();
-//}
-//
-//void NetworkHandler::STOP_CONNECTION()
-//{
-//	closeSocket();
-//}
+void NetworkHandler::REQUEST_IMAGE()
+{
+	ImagePacket* request = new ImagePacket(-1);
+	request->serializeImagePacketTxBuffer();
+	request->serializeParentPacketTxBuffer();
+	sendPacket(request);
+	listenForPacket();
+}
 
 //************* Images **************//
 
 	//send and recv should also be ported to client and server
 void NetworkHandler::recvImage(int size) {
 
+	char pathname[] = "Avatar.jpg";
+
 	char* RxBuffer = new char[size];
 
 	recv(ClientSocket, RxBuffer, size, 0);
 
 	FILE* image;
-	 
-	fopen_s(&image, "Avatar.jpeg", "wb"); //Not sure where to get the pathname from
 
-	fwrite(RxBuffer, sizeof(char), sizeof(RxBuffer), image);
+	fopen_s(&image, pathname, "wb");
+
+	fwrite(RxBuffer, sizeof(char), size, image);
+
+	//AccDBHandler->insertImage(acc->getUserName(), pathname);
 
 	fclose(image);
+	delete pathname;
 }
 
 

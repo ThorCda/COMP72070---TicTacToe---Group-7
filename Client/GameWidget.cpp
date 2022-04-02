@@ -30,6 +30,7 @@ void GameWidget::on_logoutButton_clicked()
 
 void GameWidget::on_accountButton_clicked()
 {
+    emit RequestImage();
     emit SwitchView(AccountWidgetView);
 }
 
@@ -81,6 +82,11 @@ void GameWidget::UpdateStats(Account* account)
     ui->winsCounter->setText(QString::number(account->getWins()));
     ui->lossesCounter->setText(QString::number(account->getLoses()));
     ui->drawsCounter->setText(QString::number(account->getDraws()));
+}
+
+void GameWidget::UpdateUI(Account* account)
+{
+    ui->accountButton->setText(QString::fromStdString(account->getUserName()));
 }
 
 void GameWidget::disableGameBoard()

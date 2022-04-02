@@ -35,10 +35,8 @@ public:
 	void closeSocket();
 	void sendPacket(Packet* p);
 	void routePacket(Packet* packet);
-
-	void recvImage(int size);
-
 	void sendImage(char* username);
+	void recvImage(int size);
 
 public slots:
 	//void START_CONNECTION();
@@ -49,10 +47,13 @@ public slots:
 	void GAME_MOVE(int);
 	void CREATE_ACCOUNT(char*, char*, char*, char*);
 	void SEND_IMAGE(string);
+	void REQUEST_IMAGE();
 
 signals:
 	void LOGIN_SUCCESS(Account*);
 	void LOGIN_FAILURE();
 	void UPDATE_GAME_BOARD(int);
 	void GAME_STATUS(int);
+	void IMAGE_RECIEVED();
+
 };

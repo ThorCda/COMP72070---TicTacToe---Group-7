@@ -267,8 +267,6 @@ public:
 			sendPacket(accPkt);
 			free(temp);
 
-			//Sends a picture packet sendImageFromDB(acc->getUsername());
-
 			break;
 		}
 
@@ -363,7 +361,14 @@ public:
 		}
 		case Imagep: {
 			ImagePacket* imgPkt = new ImagePacket(packet->getSerializedTxBuffer());
-			recvImage(imgPkt->getImageSize());
+			if (imgPkt->getImageSize() < 0)
+			{
+				sendImage();
+			}
+			else
+			{
+				recvImage(imgPkt->getImageSize());
+			}
 			break;
 		}
 
@@ -409,22 +414,26 @@ public:
 	}
 
 
-	/*void sendImageFromDB() {
+	void sendImage() {
 		setState(EXECUTING);
 		FILE* picture;
 
-		char* pathname = AccDBHandler->getImage(acc->getUserName());
+		char* pathname = new char[strlen(acc->getUserName())];
+		strcpy(pathname, acc->getUserName());
+		strcat(pathname, ".jpg");
 
 		fopen_s(&picture, pathname, "rb");
 
 		if (picture == NULL) {
-			ErrorPacket* err = new ErrorPacket(Image_Err);
+			fopen_s(&picture, "default.jpg", "rb");
+			/*ErrorPacket* err = new ErrorPacket(Image_Err);
 			err->serializeErrorPacketTxBuffer();
 			err->getSerializedParentTxBuffer();
 			sendPacket(err);
 			Logs::write(this->getState(), Image_Err);
-			return;
+			return;*/
 		}
+
 
 		fseek(picture, 0, SEEK_END);
 
@@ -441,12 +450,12 @@ public:
 
 		fread(TxBuffer, sizeof(char), size, picture);
 		
-		send(ClientSocket, TxBuffer, sizeof(TxBuffer), 0);
+		send(ClientSocket, TxBuffer, size, 0);
 		Logs::write(this->getState(), Photo, NULL);
 
 		fclose(picture);
 
-	}*/
+	}
 
 	void RemovePlayerFromDB(int id) {
 

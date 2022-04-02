@@ -17,6 +17,7 @@ public:
 	AccountWidget(QWidget *parent = nullptr);
 	~AccountWidget();
 	void UpdateUI(Account*);
+	void UpdateImage();
 
 public slots:
 	void on_changeImgButton_clicked();

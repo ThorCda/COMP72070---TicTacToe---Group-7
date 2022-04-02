@@ -28,6 +28,7 @@ public:
     void UpdateStats(Account*);
     void disableGameBoard();
     void enableGameBoard();
+    void UpdateUI(Account*);
 
 
 signals:
@@ -35,6 +36,7 @@ signals:
     void Logout();
     void NewGame();
     void setLoginWidgetFocus();
+    void RequestImage();
 
 public slots:
     void on_logoutButton_clicked();
