@@ -19,7 +19,7 @@ public:
 public slots:
 	void ResizeWindow(int, int);
 
-private:
+public:
 	Ui::MainWindow* ui;
 	GUIHandler* gui;
 	NetworkHandler* hdlr;

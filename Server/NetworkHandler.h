@@ -97,7 +97,7 @@ public:
 		sockaddr_in SvrAddr;
 		SvrAddr.sin_family = AF_INET;
 		SvrAddr.sin_addr.s_addr = INADDR_ANY;
-		SvrAddr.sin_port = htons(27000);
+		SvrAddr.sin_port = htons(27500);
 		if (bind(ListenSocket, (struct sockaddr*)&SvrAddr, sizeof(SvrAddr)) == SOCKET_ERROR)
 		{
 			closesocket(ListenSocket);
@@ -150,7 +150,7 @@ public:
 
 		bool isRunning = routePacket(pkt);
 
-		return true;
+		return isRunning;
 	}
 
 	void closeSocket()
@@ -364,10 +364,12 @@ public:
 			if (imgPkt->getImageSize() < 0)
 			{
 				sendImage();
+				cout << "image requested, sending image" << endl;
 			}
 			else
 			{
 				recvImage(imgPkt->getImageSize());
+				cout << "recieved image from client" << endl;
 			}
 			break;
 		}
@@ -391,7 +393,6 @@ public:
 	//send and recv should also be ported to client and server
 	void recvImage(int size) {
 
-		setState(EXECUTING);
 		char* pathname = new char[strlen(acc->getUserName())];
 		strcpy(pathname, acc->getUserName());
 
@@ -410,7 +411,6 @@ public:
 		//AccDBHandler->insertImage(acc->getUserName(), pathname);
 
 		fclose(image);
-		delete pathname;
 	}
 
 
@@ -423,9 +423,12 @@ public:
 		strcat(pathname, ".jpg");
 
 		fopen_s(&picture, pathname, "rb");
+		cout << "opened " << pathname << endl;
 
 		if (picture == NULL) {
 			fopen_s(&picture, "default.jpg", "rb");
+			cout << "instead opened default.jpg" << endl;
+
 			/*ErrorPacket* err = new ErrorPacket(Image_Err);
 			err->serializeErrorPacketTxBuffer();
 			err->getSerializedParentTxBuffer();
@@ -438,6 +441,7 @@ public:
 		fseek(picture, 0, SEEK_END);
 
 		int size = ftell(picture);
+		cout << "size " << size << endl;
 
 		ImagePacket* imgPkt = new ImagePacket(size);
 		imgPkt->serializeImagePacketTxBuffer();
@@ -451,6 +455,8 @@ public:
 		fread(TxBuffer, sizeof(char), size, picture);
 		
 		send(ClientSocket, TxBuffer, size, 0);
+		cout << "sent image"<< endl;
+
 		Logs::write(this->getState(), Photo, NULL);
 
 		fclose(picture);

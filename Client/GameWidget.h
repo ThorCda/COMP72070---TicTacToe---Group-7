@@ -36,7 +36,7 @@ signals:
     void Logout();
     void NewGame();
     void setLoginWidgetFocus();
-    void RequestImage();
+    //void RequestImage();
 
 public slots:
     void on_logoutButton_clicked();

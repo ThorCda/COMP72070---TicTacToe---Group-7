@@ -33,6 +33,7 @@ signals:
     void Login(std::string, std::string);
     void SwitchView(WIDGET_VIEW_NAME);
     void setCreateAccountWidgetFocus();
+    void RequestImage();
 
 private:
     Ui::LoginWidget* ui;

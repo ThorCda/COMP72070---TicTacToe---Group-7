@@ -26,7 +26,7 @@ LoginWidget::~LoginWidget()
 void LoginWidget::on_loginButton_clicked()
 {
     emit Login(getUsername(), getPassword());
-
+    emit RequestImage();
     ui->passwordField->clear();
 }
 

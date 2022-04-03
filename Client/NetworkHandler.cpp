@@ -32,7 +32,7 @@ int NetworkHandler::initConnection()
 {
 	//Connect socket to specified server
 	this->SvrAddr.sin_family = AF_INET;                        //Address family type itnernet
-	this->SvrAddr.sin_port = htons(27000);                    //port (host to network conversion)
+	this->SvrAddr.sin_port = htons(27500);                    //port (host to network conversion)
 	this->SvrAddr.sin_addr.s_addr = inet_addr("127.0.0.1");    //IP address
 	if ((::connect(this->ClientSocket, (struct sockaddr*)&this->SvrAddr, sizeof(this->SvrAddr))) == SOCKET_ERROR) {
 		closesocket(this->ClientSocket);
@@ -76,7 +76,7 @@ void NetworkHandler::routePacket(Packet* packet) {
 	case Imagep: {
 		ImagePacket* newImagePacket = new ImagePacket(packet->getSerializedTxBuffer());
 		recvImage(newImagePacket->getImageSize());
-		emit IMAGE_RECIEVED();
+		//emit IMAGE_RECIEVED();
 		break;
 	}
 	//case CreateAccountp: {
@@ -236,6 +236,7 @@ void NetworkHandler::SEND_IMAGE(string image)
 	send(ClientSocket, TxBuffer, size, 0);
 
 	fclose(picture);
+	delete TxBuffer;
 }
 
 void NetworkHandler::REQUEST_IMAGE()
@@ -254,57 +255,61 @@ void NetworkHandler::recvImage(int size) {
 
 	char pathname[] = "Avatar.jpg";
 
-	char* RxBuffer = new char[size];
+	char* imageBuffer = new char[size];
 
-	recv(ClientSocket, RxBuffer, size, 0);
+	recv(ClientSocket, imageBuffer, size, 0);
 
 	FILE* image;
 
 	fopen_s(&image, pathname, "wb");
 
-	fwrite(RxBuffer, sizeof(char), size, image);
+
+	fwrite(imageBuffer, sizeof(char), size, image);
+
 
 	//AccDBHandler->insertImage(acc->getUserName(), pathname);
 
 	fclose(image);
-	delete pathname;
+
+	delete imageBuffer;
+
 }
 
 
-void  NetworkHandler::sendImage(char* username) 
-{
-
-	FILE* picture;
-
-	fopen_s(&picture, username, "rb");
-
-	if (picture == NULL) {
-		ErrorPacket* err = new ErrorPacket(Image_Err);
-		err->serializeErrorPacketTxBuffer();
-		err->getSerializedParentTxBuffer();
-		sendPacket(err);
-		return;
-	}
-
-	fseek(picture, 0, SEEK_END);
-
-	int size = ftell(picture);
-
-	ImagePacket* imgPkt = new ImagePacket(size);
-	imgPkt->serializeImagePacketTxBuffer();
-	imgPkt->serializeParentPacketTxBuffer();
-	sendPacket(imgPkt);
-
-	char* TxBuffer = new char[size];
-
-	fseek(picture, 0, SEEK_SET);
-
-	fread(TxBuffer, sizeof(char), size, picture);
-
-	send(ClientSocket, TxBuffer, sizeof(TxBuffer), 0);
-
-	fclose(picture);
-}
+//void  NetworkHandler::sendImage(char* username) 
+//{
+//
+//	FILE* picture;
+//
+//	fopen_s(&picture, username, "rb");
+//
+//	if (picture == NULL) {
+//		ErrorPacket* err = new ErrorPacket(Image_Err);
+//		err->serializeErrorPacketTxBuffer();
+//		err->getSerializedParentTxBuffer();
+//		sendPacket(err);
+//		return;
+//	}
+//
+//	fseek(picture, 0, SEEK_END);
+//
+//	int size = ftell(picture);
+//
+//	ImagePacket* imgPkt = new ImagePacket(size);
+//	imgPkt->serializeImagePacketTxBuffer();
+//	imgPkt->serializeParentPacketTxBuffer();
+//	sendPacket(imgPkt);
+//
+//	char* TxBuffer = new char[size];
+//
+//	fseek(picture, 0, SEEK_SET);
+//
+//	fread(TxBuffer, sizeof(char), size, picture);
+//
+//	send(ClientSocket, TxBuffer, sizeof(TxBuffer), 0);
+//
+//	fclose(picture);
+//}
 
 void NetworkHandler::GAME_MOVE(int gridNum)
 {

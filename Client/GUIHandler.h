@@ -5,6 +5,7 @@
 #include <qmainwindow.h>
 #include <QtWidgets/QApplication>
 #include <qpixmap.h>
+#include <iostream>
 
 #include "LoginWidget.h"
 #include "CreateAccountWidget.h"
@@ -41,7 +42,7 @@ public slots:
 	void LOGIN_FAILURE();
 	void UPDATE_GAME_BOARD(int);
 	void GAME_STATUS(int);
-	void IMAGE_RECIEVED();
+	//void IMAGE_RECIEVED();
 
 
 	void CreateAccount(string, string, string, string);

@@ -2,6 +2,8 @@
 #include <windows.networking.sockets.h>
 #pragma comment(lib, "Ws2_32.lib")
 #include <QWidget>
+#include <iostream>
+#include <fstream>
 #include "../Server/ChildPackets.h"
 #include "../Server/Packet.h"
 using namespace std;
@@ -21,7 +23,7 @@ enum ERROR_CODE
 class NetworkHandler : public QWidget
 {
 	Q_OBJECT
-
+public:
 	SOCKET ClientSocket;
 	sockaddr_in SvrAddr;
 	
@@ -35,7 +37,6 @@ public:
 	void closeSocket();
 	void sendPacket(Packet* p);
 	void routePacket(Packet* packet);
-	void sendImage(char* username);
 	void recvImage(int size);
 
 public slots:

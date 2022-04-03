@@ -30,7 +30,7 @@ void GameWidget::on_logoutButton_clicked()
 
 void GameWidget::on_accountButton_clicked()
 {
-    emit RequestImage();
+    //emit RequestImage();
     emit SwitchView(AccountWidgetView);
 }
 

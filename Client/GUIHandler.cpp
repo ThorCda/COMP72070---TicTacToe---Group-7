@@ -24,6 +24,9 @@ void GUIHandler::SetupConnections()
 	// LOGIN WIDGET
 	QObject::connect(loginWidget, &LoginWidget::Login, this, &GUIHandler::Login);
 	QObject::connect(loginWidget, &LoginWidget::SwitchView, this, &GUIHandler::SwitchView);
+	QObject::connect(loginWidget, &LoginWidget::RequestImage, this, &GUIHandler::RequestImage);
+
+
 
 	// CREATE ACCOUNT WIDGET
 	QObject::connect(createAccountWidget, &CreateAccountWidget::CreateAccount, this, &GUIHandler::CreateAccount);
@@ -33,7 +36,7 @@ void GUIHandler::SetupConnections()
 	QObject::connect(gameWidget, &GameWidget::Logout, this, &GUIHandler::Logout);
 	QObject::connect(gameWidget, &GameWidget::SwitchView, this, &GUIHandler::SwitchView);
 	QObject::connect(gameWidget, &GameWidget::NewGame, this, &GUIHandler::NewGame);
-	QObject::connect(gameWidget, &GameWidget::RequestImage, this, &GUIHandler::RequestImage);
+	//QObject::connect(gameWidget, &GameWidget::RequestImage, this, &GUIHandler::RequestImage);
 
 
 	Ui::GameWidget* gameWidgetUI = gameWidget->GetGameWidgetUI();
@@ -92,14 +95,15 @@ void GUIHandler::LOGIN_FAILURE()
 	// implement error message
 }
 
-void GUIHandler::IMAGE_RECIEVED()
-{
-	accountWidget->UpdateImage();
-}
+//void GUIHandler::IMAGE_RECIEVED()
+//{
+//	accountWidget->UpdateImage();
+//}
 
 void GUIHandler::RequestImage()
 {
 	emit REQUEST_IMAGE();
+	accountWidget->UpdateImage();
 }
 
 
@@ -120,8 +124,9 @@ void GUIHandler::CreateAccount(string username, string password, string firstnam
 
 void GUIHandler::Logout()
 {
-	stackedWidget->SwitchView(LoginWidgetView);
+	//stackedWidget->SwitchView(LoginWidgetView);
 	emit LOGOUT();
+	exit(0);
 	//emit STOP_CONNECTION();
 }
 

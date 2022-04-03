@@ -1,11 +1,11 @@
-#include "Client/MainWindow.h"
-#include "Client/LoginWidget.h"
-#include "Client/GameWidget.h"
-#include "Client/StackedWidget.h"
-#include "Client/CreateAccountWidget.h"
-#include "Client/AccountWidget.h"
-#include "Client/GUIHandler.h"
-#include "Client/WidgetNames.h"
+#include "MainWindow.h"
+#include "LoginWidget.h"
+#include "GameWidget.h"
+#include "StackedWidget.h"
+#include "CreateAccountWidget.h"
+#include "AccountWidget.h"
+#include "GUIHandler.h"
+#include "WidgetNames.h"
 
 #include <qstackedwidget.h>
 #include <qmainwindow.h>
@@ -13,6 +13,7 @@
 
 int main(int argc, char* argv[])
 {
+
     QApplication a(argc, argv);
 
     MainWindow* mainWindow = new MainWindow();

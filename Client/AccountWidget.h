@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QWidget>
+#include <iostream>
 #include "ui_AccountWidget.h"
 #include "WidgetNames.h"
 #include "../Server/Account.h"

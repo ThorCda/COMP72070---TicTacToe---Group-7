@@ -68,7 +68,7 @@ void MainWindow::SetupConnections()
     QObject::connect(this->hdlr, &NetworkHandler::LOGIN_FAILURE, this->gui, &GUIHandler::LOGIN_FAILURE);
     QObject::connect(this->gui, &GUIHandler::LOGOUT, this->hdlr, &NetworkHandler::LOGOUT);
         
-    QObject::connect(this->hdlr, &NetworkHandler::IMAGE_RECIEVED, this->gui, &GUIHandler::IMAGE_RECIEVED);
+    //QObject::connect(this->hdlr, &NetworkHandler::IMAGE_RECIEVED, this->gui, &GUIHandler::IMAGE_RECIEVED);
 
     QObject::connect(this->gui, &GUIHandler::CREATE_ACCOUNT, this->hdlr, &NetworkHandler::CREATE_ACCOUNT);
 
