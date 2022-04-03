@@ -3,6 +3,7 @@
 #include <qwidget.h>
 #include <qscreen.h>
 #include <QApplication>
+#include <QCloseEvent>
 
 MainWindow::MainWindow(QWidget* parent) :
     QMainWindow(parent),
@@ -42,6 +43,10 @@ void MainWindow::ResizeWindow(int width, int height)
 
     resize(width, height);
     setFixedSize(width, height);
+}
+
+void MainWindow::closeEvent(QCloseEvent *bar) {
+    bar->ignore();
 }
 
 void MainWindow::SetGUI(GUIHandler* gui)

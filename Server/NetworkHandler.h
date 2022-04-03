@@ -441,7 +441,6 @@ public:
 		fseek(picture, 0, SEEK_END);
 
 		int size = ftell(picture);
-		cout << "size " << size << endl;
 
 		ImagePacket* imgPkt = new ImagePacket(size);
 		imgPkt->serializeImagePacketTxBuffer();
@@ -455,7 +454,6 @@ public:
 		fread(TxBuffer, sizeof(char), size, picture);
 		
 		send(ClientSocket, TxBuffer, size, 0);
-		cout << "sent image"<< endl;
 
 		Logs::write(this->getState(), Photo, NULL, NULL);
 

@@ -160,7 +160,7 @@ namespace ServerTests_Packet
 		{
 			LogoutPacket* j = new LogoutPacket(false);
 
-			j->serilizeLogoutPacket();
+			j->serializeLogoutPacket();
 
 			char* v = j->getSerializedTxBuffer();
 
