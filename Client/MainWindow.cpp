@@ -8,8 +8,6 @@ MainWindow::MainWindow(QWidget* parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    this->setStyleSheet("background-color: white");
-
     // Remove top/bottom tool bars
     QList<QToolBar*> allToolBars = this->findChildren<QToolBar*>();
     foreach(QToolBar * tb, allToolBars) {
@@ -17,6 +15,7 @@ MainWindow::MainWindow(QWidget* parent) :
     }
 
     ui->setupUi(this);
+    this->setStyleSheet("background-color:white;");
 
     // Place Window in center screen
     QScreen* screen = QGuiApplication::primaryScreen();
