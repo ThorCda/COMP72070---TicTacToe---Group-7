@@ -36,7 +36,7 @@ enum ERROR_CODE
 
 public:
     static void write(int system_state, ERROR_CODE error_code);
-    static void write(bool connectin_status, ACTION_TYPE action_type, char* buffer);
+    static void write(bool connectin_status, ACTION_TYPE action_type, char* buffer, int size);
     static void write(int gameID, int move, char* username, MATCH_STATUS status);
     static void read(FILE_TYPE type);
 

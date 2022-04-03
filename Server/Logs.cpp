@@ -41,7 +41,7 @@ const  char* Logs::conn_file = "_conn_log.txt";
     /// <param name="connection_status">Connestion Status: True if connected</param>
     /// <param name="action_type">Action Types: Defines what send or receive call is used (enum)</param>
     /// <param name="buffer">Buffer: Serialized buffer of data</param>
-    void Logs::write(bool connection_status, ACTION_TYPE action_type, char* buffer)
+    void Logs::write(bool connection_status, ACTION_TYPE action_type, char* buffer, int size)
     {
 
         std::ofstream outf(Logs::conn_file, std::ios::app);
@@ -58,9 +58,9 @@ const  char* Logs::conn_file = "_conn_log.txt";
 
         std::string type = Logs::lookUpActionType(action_type);       
 
-        outf << ctime(&now) << "\tConnection Status: " << connection_status << " Action: " << type << "\n\tBuffer: ";
+        outf << ctime(&now) << "\tConnection Status: " << connection_status << " Action: " << type << "\n\tRaw Buffer in bytes: ";
         if (buffer != NULL) {
-            outf.write(buffer, sizeof(buffer));
+            outf.write(buffer, size);
             
         }
         

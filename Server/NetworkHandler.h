@@ -132,7 +132,7 @@ public:
 		}
 		cout << "Winsock: Connection Established!" << endl;
 		setState(CONNECTED);
-		Logs::write(this->getState(), connected, NULL);
+		Logs::write(this->getState(), connected, NULL, NULL);
 	}
 
 	bool listenForPacket() {
@@ -144,7 +144,7 @@ public:
 
 		recv(ClientSocket, RxBuffer, sizeof(RxBuffer), 0);
 		
-		Logs::write(this->getState(), buf_receive, RxBuffer);
+		Logs::write(this->getState(), buf_receive, RxBuffer, sizeof(RxBuffer));
 
 		Packet* pkt = new Packet(RxBuffer);		//Not sure if RxBuffer should be reallocated 
 
@@ -162,7 +162,7 @@ public:
 		errPkt->serializeParentPacketTxBuffer();
 		sendPacket(errPkt);*/
 
-		Logs::write(this->getState(), disconnected, NULL);
+		Logs::write(this->getState(), disconnected, NULL, NULL);
 
 		closesocket(this->ClientSocket);	//closes incoming socket
 
@@ -181,7 +181,7 @@ public:
 		
 		send(ClientSocket, p->getSerializedParentTxBuffer(), sizeof(Header) + p->getHeaderBodyLength(), 0);
 
-		Logs::write(this->getState(), buf_send, p->getSerializedParentTxBuffer());
+		Logs::write(this->getState(), buf_send, p->getSerializedParentTxBuffer(), p->getHeaderBodyLength());
 	}
 
 	bool routePacket(Packet* packet) {
@@ -457,7 +457,7 @@ public:
 		send(ClientSocket, TxBuffer, size, 0);
 		cout << "sent image"<< endl;
 
-		Logs::write(this->getState(), Photo, NULL);
+		Logs::write(this->getState(), Photo, NULL, NULL);
 
 		fclose(picture);
 
