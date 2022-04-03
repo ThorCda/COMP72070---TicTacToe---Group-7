@@ -86,6 +86,8 @@ void Menu::terminate() {
 
 void Menu::runServer() {
 
+	hdlr = new NetworkHandler();
+
 	hdlr->winsockStartup();
 	hdlr->initSocket();
 	hdlr->bindConnect();

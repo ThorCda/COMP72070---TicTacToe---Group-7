@@ -7,7 +7,7 @@
 
 class Menu {
 	bool isRunning = true;
-	NetworkHandler* hdlr = new NetworkHandler();
+	NetworkHandler* hdlr;
 public:
 
 
