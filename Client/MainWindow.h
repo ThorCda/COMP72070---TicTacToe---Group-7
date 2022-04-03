@@ -15,6 +15,7 @@ public:
 	void SetGUI(GUIHandler*);
 	void SetNetworkHandler(NetworkHandler*);
 	void SetupConnections();
+	void closeEvent(QCloseEvent*);
 
 public slots:
 	void ResizeWindow(int, int);
